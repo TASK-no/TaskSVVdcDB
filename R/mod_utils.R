@@ -13,3 +13,16 @@ mod_break_vspace <- function(size) {
     stop("Unknown size argument or typo!")
   }
 }
+get_segmentation_sub_settings <- function(sum_score_val_grun,
+                                          sum_score_val_vide,
+                                          sum_score_val_avan,
+                                          type_val_grun,
+                                          type_val_vide,
+                                          type_val_avan) {
+  list(sum_score_val_grun = sum_score_val_grun,
+       sum_score_val_vide = sum_score_val_vide,
+       sum_score_val_avan = sum_score_val_avan,
+       type_val_grun = type_val_grun,
+       type_val_vide = type_val_vide,
+       type_val_avan = type_val_avan)
+}

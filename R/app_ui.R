@@ -17,12 +17,21 @@ app_ui <- function(request) {
                              "SUB_TITLE_OF_PROJECT")),
       sidebar_layout(
         sidebar_panel = shiny.semantic::sidebar_panel(
-          conditionalPanel("input.analysis_all == 'tab_1'",
-                           auth0::logoutButton(label = "Log out",
-                                               id = "my_logout")),
-          conditionalPanel("input.analysis_all == 'tab_2'",
-                           auth0::logoutButton(label = "Log out",
-                                               id = "my_logout"))
+          mod_seg_competence_ui("segmentation_inputs"),
+          mod_seg_q_ui("segmentation_inputs", num_q = 16,
+                       title_text = "Kommunikasjon og samhandling"),
+          mod_seg_q_ui("segmentation_inputs", num_q = 17,
+                       title_text = "Informasjonssikkerhet og personvern"),
+          mod_seg_q_ui("segmentation_inputs", num_q = 14,
+                       title_text = "Bruk av programvare"),
+          mod_seg_q_ui("segmentation_inputs", num_q = 19,
+                       title_text = "Bruk av teknologi")
+          # conditionalPanel("input.analysis_all == 'tab_1'",
+          #                  auth0::logoutButton(label = "Log out",
+          #                                      id = "my_logout")),
+          # conditionalPanel("input.analysis_all == 'tab_2'",
+          #                  auth0::logoutButton(label = "Log out",
+          #                                      id = "my_logout")
         ),
         main_panel = shiny.semantic::main_panel(
           shiny.semantic::tabset(
@@ -30,7 +39,8 @@ app_ui <- function(request) {
               list(
                 list(menu = "First tab",
                      content = div(
-                       mod_break_vspace("small")
+                       mod_break_vspace("small")#,
+                       # reactable::reactableOutput("table_2021")
                        ),
                      id = "tab_1"),
                 list(menu = "Second tab",
