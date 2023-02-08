@@ -25,7 +25,8 @@ app_ui <- function(request) {
           mod_seg_q_ui("segmentation_inputs", num_q = 14,
                        title_text = "Bruk av programvare"),
           mod_seg_q_ui("segmentation_inputs", num_q = 19,
-                       title_text = "Bruk av teknologi")
+                       title_text = "Bruk av teknologi"),
+          auth0::logoutButton(label = "Log out", id = "my_logout")
           # conditionalPanel("input.analysis_all == 'tab_1'",
           #                  auth0::logoutButton(label = "Log out",
           #                                      id = "my_logout")),
@@ -39,7 +40,8 @@ app_ui <- function(request) {
               list(
                 list(menu = "First tab",
                      content = div(
-                       mod_break_vspace("small")#,
+                       mod_break_vspace("small"),
+                       mod_plot_overall_ui("plot01")
                        # reactable::reactableOutput("table_2021")
                        ),
                      id = "tab_1"),
@@ -51,7 +53,6 @@ app_ui <- function(request) {
                          ),
                          htmltools::tagList(
                            h3(tags$u(tags$em("Some header:")))
-
                            ),
                          min_cell_width = "450px",
                          max_cell_width = "1fr"
