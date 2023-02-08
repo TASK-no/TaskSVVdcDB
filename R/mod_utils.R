@@ -26,3 +26,11 @@ get_segmentation_sub_settings <- function(sum_score_val_grun,
        type_val_vide = type_val_vide,
        type_val_avan = type_val_avan)
 }
+generate_plotly <- function(ggplot_to_use) {
+  plotly::ggplotly(ggplot_to_use) %>%
+    plotly::layout(legend = list(
+      # orientation = "h",
+      #                            x = -0.5,
+      #                            y = 1.5,
+      font = list(size = 10)))
+}
