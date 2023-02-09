@@ -27,8 +27,8 @@ mod_seg_q_ui <- function(id, num_q, title_text, sttgs = NULL) {
       htmltools::tagList(
         shiny.semantic::multiple_radio(ns(sub_ns_type[1]),
                                        "Terskeltype",
-                                       choices = c("larger/equal than (>=):",
-                                                   "equal to (=):"),
+                                       choices = c("større/lik enn (>=):",
+                                                   "lik (=):"),
                                        choices_value = c("larger-equal", "equal"),
                                        selected = sttgs$type_val_grun)
         )
@@ -46,8 +46,8 @@ mod_seg_q_ui <- function(id, num_q, title_text, sttgs = NULL) {
       htmltools::tagList(
         shiny.semantic::multiple_radio(ns(sub_ns_type[2]),
                                        "Terskeltype",
-                                       choices = c("larger/equal than (>=):",
-                                                   "equal to (=):"),
+                                       choices = c("større/lik enn (>=):",
+                                                   "lik (=):"),
                                        choices_value = c("larger-equal", "equal"),
                                        selected = sttgs$type_val_vide)
       )
@@ -63,8 +63,8 @@ mod_seg_q_ui <- function(id, num_q, title_text, sttgs = NULL) {
       htmltools::tagList(
         shiny.semantic::multiple_radio(ns(sub_ns_type[3]),
                                        "Terskeltype",
-                                       choices = c("larger/equal than (>=):",
-                                                   "equal to (=):"),
+                                       choices = c("større/lik enn (>=):",
+                                                   "lik (=):"),
                                        choices_value = c("larger-equal", "equal"),
                                        selected = sttgs$type_val_avan)
       )

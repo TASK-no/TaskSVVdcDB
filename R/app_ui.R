@@ -10,23 +10,15 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic
     shiny.semantic::semanticPage(
-      titlePanel(title = div(img(src = "www/logo.png",
+      titlePanel(title = div(img(src = "www/logoTASK.png",
                                  height = "10%",
                                  width = "10%",
                                  align = "right"),
-                             "SUB_TITLE_OF_PROJECT")),
-      sidebar_layout(
+                             "SVV - Digital Kompetanse")),
+      shiny.semantic::sidebar_layout(
         sidebar_panel = shiny.semantic::sidebar_panel(
           mod_seg_competence_ui("segmentation_inputs"),
-          mod_seg_q_ui("segmentation_inputs", num_q = 16,
-                       title_text = "Kommunikasjon og samhandling"),
-          mod_seg_q_ui("segmentation_inputs", num_q = 17,
-                       title_text = "Informasjonssikkerhet og personvern"),
-          mod_seg_q_ui("segmentation_inputs", num_q = 14,
-                       title_text = "Bruk av programvare"),
-          mod_seg_q_ui("segmentation_inputs", num_q = 19,
-                       title_text = "Bruk av teknologi"),
-          auth0::logoutButton(label = "Log out", id = "my_logout")
+          auth0::logoutButton(label = "Logg ut", id = "my_logout")
           # conditionalPanel("input.analysis_all == 'tab_1'",
           #                  auth0::logoutButton(label = "Log out",
           #                                      id = "my_logout")),
@@ -35,17 +27,49 @@ app_ui <- function(request) {
           #                                      id = "my_logout")
         ),
         main_panel = shiny.semantic::main_panel(
+          shiny.semantic::flow_layout(
+            htmltools::tagList(
+              mod_seg_q_ui("segmentation_inputs", num_q = 16,
+                           title_text = "Kommunikasjon og samhandling",
+                           settings_seg$q16),
+              mod_seg_q_ui("segmentation_inputs", num_q = 17,
+                           title_text = "Informasjonssikkerhet og personvern",
+                           settings_seg$q17)
+            ),
+            htmltools::tagList(
+              mod_seg_q_ui("segmentation_inputs", num_q = 14,
+                           title_text = "Bruk av programvare",
+                           settings_seg$q14),
+              mod_seg_q_ui("segmentation_inputs", num_q = 19,
+                           title_text = "Bruk av teknologi",
+                           settings_seg$q19)
+            ),
+            min_cell_width = "450px",
+            max_cell_width = "auto"
+          ),
           shiny.semantic::tabset(
             tabs =
               list(
-                list(menu = "First tab",
+                list(menu = "Preliminaer dataanalyse",
                      content = div(
                        mod_break_vspace("small"),
-                       mod_plot_overall_ui("plot01")
+                       mod_plot_overall_ui("plot01"),
+                       shiny.semantic::flow_layout(
+                         htmltools::tagList(
+                           mod_mod_plot_pie_ui("plot02", 2021, "pie_2021")
+                           # mod_plot_overall_ui("plot01")
+                         ),
+                         htmltools::tagList(
+                           mod_mod_plot_pie_ui("plot03", 2022, "pie_2022")
+                           # mod_plot_overall_ui("plot01")
+                         ),
+                         min_cell_width = "450px",
+                         max_cell_width = "auto"
+                       )
                        # reactable::reactableOutput("table_2021")
                        ),
                      id = "tab_1"),
-                list(menu = "Second tab",
+                list(menu = "Binaer klassifisering/ logistisk regresjon",
                      content = div(
                        shiny.semantic::flow_layout(
                          htmltools::tagList(
@@ -81,12 +105,11 @@ golem_add_external_resources <- function() {
     "www",
     app_sys("app/www")
   )
-
   tags$head(
     favicon(ext="png"),
     bundle_resources(
       path = app_sys("app/www"),
-      app_title = "PROJECT_NAME"
+      app_title = " SVV_DC"
     )
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert()

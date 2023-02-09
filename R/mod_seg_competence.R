@@ -21,7 +21,6 @@ mod_seg_competence_ui <- function(id){
                                    position = "grouped")
   )
 }
-
 #' seg_competence Server Functions
 #'
 #' @noRd
