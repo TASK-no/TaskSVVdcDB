@@ -17,6 +17,7 @@ mod_seg_competence_ui <- function(id){
                                                "noe erfaring og mye erfaring",
                                                "lite erfaring, noe erfaring og mye erfaring"),
                                    choices_value = list(4, c(3, 4), c(2, 3, 4)),
+                                   selected = list(c(3,4)),
                                    position = "grouped")
   )
 }

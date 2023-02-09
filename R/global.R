@@ -71,5 +71,29 @@ global <- quote({
                   tidyselect::starts_with(var_to_use4))
   # data_seg_2021 <- load("./data/data_raw_SVV_2021.RData")
   # data_seg_2022 <- load("./data/data_raw_SVV_2022.RData")
+  settings_seg <- list(q16 = list(sum_score_val_grun = 4,
+                                  sum_score_val_vide = 2,
+                                  sum_score_val_avan = 2,
+                                  type_val_grun = "larger-equal",
+                                  type_val_vide = "larger-equal",
+                                  type_val_avan = "equal"),
+                       q17 = list(sum_score_val_grun = 3,
+                                  sum_score_val_vide = 3,
+                                  sum_score_val_avan = 3,
+                                  type_val_grun = "larger-equal",
+                                  type_val_vide = "equal",
+                                  type_val_avan = "equal"),
+                       q14 = list(sum_score_val_grun = 2,
+                                  sum_score_val_vide = 3,
+                                  sum_score_val_avan = 2,
+                                  type_val_grun = "larger-equal",
+                                  type_val_vide = "equal",
+                                  type_val_avan = "equal"),
+                       q19 = list(sum_score_val_grun = 2,
+                                  sum_score_val_vide = 5,
+                                  sum_score_val_avan = 3,
+                                  type_val_grun = "larger-equal",
+                                  type_val_vide = "equal",
+                                  type_val_avan = "equal"))
 }
 )
