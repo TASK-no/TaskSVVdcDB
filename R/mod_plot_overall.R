@@ -10,7 +10,7 @@
 mod_plot_overall_ui <- function(id) {
   ns <- shiny::NS(id)
   tagList(
-    h3("Overall plot"),
+    h3("Samlet Oppsummerende Figur"),
     plotly::plotlyOutput(ns("plot_overall")),
     mod_break_vspace("small")
   )
@@ -28,14 +28,13 @@ mod_plot_overall_server <- function(id, data_set_jnd){
     })
   })
 }
-mod_get_data_all_server <- function(id, ...) {
-  browser()
-  data_list <- list(...)
-  check <- lapply(list(...), shiny::is.reactive)
-  stopifnot(all(check))
-  shiny::moduleServer(id, function(input, output, session) {
-    shiny::reactive({
-      TaskAnalyticsTB::get_data_for_summary_plot(...)
-    })
-  })
-}
+# mod_get_data_all_server <- function(id, ...) {
+#   data_list <- list(...)
+#   check <- lapply(list(...), shiny::is.reactive)
+#   stopifnot(all(check))
+#   shiny::moduleServer(id, function(input, output, session) {
+#     shiny::reactive({
+#       TaskAnalyticsTB::get_data_for_summary_plot(...)
+#     })
+#   })
+# }
