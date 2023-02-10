@@ -15,61 +15,87 @@ mod_seg_q_ui <- function(id, num_q, title_text, sttgs = NULL) {
   sub_ns_type <- sub_ns$sub_ns_type
   ns <- shiny::NS(id)
   htmltools::tagList(
-    htmltools::h3(tags$u(tags$em(title_used))),
-    htmltools::h5(tags$u(tags$em("Grunnlegende:"))),
+    htmltools::h4(tags$em(title_used)),
+    htmltools::h5(tags$em("Grunnlegende:")),
     shiny.semantic::flow_layout(
-      htmltools::tagList(
-        shiny.semantic::numericInput(ns(sub_ns_sum[1]),
-                                     "Total/Sum poengsum: ",
-                                     value = sttgs$sum_score_val_grun,
-                                     min = 1, max = 7, width = "150px")
-      ),
-      htmltools::tagList(
-        shiny.semantic::multiple_radio(ns(sub_ns_type[1]),
-                                       "Terskeltype",
-                                       choices = c("større/lik enn (>=):",
-                                                   "lik (=):"),
-                                       choices_value = c("larger-equal", "equal"),
-                                       selected = sttgs$type_val_grun)
-        )
+      shiny.semantic::numericInput(ns(sub_ns_sum[1]),
+                                   "Total/Sum poengsum: ",
+                                   value = sttgs$sum_score_val_grun,
+                                   min = 1, max = 7, width = "150px"),
+      shiny.semantic::multiple_radio(ns(sub_ns_type[1]),
+                                     "Terskeltype",
+                                     choices = c("større/lik enn (>=):",
+                                                 "lik (=):"),
+                                     choices_value = c("larger-equal", "equal"),
+                                     selected = sttgs$type_val_grun)
     ),
-    htmltools::h5(tags$u(tags$em(paste0("Videreg",
+    htmltools::h5(tags$em(paste0("Videreg",
                                         "\u00e5",
-                                        "ende:")))),
+                                        "ende:"))),
     shiny.semantic::flow_layout(
-      htmltools::tagList(
         shiny.semantic::numericInput(ns(sub_ns_sum[2]),
                                      "Total/Sum poengsum: ",
                                      value = sttgs$sum_score_val_vide,
-                                     min = 1, max = 7, width = "150px")
-      ),
-      htmltools::tagList(
+                                     min = 1, max = 7, width = "150px"),
         shiny.semantic::multiple_radio(ns(sub_ns_type[2]),
                                        "Terskeltype",
                                        choices = c("større/lik enn (>=):",
                                                    "lik (=):"),
                                        choices_value = c("larger-equal", "equal"),
                                        selected = sttgs$type_val_vide)
-      )
     ),
-    htmltools::h5(tags$u(tags$em("Avansert:"))),
+    htmltools::h5(tags$em("Avansert:")),
     shiny.semantic::flow_layout(
-      htmltools::tagList(
         shiny.semantic::numericInput(ns(sub_ns_sum[3]),
                                      "Total/Sum poengsum: ",
                                      value = sttgs$sum_score_val_avan,
-                                     min = 1, max = 7, width = "150px")
-      ),
-      htmltools::tagList(
+                                     min = 1, max = 7, width = "150px"),
         shiny.semantic::multiple_radio(ns(sub_ns_type[3]),
                                        "Terskeltype",
                                        choices = c("større/lik enn (>=):",
                                                    "lik (=):"),
                                        choices_value = c("larger-equal", "equal"),
                                        selected = sttgs$type_val_avan)
-      )
     )
   )
+  # htmltools::tagList(
+  #   htmltools::h4(tags$u(tags$em(title_used))),
+  #   htmltools::h5(tags$u(tags$em("Grunnlegende:"))),
+  #   shiny.semantic::numericInput(ns(sub_ns_sum[1]),
+  #                                "Total/Sum poengsum: ",
+  #                                value = sttgs$sum_score_val_grun,
+  #                                min = 1, max = 7, width = "150px"),
+  #   shiny.semantic::multiple_radio(ns(sub_ns_type[1]),
+  #                                  "Terskeltype",
+  #                                  choices = c("større/lik enn (>=):",
+  #                                              "lik (=):"),
+  #                                  choices_value = c("larger-equal", "equal"),
+  #                                  selected = sttgs$type_val_grun),
+  #   htmltools::h5(tags$u(tags$em(paste0("Videreg",
+  #                                       "\u00e5",
+  #                                       "ende:")))),
+  #   shiny.semantic::numericInput(ns(sub_ns_sum[2]),
+  #                                "Total/Sum poengsum: ",
+  #                                value = sttgs$sum_score_val_vide,
+  #                                min = 1, max = 7, width = "150px"),
+  #   shiny.semantic::multiple_radio(ns(sub_ns_type[2]),
+  #                                  "Terskeltype",
+  #                                  choices = c("større/lik enn (>=):",
+  #                                              "lik (=):"),
+  #                                  choices_value = c("larger-equal", "equal"),
+  #                                  selected = sttgs$type_val_vide),
+  #   htmltools::h5(tags$u(tags$em("Avansert:"))),
+  #   shiny.semantic::numericInput(ns(sub_ns_sum[3]),
+  #                                "Total/Sum poengsum: ",
+  #                                value = sttgs$sum_score_val_avan,
+  #                                min = 1, max = 7, width = "150px"),
+  #   shiny.semantic::multiple_radio(ns(sub_ns_type[3]),
+  #                                  "Terskeltype",
+  #                                  choices = c("større/lik enn (>=):",
+  #                                              "lik (=):"),
+  #                                  choices_value = c("larger-equal", "equal"),
+  #                                  selected = sttgs$type_val_avan)
+  # )
 }
 #' mod_seg_q Server Functions
 #'

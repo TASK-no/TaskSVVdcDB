@@ -10,7 +10,7 @@
 mod_seg_competence_ui <- function(id){
   ns <- shiny::NS(id)
   htmltools::tagList(
-    htmltools::h3(tags$u(tags$em("Tilgjengelig digital kompetanse:"))),
+    htmltools::h4(tags$em("Tilgjengelig digital kompetanse:")),
     shiny.semantic::multiple_radio(ns("seg_digital_comp"),
                                    "",
                                    choices = c("mye erfaring",
@@ -32,9 +32,3 @@ mod_seg_competence_server <- function(id){
     })
   })
 }
-
-## To be copied in the UI
-# mod_seg_competence_ui("seg_competence_1")
-
-## To be copied in the server
-# mod_seg_competence_server("seg_competence_1")

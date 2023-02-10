@@ -28,13 +28,3 @@ mod_plot_overall_server <- function(id, data_set_jnd){
     })
   })
 }
-# mod_get_data_all_server <- function(id, ...) {
-#   data_list <- list(...)
-#   check <- lapply(list(...), shiny::is.reactive)
-#   stopifnot(all(check))
-#   shiny::moduleServer(id, function(input, output, session) {
-#     shiny::reactive({
-#       TaskAnalyticsTB::get_data_for_summary_plot(...)
-#     })
-#   })
-# }

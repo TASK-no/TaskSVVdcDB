@@ -14,39 +14,51 @@ app_ui <- function(request) {
                                  height = "10%",
                                  width = "10%",
                                  align = "right"),
-                             "SVV - Digital Kompetanse")),
+                             htmltools::h1("Statens Vegvesen - Digital Kompetanse"))),
       shiny.semantic::sidebar_layout(
         sidebar_panel = shiny.semantic::sidebar_panel(
-          mod_seg_competence_ui("segmentation_inputs"),
-          auth0::logoutButton(label = "Logg ut", id = "my_logout")
-          # conditionalPanel("input.analysis_all == 'tab_1'",
-          #                  auth0::logoutButton(label = "Log out",
-          #                                      id = "my_logout")),
-          # conditionalPanel("input.analysis_all == 'tab_2'",
-          #                  auth0::logoutButton(label = "Log out",
-          #                                      id = "my_logout")
+          # shiny::tagList(
+            htmltools::h2(tags$u(tags$em("Segmenteringsanalyse:"))),
+            mod_seg_competence_ui("segmentation_inputs"),
+            mod_break_vspace("small"),
+            mod_seg_q_ui("segmentation_inputs", num_q = 16,
+                         title_text = "Kommunikasjon og samhandling",
+                         settings_seg$q16),
+            mod_break_vspace("small"),
+            mod_seg_q_ui("segmentation_inputs", num_q = 17,
+                         title_text = "Informasjonssikkerhet og personvern",
+                         settings_seg$q17),
+            mod_break_vspace("small"),
+            mod_seg_q_ui("segmentation_inputs", num_q = 14,
+                         title_text = "Bruk av programvare",
+                         settings_seg$q14),
+            mod_break_vspace("small"),
+            mod_seg_q_ui("segmentation_inputs", num_q = 19,
+                         title_text = "Bruk av teknologi",
+                         settings_seg$q19),
+            mod_break_vspace("small"),
+            auth0::logoutButton(label = "Logg ut", id = "my_logout")
+          # ),
+          ,
+          width = 2
         ),
         main_panel = shiny.semantic::main_panel(
-          shiny.semantic::flow_layout(
-            htmltools::tagList(
-              mod_seg_q_ui("segmentation_inputs", num_q = 16,
-                           title_text = "Kommunikasjon og samhandling",
-                           settings_seg$q16),
-              mod_seg_q_ui("segmentation_inputs", num_q = 17,
-                           title_text = "Informasjonssikkerhet og personvern",
-                           settings_seg$q17)
-            ),
-            htmltools::tagList(
-              mod_seg_q_ui("segmentation_inputs", num_q = 14,
-                           title_text = "Bruk av programvare",
-                           settings_seg$q14),
-              mod_seg_q_ui("segmentation_inputs", num_q = 19,
-                           title_text = "Bruk av teknologi",
-                           settings_seg$q19)
-            ),
-            min_cell_width = "450px",
-            max_cell_width = "auto"
-          ),
+          # shiny.semantic::flow_layout(
+              # mod_seg_q_ui("segmentation_inputs", num_q = 16,
+              #              title_text = "Kommunikasjon og samhandling",
+              #              settings_seg$q16),
+              # mod_seg_q_ui("segmentation_inputs", num_q = 17,
+              #              title_text = "Informasjonssikkerhet og personvern",
+              #              settings_seg$q17),
+              # mod_seg_q_ui("segmentation_inputs", num_q = 14,
+              #              title_text = "Bruk av programvare",
+              #              settings_seg$q14),
+              # mod_seg_q_ui("segmentation_inputs", num_q = 19,
+              #              title_text = "Bruk av teknologi",
+              #              settings_seg$q19),
+            # min_cell_width = "75px",
+            # max_cell_width = "250px"
+          # ),
           shiny.semantic::tabset(
             tabs =
               list(
@@ -54,18 +66,24 @@ app_ui <- function(request) {
                      content = div(
                        mod_break_vspace("small"),
                        mod_plot_overall_ui("plot01"),
-                       shiny.semantic::flow_layout(
-                         htmltools::tagList(
-                           mod_mod_plot_pie_ui("plot02", 2021, "pie_2021")
-                           # mod_plot_overall_ui("plot01")
-                         ),
-                         htmltools::tagList(
-                           mod_mod_plot_pie_ui("plot03", 2022, "pie_2022")
-                           # mod_plot_overall_ui("plot01")
-                         ),
-                         min_cell_width = "450px",
-                         max_cell_width = "auto"
-                       )
+                       mod_break_vspace("small"),
+                       mod_plot_subplot_ui("plot02", 2021, "pie_2021"),
+                       mod_break_vspace("small"),
+                       mod_plot_subplot_ui("plot03", 2022, "pie_2022")
+                       # mod_plot_overall_ui("plot01")
+                       # mod_plot_overall_ui("plot01")
+                       # shiny.semantic::flow_layout(
+                       #   htmltools::tagList(
+                       #     mod_plot_subplot_ui("plot02", 2021, "pie_2021")
+                       #     # mod_plot_overall_ui("plot01")
+                       #   ),
+                       #   htmltools::tagList(
+                       #     mod_plot_subplot_ui("plot03", 2022, "pie_2022")
+                       #     # mod_plot_overall_ui("plot01")
+                       #   ),
+                       #   min_cell_width = "450px",
+                       #   max_cell_width = "auto"
+                       # )
                        # reactable::reactableOutput("table_2021")
                        ),
                      id = "tab_1"),
@@ -86,7 +104,8 @@ app_ui <- function(request) {
               ),
             active = "tab_1",
             id = "tab_id"
-          )
+          ),
+          width = 5
         )
       )
     )
