@@ -30,3 +30,13 @@ generate_plotly <- function(ggplot_to_use, sttgs_list) {
   plotly::ggplotly(ggplot_to_use) %>%
     plotly::layout(legend = sttgs_list)
 }
+filter_for_samansi_leder <- function(ds, year, SAMANSI, LEDER) {
+  data_out <- ds
+  if (SAMANSI && year > 2021) {
+    data_out <- data_out %>% dplyr::filter(.data$SamAnsi == 1)
+  }
+  if(LEDER) {
+    data_out <- data_out %>% dplyr::filter(.data$leder_c == "Ja")
+  }
+  return(data_out)
+}

@@ -69,6 +69,7 @@ global <- quote({
     dplyr::select(tidyselect::any_of(var_to_use1),
                   tidyselect::starts_with(var_to_use2),
                   tidyselect::starts_with(var_to_use4))
+  # data_raw_SVV <- TaskAnalyticsTB::get_data_joined(data_raw_SVV_2021, data_raw_SVV_2022)
   # data_seg_2021 <- load("./data/data_raw_SVV_2021.RData")
   # data_seg_2022 <- load("./data/data_raw_SVV_2022.RData")
   settings_seg <- list(q16 = list(sum_score_val_grun = 4,
