@@ -65,11 +65,11 @@ app_ui <- function(request) {
                 list(menu = "Preliminaer dataanalyse",
                      content = div(
                        mod_break_vspace("small"),
-                       mod_plot_overall_ui("plot01"),
+                       mod_plot_overall_ui("plot_01"),
                        mod_break_vspace("small"),
-                       mod_plot_subplot_ui("plot02", 2021, "pie_2021"),
+                       mod_plot_subplot_ui("plot_02", 2021, "sub_01"),
                        mod_break_vspace("small"),
-                       mod_plot_subplot_ui("plot03", 2022, "pie_2022")
+                       mod_plot_subplot_ui("plot_03", 2022, "sub_02")
                        # mod_plot_overall_ui("plot01")
                        # mod_plot_overall_ui("plot01")
                        # shiny.semantic::flow_layout(

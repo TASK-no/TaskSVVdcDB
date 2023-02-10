@@ -33,15 +33,3 @@ mod_data_summary_server <- function(id, data_set, year) {
     })
   })
 }
-mod_overall_data_server <- function(id, ds_2021, ds_2022) {
-  shiny::moduleServer(id, function(input, output, session) {
-    ns <- session$ns
-    shiny::reactive({
-      ds_2021_eval <- ds_2021()
-      ds_2022_eval <- ds_2022()
-      data_seg_all_plot <- TaskAnalyticsTB::get_data_joined(ds_2021_eval[[2]],
-                                                             ds_2022_eval[[2]])
-      data_seg_all_plot
-    })
-  })
-}
