@@ -27,9 +27,15 @@ app_server <- function(input, output, session) {
   })
   data_summary_2021 <- mod_data_summary_server("data_precompute", data_seg_2021, "2021")
   data_summary_2022 <- mod_data_summary_server("data_precompute", data_seg_2022, "2022")
-  # data_seg_all_plot <- TaskAnalyticsTB::get_data_for_summary_plot(data_seg_2021[[2]],
-                                                                  # data_seg_2021[[2]])
+  # data_seg_all_plot <- TaskAnalyticsTB::get_data_summary_overall(data_seg_2021[[2]],
+  # data_seg_2021[[2]])
   data_seg_all_plot <- mod_overall_data_server("plot01", data_summary_2021, data_summary_2022)
   mod_plot_overall_server("plot01", data_seg_all_plot)
-  # Your application server logic
+
+  mod_plot_subplot_server("plot02", list("2021" = data_summary_2021,
+                                         "2022" = data_summary_2022),
+                          "pie_2021")
+  mod_plot_subplot_server("plot03", list("2021" = data_summary_2021,
+                                         "2022" = data_summary_2022),
+                          "pie_2022")
 }

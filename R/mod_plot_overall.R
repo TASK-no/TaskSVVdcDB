@@ -11,7 +11,9 @@ mod_plot_overall_ui <- function(id) {
   ns <- shiny::NS(id)
   tagList(
     h3("Samlet Oppsummerende Figur"),
-    plotly::plotlyOutput(ns("plot_overall")),
+    plotly::plotlyOutput(ns("plot_overall"),
+                         width = "1100px",
+                         height = "700px"),
     mod_break_vspace("small")
   )
 }
@@ -23,8 +25,10 @@ mod_plot_overall_server <- function(id, data_set_jnd){
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
     output$plot_overall <- plotly::renderPlotly({
-      plot_out <- TaskAnalyticsTB::plot_summary(data_set_jnd())
-      generate_plotly(plot_out)
+      plot_out <- TaskAnalyticsTB::plot_overall(data_set_jnd())
+      generate_plotly(plot_out, list(title = "", visible = FALSE,
+                                     orientation = "h", x = 0, y = -0.25,
+                                     font = list(size = 12)))
     })
   })
 }
