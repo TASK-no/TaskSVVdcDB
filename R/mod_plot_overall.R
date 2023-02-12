@@ -42,10 +42,9 @@ mod_plot_overall_server <- function(id, data_set_jnd){
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
     output$plot_overall <- plotly::renderPlotly({
-      plot_out <- TaskAnalyticsTB::plot_overall(data_set_jnd())
-      generate_plotly(plot_out, list(title = "", visible = FALSE,
-                                     orientation = "h", x = 0, y = -0.25,
-                                     font = list(size = 12)))
+      plot_out <- TaskAnalyticsTB::plot_overall(data_set_jnd(),
+                                                return_type = "shinyDB")
+      generate_plotly(plot_out)
     })
   })
 }

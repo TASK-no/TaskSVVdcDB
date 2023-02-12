@@ -61,13 +61,10 @@ mod_plot_subplot_server <- function(id, data_set, name_plot_out){
       } else if (input[["slider_type"]] == "type_bar") {
         df
         data_rader <- TaskAnalyticsTB::get_data_summary_radar(data_set())
-        plot_out <- TaskAnalyticsTB::plot_radar(data_rader, year_taken)
-        generate_plotly(plot_out, list(title = "",
-                                       visible = FALSE,
-                                       orientation = "h",
-                                       x = 0,
-                                       y = -0.25,
-                                       font = list(size = 12)))
+        plot_out <- TaskAnalyticsTB::plot_radar(data_rader,
+                                                year_taken,
+                                                return_type = "shinyDB")
+        generate_plotly(plot_out)
       }
     })
   })
