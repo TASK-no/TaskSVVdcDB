@@ -11,7 +11,8 @@ mod_plot_subplot_ui <- function(id, year, name_plot_out) {
   FILTER_TEXT <- "Filter for ansatte som er"
   ns <- shiny::NS(id)
   shiny::tagList(
-    htmltools::h3(tags$u(tags$em(paste0("Delplott: velg type og ","\u00e5", "rstall")))),
+    add_header(paste0("Delplott: velg type og ","\u00e5", "rstall"),
+               size = 3, UNDERLINE = TRUE, EMPHASIZE = TRUE),
     shiny.semantic::flow_layout(
       shiny::tagList(
         shiny::tags$h5(paste(FILTER_TEXT, "'SamAnsi'")),
@@ -38,7 +39,7 @@ mod_plot_subplot_ui <- function(id, year, name_plot_out) {
       max_cell_width = "320px",
       column_gap = "1em"
     ),
-    mod_break_vspace("small"),
+    break_vspace("small"),
     plotly::plotlyOutput(ns(name_plot_out),
                          width = "1100px",
                          height = "700px")

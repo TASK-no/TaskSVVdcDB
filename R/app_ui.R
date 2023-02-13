@@ -14,29 +14,30 @@ app_ui <- function(request) {
                                  height = "10%",
                                  width = "10%",
                                  align = "right"),
-                             htmltools::h1("Statens Vegvesen - Digital Kompetanse"))),
+                             add_header("Statens Vegvesen - Digital Kompetanse",
+                                        size = 1))),
       shiny.semantic::sidebar_layout(
         sidebar_panel = shiny.semantic::sidebar_panel(
           # shiny::tagList(
-            htmltools::h2(tags$u(tags$em("Segmenteringsanalyse:"))),
+            add_header("Segmenteringsanalyse:", size = 2, UNDERLINE = TRUE, EMPHASIZE = TRUE),
             mod_seg_competence_ui("segmentation_inputs"),
-            mod_break_vspace("small"),
+            break_vspace("small"),
             mod_seg_q_ui("segmentation_inputs", num_q = 16,
                          title_text = "Kommunikasjon og samhandling",
                          settings_seg$q16),
-            mod_break_vspace("small"),
+            break_vspace("small"),
             mod_seg_q_ui("segmentation_inputs", num_q = 17,
                          title_text = "Informasjonssikkerhet og personvern",
                          settings_seg$q17),
-            mod_break_vspace("small"),
+            break_vspace("small"),
             mod_seg_q_ui("segmentation_inputs", num_q = 14,
                          title_text = "Bruk av programvare",
                          settings_seg$q14),
-            mod_break_vspace("small"),
+            break_vspace("small"),
             mod_seg_q_ui("segmentation_inputs", num_q = 19,
                          title_text = "Bruk av teknologi",
                          settings_seg$q19),
-            mod_break_vspace("small"),
+            break_vspace("small"),
             auth0::logoutButton(label = "Logg ut", id = "my_logout")
           # ),
           ,
@@ -64,11 +65,11 @@ app_ui <- function(request) {
               list(
                 list(menu = "Preliminaer dataanalyse",
                      content = div(
-                       mod_break_vspace("small"),
+                       break_vspace("small"),
                        mod_plot_overall_ui("plot_01"),
-                       mod_break_vspace("small"),
+                       break_vspace("small"),
                        mod_plot_subplot_ui("plot_02", 2021, "sub_01"),
-                       mod_break_vspace("small"),
+                       break_vspace("small"),
                        mod_plot_subplot_ui("plot_03", 2022, "sub_02")
                        # mod_plot_overall_ui("plot01")
                        # mod_plot_overall_ui("plot01")
@@ -87,7 +88,7 @@ app_ui <- function(request) {
                        # reactable::reactableOutput("table_2021")
                        ),
                      id = "tab_1"),
-                list(menu = "Binaer klassifisering/ logistisk regresjon",
+                list(menu = "Binaer klassifisering / logistisk regresjon",
                      content = div(
                        shiny.semantic::flow_layout(
                          htmltools::tagList(

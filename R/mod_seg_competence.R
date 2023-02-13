@@ -10,7 +10,7 @@
 mod_seg_competence_ui <- function(id){
   ns <- shiny::NS(id)
   htmltools::tagList(
-    htmltools::h4(tags$em("Tilgjengelig digital kompetanse:")),
+    add_header("Tilgjengelig digital kompetanse:", size = 4, EMPHASIZE = TRUE),
     shiny.semantic::multiple_radio(ns("seg_digital_comp"),
                                    "",
                                    choices = c("mye erfaring",

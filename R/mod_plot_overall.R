@@ -11,18 +11,17 @@ mod_plot_overall_ui <- function(id) {
   FILTER_TEXT <- "Filter for ansatte som er"
   ns <- shiny::NS(id)
   shiny::tagList(
-    htmltools::h3(tags$u(tags$em("Samlet Oppsummerende Figur"))),
+    add_header("Samlet Oppsummerende Figur", size = 3,
+               UNDERLINE = TRUE, EMPHASIZE = TRUE),
     shiny.semantic::flow_layout(
       shiny::tagList(
-        shiny::tags$h5(paste(FILTER_TEXT, "'SamAnsi'")),
+        add_header(paste(FILTER_TEXT, "'SamAnsi'"), size = 5),
         shiny.semantic::checkbox_input(ns("slider_samansi"),
-                                       # label = paste(FILTER_TEXT, "'SamAnsi'"),
                                        type = "slider")
       ),
       shiny::tagList(
-        shiny::tags$h5(paste(FILTER_TEXT, "'leder'")),
+        add_header(paste(FILTER_TEXT, "'leder'"), size = 5),
         shiny.semantic::checkbox_input(ns("slider_leder"),
-                                       # label = paste(FILTER_TEXT, "'leder'"),
                                        type = "slider")
       ),
       min_cell_width = "75px",
@@ -31,7 +30,7 @@ mod_plot_overall_ui <- function(id) {
     plotly::plotlyOutput(ns("plot_overall"),
                          width = "1100px",
                          height = "700px"),
-    mod_break_vspace("small")
+    break_vspace("small")
   )
 }
 #' plot_overall Server Functions
