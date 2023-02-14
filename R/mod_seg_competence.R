@@ -24,7 +24,7 @@ mod_seg_competence_ui <- function(id){
 #' seg_competence Server Functions
 #'
 #' @noRd
-mod_seg_competence_server <- function(id){
+mod_seg_competence_srv <- function(id){
   shiny::moduleServer(id, function(input, output, session){
     ns <- session$ns
     shiny::reactive({

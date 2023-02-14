@@ -61,7 +61,7 @@ mod_seg_q_ui <- function(id, num_q, title_text, sttgs = NULL) {
 #' mod_seg_q Server Functions
 #'
 #' @noRd
-mod_seg_q_server <- function(id, num_q) {
+mod_seg_q_srv <- function(id, num_q) {
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
     sub_ns      <- get_sub_ns(num_q)
@@ -88,4 +88,4 @@ get_sub_ns <- function(num_q) {
 # mod_mod_seg_q_ui("mod_seg_q_1")
 
 ## To be copied in the server
-# mod_mod_seg_q_server("mod_seg_q_1")
+# mod_mod_seg_q_srv("mod_seg_q_1")

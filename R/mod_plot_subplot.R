@@ -48,7 +48,7 @@ mod_plot_subplot_ui <- function(id, year, name_plot_out) {
 #' mod_plot_pie Server Functions
 #'
 #' @noRd
-mod_plot_subplot_server <- function(id, data_set, name_plot_out){
+mod_plot_subplot_srv <- function(id, data_set, name_plot_out){
   stopifnot(shiny::is.reactive(data_set))
   shiny::moduleServer(id, function(input, output, session){
     ns <- session$ns
@@ -70,7 +70,7 @@ mod_plot_subplot_server <- function(id, data_set, name_plot_out){
     })
   })
 }
-mod_data_subplot_server <- function(id, data_sets_segmented_list) {
+mod_data_subplot_srv <- function(id, data_sets_segmented_list) {
   check_reactive_inputs(data_sets_segmented_list)
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns

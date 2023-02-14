@@ -36,7 +36,7 @@ mod_plot_overall_ui <- function(id) {
 #' plot_overall Server Functions
 #'
 #' @noRd
-mod_plot_overall_server <- function(id, data_set_jnd){
+mod_plot_overall_srv <- function(id, data_set_jnd){
   stopifnot(shiny::is.reactive(data_set_jnd))
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
@@ -47,7 +47,7 @@ mod_plot_overall_server <- function(id, data_set_jnd){
     })
   })
 }
-mod_data_overall_server <- function(id, data_sets_segmented_list) {
+mod_data_overall_srv <- function(id, data_sets_segmented_list) {
   check_reactive_inputs(data_sets_segmented_list)
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns

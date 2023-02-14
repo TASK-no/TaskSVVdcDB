@@ -1,9 +1,9 @@
-mod_data_segmentation_server <- function(id, ...,
-                                         sttgs_dc,
-                                         sttgs_q16,
-                                         sttgs_q17,
-                                         sttgs_q14,
-                                         sttgs_q19) {
+mod_data_segmentation_srv <- function(id, ...,
+                                      sttgs_dc,
+                                      sttgs_q16,
+                                      sttgs_q17,
+                                      sttgs_q14,
+                                      sttgs_q19) {
   stopifnot(shiny::is.reactive(sttgs_dc))
   stopifnot(shiny::is.reactive(sttgs_q16))
   stopifnot(shiny::is.reactive(sttgs_q17))
