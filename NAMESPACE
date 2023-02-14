@@ -2,6 +2,7 @@
 
 export(add_header)
 export(break_vspace)
+export(check_reactive_inputs)
 export(get_color_palette)
 export(run_app)
 export(run_app_auth0)

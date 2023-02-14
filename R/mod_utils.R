@@ -58,6 +58,43 @@ add_header <- function(text, size = 1, UNDERLINE = FALSE, EMPHASIZE = FALSE) {
          `5` = {text_out <- htmltools::h5(text_out)})
   return(text_out)
 }
+#' Check if arguments to function call are reactive
+#'
+#' Helper function of two types (to be further extended to the mixed type):
+#' \itemize{
+#'    \item{\code{type == 'arg'} checks every element inside \code{...} directly
+#'    via \code{shiny::is.reactive())}}
+#'    \item{\code{type == 'arg_list_elements'} treets every element inside
+#'    \code{...} as a list and check whether its (sub-)elements are reactive
+#'    }
+#' }
+#'
+#' @param ... arbitrary number of arguments but must be of the same type as
+#'    specified in \code{type} below
+#' @param type either of 'arg' or 'arg_list_elements', see Details on the
+#'    differences
+#'
+#' @return pure side effect function returning invisibly if no errors, otherwise
+#'    stops
+#' @export
+check_reactive_inputs <- function(..., type = "arg") {
+  # TO BE IMPLEMENTED: type == mixed for mixed direct and list element checks
+  stopifnot(any(type %in% c("arg_list_elements", "arg")))
+  if (type == "arg") {
+    check_args <- list(...)
+    num_args <- length(check_args)
+    for (i in 1:num_args) {
+      stopifnot(shiny::is.reactive(check_args[[i]]))
+    }
+  } else {
+    check_args <- list(...)
+    num_args <- length(check_args)
+    for (i in 1:num_args) {
+      stopifnot(all(sapply(check_args[[i]], shiny::is.reactive)))
+    }
+  }
+  return(invisible(...))
+}
 get_segmentation_sub_settings <- function(sum_score_val_grun,
                                           sum_score_val_vide,
                                           sum_score_val_avan,
