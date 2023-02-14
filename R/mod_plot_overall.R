@@ -47,42 +47,24 @@ mod_plot_overall_server <- function(id, data_set_jnd){
     })
   })
 }
-mod_data_overall_server <- function(id, ...,
-                                    sttgs_dc,
-                                    sttgs_q16,
-                                    sttgs_q17,
-                                    sttgs_q14,
-                                    sttgs_q19) {
-  stopifnot(shiny::is.reactive(sttgs_dc))
-  stopifnot(shiny::is.reactive(sttgs_q16))
-  stopifnot(shiny::is.reactive(sttgs_q17))
-  stopifnot(shiny::is.reactive(sttgs_q14))
-  stopifnot(shiny::is.reactive(sttgs_q19))
+mod_data_overall_server <- function(id, data_sets_segmented_list) {
+  check_reactive_inputs(data_sets_segmented_list)
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
     shiny::reactive({
-      ds_raw_all <- list(...)
-      num_ds   <- length(ds_raw_all)
+      data_sets <- data_sets_segmented_list()
+      num_ds   <- length(data_sets)
       year_seq <- 2020 + 1:num_ds
       ds_list <- vector("list", num_ds)
       for (i in seq_len(num_ds)) {
-        ds_list[[i]] <- ds_raw_all[[i]] %>%
+        ds_list[[i]] <- data_sets[[i]] %>%
           filter_for_samansi_leder(year_seq[i],
                                    SAMANSI = input[["slider_samansi"]],
-                                   LEDER = input[["slider_leder"]])
-        ds_list[[i]] <- ds_list[[i]] %>%
-          TaskAnalyticsTB::segmentation_analysis(ind1_vals = sttgs_dc(),
-                                                 settings_q16 = sttgs_q16(),
-                                                 settings_q17 = sttgs_q17(),
-                                                 settings_q14 = sttgs_q14(),
-                                                 settings_q19 = sttgs_q19()) %>%
-          dplyr::select(tidyselect::any_of(var_to_use1),
-                        tidyselect::starts_with(var_to_use4),
-                        tidyselect::starts_with(var_to_use3)) %>%
+                                   LEDER = input[["slider_leder"]]) %>%
           TaskAnalyticsTB::get_data_summary(year = year_seq[i], type = "report")
+        ds_list[[i]]$year <- as.factor(ds_list[[i]]$year)
       }
       data_jnd <- do.call(TaskAnalyticsTB::get_data_joined, ds_list)
-      data_jnd$year <- as.factor(data_jnd$year)
       return(data_jnd)
     })
   })

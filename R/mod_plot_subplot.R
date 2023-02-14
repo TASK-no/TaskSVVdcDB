@@ -70,45 +70,29 @@ mod_plot_subplot_server <- function(id, data_set, name_plot_out){
     })
   })
 }
-mod_data_subplot_server <- function(id, ...,
-                                    sttgs_dc,
-                                    sttgs_q16,
-                                    sttgs_q17,
-                                    sttgs_q14,
-                                    sttgs_q19) {
-  stopifnot(shiny::is.reactive(sttgs_dc))
-  stopifnot(shiny::is.reactive(sttgs_q16))
-  stopifnot(shiny::is.reactive(sttgs_q17))
-  stopifnot(shiny::is.reactive(sttgs_q14))
-  stopifnot(shiny::is.reactive(sttgs_q19))
+mod_data_subplot_server <- function(id, data_sets_segmented_list) {
+  check_reactive_inputs(data_sets_segmented_list)
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
     shiny::reactive({
-      ds_raw_all <- list(...)
-      year_seq   <- 2020 + 1:length(ds_raw_all)
-      names(ds_raw_all) <- as.character(year_seq)
-      ds_chosen <- ds_raw_all[[input[["slider_year"]]]]
+      data_sets <- data_sets_segmented_list()
+      num_ds    <- length(data_sets)
+      year_seq  <- 2020 + 1:num_ds
+
       yr_chosen <- as.numeric(input[["slider_year"]])
+      ds_chosen <- which(year_seq %in% yr_chosen)
+      ds_used   <- data_sets[[ds_chosen]]
       if (input[["slider_type"]] == "type_pie") {
         type_taken <- "final"
       } else {
         type_taken <- "report"
       }
-      ds_out <-  ds_chosen %>%
+      ds_used %>%
         filter_for_samansi_leder(yr_chosen,
                                  SAMANSI = input[["slider_samansi"]],
                                  LEDER = input[["slider_leder"]]) %>%
-        TaskAnalyticsTB::segmentation_analysis(ind1_vals = sttgs_dc(),
-                                               settings_q16 = sttgs_q16(),
-                                               settings_q17 = sttgs_q17(),
-                                               settings_q14 = sttgs_q14(),
-                                               settings_q19 = sttgs_q19()) %>%
-        dplyr::select(tidyselect::any_of(var_to_use1),
-                      tidyselect::starts_with(var_to_use4),
-                      tidyselect::starts_with(var_to_use3)) %>%
         TaskAnalyticsTB::get_data_summary(year = yr_chosen,
                                           type = type_taken)
-
     })
   }
   )
