@@ -20,21 +20,21 @@ app_ui <- function(request) {
         sidebar_panel = shiny.semantic::sidebar_panel(
           # shiny::tagList(
             add_header("Segmenteringsanalyse:", size = 2, UNDERLINE = TRUE, EMPHASIZE = TRUE),
-            mod_seg_competence_ui("segmentation_inputs"),
+            mod_seg_competence_ui("seg_inputs"),
             break_vspace("small"),
-            mod_seg_q_ui("segmentation_inputs", num_q = 16,
+            mod_seg_q_ui("seg_inputs", num_q = 16,
                          title_text = "Kommunikasjon og samhandling",
                          settings_seg$q16),
             break_vspace("small"),
-            mod_seg_q_ui("segmentation_inputs", num_q = 17,
+            mod_seg_q_ui("seg_inputs", num_q = 17,
                          title_text = "Informasjonssikkerhet og personvern",
                          settings_seg$q17),
             break_vspace("small"),
-            mod_seg_q_ui("segmentation_inputs", num_q = 14,
+            mod_seg_q_ui("seg_inputs", num_q = 14,
                          title_text = "Bruk av programvare",
                          settings_seg$q14),
             break_vspace("small"),
-            mod_seg_q_ui("segmentation_inputs", num_q = 19,
+            mod_seg_q_ui("seg_inputs", num_q = 19,
                          title_text = "Bruk av teknologi",
                          settings_seg$q19),
             break_vspace("small"),
@@ -44,62 +44,32 @@ app_ui <- function(request) {
           width = 2
         ),
         main_panel = shiny.semantic::main_panel(
-          # shiny.semantic::flow_layout(
-              # mod_seg_q_ui("segmentation_inputs", num_q = 16,
-              #              title_text = "Kommunikasjon og samhandling",
-              #              settings_seg$q16),
-              # mod_seg_q_ui("segmentation_inputs", num_q = 17,
-              #              title_text = "Informasjonssikkerhet og personvern",
-              #              settings_seg$q17),
-              # mod_seg_q_ui("segmentation_inputs", num_q = 14,
-              #              title_text = "Bruk av programvare",
-              #              settings_seg$q14),
-              # mod_seg_q_ui("segmentation_inputs", num_q = 19,
-              #              title_text = "Bruk av teknologi",
-              #              settings_seg$q19),
-            # min_cell_width = "75px",
-            # max_cell_width = "250px"
-          # ),
           shiny.semantic::tabset(
             tabs =
               list(
                 list(menu = "Preliminaer dataanalyse",
-                     content = div(
+                     content = htmltools::div(
                        break_vspace("small"),
                        mod_plot_overall_ui("plot_01"),
                        break_vspace("small"),
-                       mod_plot_subplot_ui("plot_02", 2021, "sub_01"),
+                       mod_plot_subplot_ui("plot_02", "sub_01"),
                        break_vspace("small"),
-                       mod_plot_subplot_ui("plot_03", 2022, "sub_02")
-                       # mod_plot_overall_ui("plot01")
-                       # mod_plot_overall_ui("plot01")
-                       # shiny.semantic::flow_layout(
-                       #   htmltools::tagList(
-                       #     mod_plot_subplot_ui("plot02", 2021, "pie_2021")
-                       #     # mod_plot_overall_ui("plot01")
-                       #   ),
-                       #   htmltools::tagList(
-                       #     mod_plot_subplot_ui("plot03", 2022, "pie_2022")
-                       #     # mod_plot_overall_ui("plot01")
-                       #   ),
-                       #   min_cell_width = "450px",
-                       #   max_cell_width = "auto"
-                       # )
-                       # reactable::reactableOutput("table_2021")
+                       mod_plot_subplot_ui("plot_03", "sub_02")
                        ),
                      id = "tab_1"),
                 list(menu = "Binaer klassifisering / logistisk regresjon",
-                     content = div(
-                       shiny.semantic::flow_layout(
-                         htmltools::tagList(
-                           h3(tags$u(tags$em("Some header:")))
-                         ),
-                         htmltools::tagList(
-                           h3(tags$u(tags$em("Some header:")))
-                           ),
-                         min_cell_width = "450px",
-                         max_cell_width = "1fr"
-                       )
+                     content = htmltools::div(
+                       break_vspace("small"),
+                       add_header("Legg til logistisk regresjonsspesifikasjon",
+                                  size = 3, UNDERLINE = TRUE, EMPHASIZE = TRUE),
+                       break_vspace("medium"),
+                       mod_logistic_regression_specs_01_ui("seg_inputs"),
+                       break_vspace("small"),
+                       mod_logistic_summary_ou("logistic_reg_01",
+                                               "logistic_out_01"),
+                       # break_vspace("medium"),
+                       # mod_logistic_regression_specs_02_ui("logistic_prd_01",
+                       #                                     200)
                      ),
                      id = "tab_2")
               ),

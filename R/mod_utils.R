@@ -122,7 +122,7 @@ generate_plotly <- function(ggplot_to_use,
 }
 filter_for_samansi_leder <- function(ds, year, SAMANSI, LEDER) {
   data_out <- ds
-  if (SAMANSI && year > 2021) {
+  if (SAMANSI && year == 2022) {
     data_out <- data_out %>% dplyr::filter(.data$SamAnsi == 1)
   }
   if(LEDER) {

@@ -7,7 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_plot_subplot_ui <- function(id, year, name_plot_out) {
+mod_plot_subplot_ui <- function(id, name_plot_out) {
   FILTER_TEXT <- "Filter for ansatte som er"
   ns <- shiny::NS(id)
   shiny::tagList(
@@ -21,7 +21,7 @@ mod_plot_subplot_ui <- function(id, year, name_plot_out) {
         shiny::tags$h5(paste0("Velg ", "\u00e5", "rstall")),
         shiny.semantic::selectInput(ns("slider_year"),
                                     label = "",
-                                    choices = c(2021, 2022),
+                                    choices = c(2021, 2022, 2023),
                                     width = "75px")
       ),
       shiny::tagList(
