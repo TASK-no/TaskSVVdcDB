@@ -1,0 +1,13 @@
+name: TaskSVVdcDB
+title: TaskSVVdcDB
+username:
+account: cologne-analytics
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8317417
+bundleId: 6848382
+url: https://cologne-analytics.shinyapps.io/TaskSVVdcDB/
+when: 1676443435.2225
+lastSyncTime: 1676443435.22251
+asMultiple: FALSE
+asStatic: FALSE

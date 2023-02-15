@@ -102,7 +102,6 @@ mod_logistic_regression_specs_01_srv <- function(id, data_set){
 get_data_logistics_all <- function(data_set_list, years) {
   names_ds <- paste0("data_", years)
   if (length(names_ds) > 1) {
-    browser()
     data_chosen <- data_set_list[names_ds]
     names_vars_both <- Reduce(function(x, y) {
       intersect(names(x), names(y))
