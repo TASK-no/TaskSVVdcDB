@@ -20,19 +20,11 @@ mod_logistic_regression_specs_01_ui <- function(id) {
                                   width = "auto")
     ),
     shiny.semantic::flowLayout(
-      shiny::tags$h5(paste0("Spesifiser avhengig variabel:")),
+      shiny::tags$h5(paste0("Spesifiser kompetanseomr", "\u00e5", "de:")),
       shiny.semantic::selectInput(ns("slider_dep"),
                                   "",
-                                  choices = settings_logistic$var_dep_choices,
+                                  choices = settings_logistic$lab_dep_choices,
                                   multiple = FALSE)
-    ),
-    shiny.semantic::flowLayout(
-      shiny::tags$h5(paste0("Spesifiser regressorvariablerl:")),
-      shiny.semantic::selectInput(ns("slider_reg"),
-                                  "",
-                                  choices = settings_logistic$var_reg_choices,
-                                  selected = settings_logistic$var_reg_choices[1],
-                                  multiple = TRUE)
     ),
     shiny.semantic::flowLayout(
       shiny::tags$h5(paste0("Spesifiser erfaringsniv", "\u00e5",
@@ -41,6 +33,16 @@ mod_logistic_regression_specs_01_ui <- function(id) {
                                   "",
                                   choices = settings_logistic$var_exp_choices,
                                   multiple = FALSE)
+    ),
+    break_vspace("small"),
+    shiny.semantic::flowLayout(
+      shiny::tags$h5(paste0("Spesifiser regressorvariablerl:")),
+      shiny.semantic::selectInput(ns("slider_reg"),
+                                  "",
+                                  choices = settings_logistic$var_reg_choices,
+                                  selected = settings_logistic$var_reg_choices[1],
+                                  multiple = TRUE,
+                                  width = '800px')
     )
   )
 }
@@ -87,7 +89,7 @@ mod_logistic_regression_specs_02_srv <- function(id, check_nobs){
 #' @noRd
 mod_logistic_regression_specs_01_srv <- function(id, data_set){
   check_reactive_inputs(data_set)
-  shiny::moduleServer(id, function(input, output, session){
+  shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
     log_out <- shiny::reactive({
       data_chosen <- get_data_logistics_all(data_set(), input[["slider_year"]])
@@ -102,14 +104,23 @@ mod_logistic_regression_specs_01_srv <- function(id, data_set){
 get_data_logistics_all <- function(data_set_list, years) {
   names_ds <- paste0("data_", years)
   if (length(names_ds) > 1) {
-    data_chosen <- data_set_list[names_ds]
+    data_chosen  <- data_set_list[names_ds]
+    names_chosen <- lapply(data_chosen, names)
     names_vars_both <- Reduce(function(x, y) {
-      intersect(names(x), names(y))
-    }, data_chosen)
+      intersect(x, y)
+    }, names_chosen)
     data_out <- lapply(data_chosen, function(x, var_names) {
       x[var_names]
     }, var_names = names_vars_both)
+    for (i in 1:length(names_ds)) {
+      data_out[[i]]$year <- years[i]
+    }
     data_out <- Reduce(rbind, data_out)
+    data_out$year <- factor(data_out$year)
+    data_out <- data_out %>%
+      dplyr::distinct(dplyr::pick(dplyr::all_of(setdiff(names(data_out),
+                                                        "year"))),
+                      .keep_all = TRUE)
     return(data_out)
   } else {
     data_chosen <- data_set_list[[names_ds]]
@@ -117,7 +128,8 @@ get_data_logistics_all <- function(data_set_list, years) {
   }
 }
 deparse_input_logistic_to_model <- function(dep, reg, exp) {
-  mod_deparsed <- list(dependent = dep,
+  dep_taken <- settings_logistic$var_dep_choices[which(settings_logistic$lab_dep_choices %in% dep)]
+  mod_deparsed <- list(dependent = dep_taken,
                        regressors = reg)
 
   experience_all1 <- "Uerfaren og Grunnleggende"
