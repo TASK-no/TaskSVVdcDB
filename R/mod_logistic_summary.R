@@ -12,14 +12,17 @@ mod_logistic_summary_ou <- function(id, name_log_out){
   shiny::tagList(
     add_header("Estimerte effekter av logistisk regresjon: ",
                size = 5, UNDERLINE = TRUE, EMPHASIZE = TRUE),
-    break_vspace("small"),
     htmltools::tags$head(htmltools::tags$style(paste0("#", ns(name_log_out),
                                                       "{color: black;
                                                         font-size: 16px;
                                                         font-style: verbatim;}")
     )
     ),
-    shiny::verbatimTextOutput(ns(name_log_out))
+    shiny::verbatimTextOutput(ns(paste0(name_log_out, "_output"))),
+    break_vspace("medium"),
+    add_header("Odds ratioer:",
+               size = 5, UNDERLINE = TRUE, EMPHASIZE = TRUE),
+    shiny::verbatimTextOutput(ns(paste0(name_log_out, "_odds")))
   )
 }
 #' logistic_summary Server Functions
@@ -36,10 +39,13 @@ mod_logistic_summary_srv <- function(id, data_log01, name_log_out){
       log_out_all <- TaskAnalyticsTB::logistic_learn(data_set,
                                                      model = mod_spec,
                                                      type = "shinyDB")
-      log_out_all[[1]]
+      log_out_all
     })
-    output[[name_log_out]] <- shiny::renderPrint({
-      log_out()
+    output[[paste0(name_log_out, "_output")]] <- shiny::renderPrint({
+      log_out()[[1]]
+    })
+    output[[paste0(name_log_out, "_odds")]] <- shiny::renderPrint({
+      log_out()[[2]]
     })
   })
 }
