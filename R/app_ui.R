@@ -44,6 +44,10 @@ app_ui <- function(request) {
           width = 2
         ),
         main_panel = shiny.semantic::main_panel(
+          break_vspace("small"),
+          add_header("Kjennskap til 'Digitalt på vei'",
+                     size = 3, EMPHASIZE = TRUE, UNDERLINE = TRUE),
+          mod_cat_choices_ui("cat_inputs"),
           shiny.semantic::tabset(
             tabs =
               list(

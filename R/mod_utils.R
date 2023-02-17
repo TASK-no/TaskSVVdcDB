@@ -130,3 +130,27 @@ filter_for_samansi_leder <- function(ds, year, SAMANSI, LEDER) {
   }
   return(data_out)
 }
+filter_for_samansi_leder_cat <- function(ds, year, SAMANSI, LEDER,
+                                         CAT_Q36, CAT_Q37,
+                                         CAT_Q38, CAT_Q40) {
+  data_out <- ds
+  if (SAMANSI && year == 2022) {
+    data_out <- data_out %>% dplyr::filter(.data$SamAnsi == 1)
+  }
+  if(LEDER) {
+    data_out <- data_out %>% dplyr::filter(.data$leder_c == "Ja")
+  }
+  if(CAT_Q36 && year == 2023) {
+    data_out <- data_out %>% dplyr::filter(.data$Q36_c == "Ja")
+  }
+  if(CAT_Q37 && year == 2023) {
+    data_out <- data_out %>% dplyr::filter(.data$Q37_c == "Ja")
+  }
+  if(CAT_Q38 && year == 2023) {
+    data_out <- data_out %>% dplyr::filter(.data$Q38_c == "Ja")
+  }
+  if(CAT_Q40 && year == 2023) {
+    data_out <- data_out %>% dplyr::filter(.data$Q40_c == "Ja")
+  }
+  return(data_out)
+}
