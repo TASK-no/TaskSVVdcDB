@@ -77,50 +77,25 @@ global <- quote({
                                                       "labels")[1:5]))
   levels(data_raw_SVV_2021$Q22)[c(1, 5)] <- "Ikke i det hele tatt"
 
-  # browser()
-
   data_raw_SVV_2023 <- data_raw_SVV_2023 %>%
-    TaskAnalyticsTB::recode_qXX_rVals(q_names = "Q38",
-                                      from = 5, to = 1,
-                                      list(ADJUST_LABELS = TRUE,
-                                           AS_FACTOR = TRUE,
-                                           ORDERED = FALSE,
-                                           LABELS = TRUE)) %>%
-    TaskAnalyticsTB::recode_qXX_rVals(q_names = "Q39",
+    TaskAnalyticsTB::recode_qXX_rVals(q_names = c("Q38", "Q39", "Q40"),
                                       from = 5, to = 1,
                                       na_replacement = 1,
                                       list(ADJUST_LABELS = TRUE,
                                            AS_FACTOR = TRUE,
                                            ORDERED = FALSE,
-                                           LABELS = TRUE)) %>%
-    TaskAnalyticsTB::recode_qXX_rVals(q_names = "Q40",
-                                      from = 5, to = 1,
-                                      na_replacement = 1,
-                                      list(ADJUST_LABELS = TRUE,
-                                           AS_FACTOR = TRUE,
-                                           ORDERED = FALSE,
-                                           LABELS = TRUE))
-  # %>%
-  #   TaskAnalyticsTB::recode_qXX_cats(q_names = "Q38",
-  #                                    list(Q38 =list(
-  #                                      `Nei, har ikke startet` = 1,
-  #                                      `Ja, har gjennomført noe` = 2,
-  #                                      `Ja, har gjennomført mye` = 3,
-  #                                      `Ja, har gjennomført alt` = 4,
-  #                                      `Vet ikke` = 1)),
-  #                                    new_names = "Q38",
-  #                                    ordered = TRUE)
+                                           ADD_LABELS = TRUE))
 
   var_to_use1 <- c("SamGender", "SamAnsi", "SamAge", "h_age", "SamDivision",
                    "leder_c", "utdanning_c")
   var_to_use2 <- c("Q16", "Q17", "Q14", "Q19")
   var_to_use3 <- c("Q22", paste0("Q25r", 1:7))
   var_to_use4 <- c("Q36", "Q37", "Q38", "Q39", "Q40")
+  var_to_use5 <- c("Q36_c", "Q37_c", "Q38_c", "Q40_c")
 
   var_to_use_before_seg <- var_to_use2
   var_to_use_after_seg  <- c(var_to_use1, var_to_use3, var_to_use4)
-  # ,
-  #                  "Q36_c", "Q37_c", "Q38_c")
+
   data_raw_SVV_2021 <- data_raw_SVV_2021 %>%
     dplyr::select(tidyselect::any_of(var_to_use_after_seg),
                   tidyselect::starts_with(var_to_use_before_seg))
@@ -130,20 +105,6 @@ global <- quote({
   data_raw_SVV_2023 <- data_raw_SVV_2023 %>%
     dplyr::select(tidyselect::any_of(var_to_use_after_seg),
                   tidyselect::starts_with(var_to_use_before_seg))
-  # data_raw_SVV_2021 <- data_raw_SVV_2021 %>%
-  #   dplyr::select(tidyselect::any_of(var_to_use1),
-  #                 tidyselect::starts_with(var_to_use2),
-  #                 tidyselect::starts_with(var_to_use3))
-  # data_raw_SVV_2022 <- data_raw_SVV_2022 %>%
-  #   dplyr::select(tidyselect::any_of(var_to_use1),
-  #                 tidyselect::starts_with(var_to_use2),
-  #                 tidyselect::starts_with(var_to_use3))
-  # data_raw_SVV_2023 <- data_raw_SVV_2023 %>%
-  #   dplyr::select(tidyselect::any_of(var_to_use1),
-  #                 tidyselect::starts_with(var_to_use2),
-  #                 tidyselect::starts_with(var_to_use3),
-  #                 tidyselect::starts_with(var_to_use4))
-  # browser()
 
   settings_seg <- list(q16 = list(sum_score_val_grun = 4,
                                   sum_score_val_vide = 2,
@@ -185,9 +146,9 @@ global <- quote({
                                                   "Bruk av programvare",
                                                   "Bruk av teknologi"),
                             var_reg_choices = c(var_to_use1,
-                                                var_to_use2,
                                                 var_to_use3,
                                                 var_to_use4,
+                                                var_to_use5,
                                                 "year"),
                             var_exp_choices = c(experience_all1,
                                                 experience_all2,
