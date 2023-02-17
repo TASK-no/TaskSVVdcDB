@@ -23,9 +23,8 @@ mod_data_segmentation_srv <- function(id, ...,
                                                  settings_q17 = sttgs_q17(),
                                                  settings_q14 = sttgs_q14(),
                                                  settings_q19 = sttgs_q19()) %>%
-          dplyr::select(tidyselect::any_of(var_to_use1),
-                        tidyselect::starts_with(var_to_use4),
-                        tidyselect::starts_with(var_to_use3))
+          dplyr::select(tidyselect::any_of(var_to_use_after_seg),
+                        tidyselect::starts_with("kat"))
       }
       names(ds_list) <- paste0("data_", year_seq)
       ds_list
