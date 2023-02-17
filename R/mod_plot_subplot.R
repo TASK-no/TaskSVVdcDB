@@ -17,6 +17,11 @@ mod_plot_subplot_ui <- function(id, name_plot_out) {
       shiny::tagList(
         shiny::tags$h5(paste(FILTER_TEXT, "'SamAnsi'")),
         shiny.semantic::checkbox_input(ns("slider_samansi"),
+                                       is_marked = FALSE,
+                                       type = "slider"),
+        add_header(paste(FILTER_TEXT, "'Q37'"), size = 5),
+        shiny.semantic::checkbox_input(ns("slider_q37"),
+                                       is_marked = FALSE,
                                        type = "slider"),
         shiny::tags$h5(paste0("Velg ", "\u00e5", "rstall")),
         shiny.semantic::selectInput(ns("slider_year"),
@@ -27,6 +32,11 @@ mod_plot_subplot_ui <- function(id, name_plot_out) {
       shiny::tagList(
         shiny::tags$h5(paste(FILTER_TEXT, "'leder'")),
         shiny.semantic::checkbox_input(ns("slider_leder"),
+                                       is_marked = FALSE,
+                                       type = "slider"),
+        add_header(paste(FILTER_TEXT, "'Q38'"), size = 5),
+        shiny.semantic::checkbox_input(ns("slider_q38"),
+                                       is_marked = FALSE,
                                        type = "slider"),
         shiny::tags$h5("Velg type"),
         shiny.semantic::selectInput(ns("slider_type"),
@@ -34,6 +44,16 @@ mod_plot_subplot_ui <- function(id, name_plot_out) {
                                     choices = c(`Ekspertiseomrader inndelt i kompetanse` = "type_pie",
                                                 `Kompetanse inndelt i kompetanseomr` = "type_bar"),
                                     width = "310px")
+      ),
+      shiny::tagList(
+        add_header(paste(FILTER_TEXT, "'Q36'"), size = 5),
+        shiny.semantic::checkbox_input(ns("slider_q36"),
+                                       is_marked = FALSE,
+                                       type = "slider"),
+        add_header(paste(FILTER_TEXT, "'Q40'"), size = 5),
+        shiny.semantic::checkbox_input(ns("slider_q40"),
+                                       is_marked = FALSE,
+                                       type = "slider")
       ),
       min_cell_width = "75px",
       max_cell_width = "320px",
@@ -88,9 +108,13 @@ mod_data_subplot_srv <- function(id, data_sets_segmented_list) {
         type_taken <- "report"
       }
       ds_used %>%
-        filter_for_samansi_leder(yr_chosen,
-                                 SAMANSI = input[["slider_samansi"]],
-                                 LEDER = input[["slider_leder"]]) %>%
+        filter_for_samansi_leder_cat(yr_chosen,
+                                     SAMANSI = input[["slider_samansi"]],
+                                     LEDER = input[["slider_leder"]],
+                                     CAT_Q36 = input[["slider_q36"]],
+                                     CAT_Q37 = input[["slider_q37"]],
+                                     CAT_Q38 = input[["slider_q38"]],
+                                     CAT_Q40 = input[["slider_q40"]]) %>%
         TaskAnalyticsTB::get_data_summary(year = yr_chosen,
                                           type = type_taken)
     })
