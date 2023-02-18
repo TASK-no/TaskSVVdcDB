@@ -16,6 +16,23 @@ mod_seg_q_ui <- function(id, num_q, title_text, sttgs = NULL) {
   ns <- shiny::NS(id)
   htmltools::tagList(
     add_header(title_used, size = 4, EMPHASIZE = TRUE),
+    # generate_q_ui(tile = "Grunnlegende",
+    #               value_sum = sttgs$sum_score_val_grun,
+    #               value_type = sttgs$type_val_grun,
+    #               sub_id_sum = ns(sub_ns_sum[1]),
+    #               sub_id_type = ns(sub_ns_type[1])),
+    # generate_q_ui(tile = paste0("Videreg", "\u00e5", "ende:"),
+    #               value_sum = sttgs$sum_score_val_vide,
+    #               value_type = sttgs$type_val_vide,
+    #               sub_id_sum = ns(sub_ns_sum[2]),
+    #               sub_id_type = ns(sub_ns_type[2])),
+    # generate_q_ui(tile = "Avansert:",
+    #               value_sum = sttgs$sum_score_val_avan,
+    #               value_type = sttgs$type_val_avan,
+    #               sub_id_sum = ns(sub_ns_sum[3]),
+    #               sub_id_type = ns(sub_ns_type[3])),
+    # break_vspace("small")
+    # )
     add_header("Grunnlegende:", size = 5, EMPHASIZE = TRUE),
     shiny.semantic::flow_layout(
       shiny.semantic::numericInput(ns(sub_ns_sum[1]),
@@ -32,16 +49,16 @@ mod_seg_q_ui <- function(id, num_q, title_text, sttgs = NULL) {
     add_header(paste0("Videreg", "\u00e5", "ende:"),
                size = 5, EMPHASIZE = TRUE),
     shiny.semantic::flow_layout(
-        shiny.semantic::numericInput(ns(sub_ns_sum[2]),
-                                     "Total/Sum poengsum: ",
-                                     value = sttgs$sum_score_val_vide,
-                                     min = 1, max = 7, width = "150px"),
-        shiny.semantic::multiple_radio(ns(sub_ns_type[2]),
-                                       "Terskeltype",
-                                       choices = c("større/lik enn (>=):",
-                                                   "lik (=):"),
-                                       choices_value = c("larger-equal", "equal"),
-                                       selected = sttgs$type_val_vide)
+      shiny.semantic::numericInput(ns(sub_ns_sum[2]),
+                                   "Total/Sum poengsum: ",
+                                   value = sttgs$sum_score_val_vide,
+                                   min = 1, max = 7, width = "150px"),
+      shiny.semantic::multiple_radio(ns(sub_ns_type[2]),
+                                     "Terskeltype",
+                                     choices = c("større/lik enn (>=):",
+                                                 "lik (=):"),
+                                     choices_value = c("larger-equal", "equal"),
+                                     selected = sttgs$type_val_vide)
     ),
     add_header("Avansert:", size = 5, EMPHASIZE = TRUE),
     shiny.semantic::flow_layout(
@@ -55,6 +72,24 @@ mod_seg_q_ui <- function(id, num_q, title_text, sttgs = NULL) {
                                                    "lik (=):"),
                                        choices_value = c("larger-equal", "equal"),
                                        selected = sttgs$type_val_avan)
+        ),
+    break_vspace("small")
+    )
+}
+generate_q_ui <- function(tile, value_sum, value_type, sub_id_sum, sub_id_type) {
+  shiny::tagList(
+    add_header(title, size = 5, EMPHASIZE = TRUE),
+    shiny.semantic::flow_layout(
+      shiny.semantic::numericInput(sub_id_sum,
+                                   "Total/Sum poengsum: ",
+                                   value = value_sum,
+                                   min = 1, max = 7, width = "150px"),
+      shiny.semantic::multiple_radio(sub_id_type,
+                                     "Terskeltype",
+                                     choices = c("større/lik enn (>=):",
+                                                 "lik (=):"),
+                                     choices_value = c("larger-equal", "equal"),
+                                     selected = value_type)
     )
   )
 }
@@ -84,8 +119,3 @@ get_sub_ns <- function(num_q) {
        sub_ns_type = paste0("seg_q", num_q, "_",
                             paste0(c("grun", "videre", "avan"), "_type")))
 }
-## To be copied in the UI
-# mod_mod_seg_q_ui("mod_seg_q_1")
-
-## To be copied in the server
-# mod_mod_seg_q_srv("mod_seg_q_1")

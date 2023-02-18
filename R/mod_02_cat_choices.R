@@ -23,19 +23,19 @@ mod_cat_choices_ui <- function(id){
                                      choices_value = list(2:4, c(3, 4), 4),
                                      selected = list(2:4),
                                      position = "grouped")),
-      shiny::tagList(
-        add_header("Q37 - Forståelse av kompetansekrav:",
-                   size = 4, EMPHASIZE = TRUE, UNDERLINE = FALSE),
-        add_header("Kodes om til 'ja' hvis",
-                   size = 5, EMPHASIZE = FALSE),
-        shiny.semantic::multiple_radio(ns("cat_Q37"),
-                                       "",
-                                       choices = c("Ja, kjenner litt, noe og godt til",
-                                                   "Ja, kjenner noe og godt til",
-                                                   "Ja, kjenner godt til"),
-                                       choices_value = list(2:4, c(3, 4), 4),
-                                       selected = list(2:4),
-                                       position = "grouped")),
+    shiny::tagList(
+      add_header("Q37 - Forståelse av kompetansekrav:",
+                 size = 4, EMPHASIZE = TRUE, UNDERLINE = FALSE),
+      add_header("Kodes om til 'ja' hvis",
+                 size = 5, EMPHASIZE = FALSE),
+      shiny.semantic::multiple_radio(ns("cat_Q37"),
+                                     "",
+                                     choices = c("Ja, kjenner litt, noe og godt til",
+                                                 "Ja, kjenner noe og godt til",
+                                                 "Ja, kjenner godt til"),
+                                     choices_value = list(2:4, c(3, 4), 4),
+                                     selected = list(2:4),
+                                     position = "grouped")),
     shiny::tagList(
       add_header("Q38 - Gjennomføring av programmet:",
                  size = 4, EMPHASIZE = TRUE, UNDERLINE = FALSE),
@@ -66,26 +66,26 @@ mod_cat_choices_ui <- function(id){
     max_cell_width = "250px"
   )
 }
-mod_data_cat_choices_server <- function(id, data_set_seg_all, list_cat_definitions) {
+mod_cat_choices_data_srv <- function(id, data_set_seg_all) {
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
+    sttgs_fact <- list(ADJUST_LABELS = TRUE,
+                       AS_FACTOR = TRUE,
+                       ORDERED = FALSE,
+                       ADD_LABELS = TRUE)
     shiny::reactive({
       list_recodes_taken <- get_list_cat_choices(input[["cat_Q36"]],
                                                  input[["cat_Q37"]],
                                                  input[["cat_Q38"]],
                                                  input[["cat_Q40"]])
       data_segs_cat_all <- data_set_seg_all()
-      data_new_cat_2023 <- data_segs_cat_all[["data_2023"]] %>%
+      data_segs_cat_all[["data_2023"]] <- data_segs_cat_all[["data_2023"]] %>%
         TaskAnalyticsTB::recode_qXX_cats(q_names = c("Q36", "Q37",
                                                      "Q38", "Q40"),
-                                         list_recodes_taken,
+                                         list_recodes = list_recodes_taken,
                                          new_names = c("Q36_c", "Q37_c",
                                                        "Q38_c", "Q40_c"),
-                                         list(ADJUST_LABELS = TRUE,
-                                              AS_FACTOR = TRUE,
-                                              ORDERED = FALSE,
-                                              ADD_LABELS = TRUE))
-      data_segs_cat_all[["data_2023"]] <- data_new_cat_2023
+                                         SETTINGS_FACT = sttgs_fact)
       data_segs_cat_all
     })
   })

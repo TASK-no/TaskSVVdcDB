@@ -29,6 +29,5 @@ mod_data_segmentation_srv <- function(id, ...,
       names(ds_list) <- paste0("data_", year_seq)
       ds_list
     })
-
   })
 }
