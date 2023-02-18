@@ -5,42 +5,21 @@
 #' @import shiny
 #' @noRd
 app_ui <- function(request) {
-  tagList(
+  title_used <- shiny::div(shiny::img(src = "www/logoTASK.png",
+                                      height = "10%",
+                                      width = "10%",
+                                      align = "right"),
+                           add_header("Statens Vegvesen - Digital Kompetanse",
+                                      size = 1))
+  shiny::tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # Your application UI logic
     shiny.semantic::semanticPage(
-      titlePanel(title = div(img(src = "www/logoTASK.png",
-                                 height = "10%",
-                                 width = "10%",
-                                 align = "right"),
-                             add_header("Statens Vegvesen - Digital Kompetanse",
-                                        size = 1))),
+      shiny::titlePanel(title = title_used),
       shiny.semantic::sidebar_layout(
         sidebar_panel = shiny.semantic::sidebar_panel(
-          # shiny::tagList(
-            add_header("Segmenteringsanalyse:", size = 2, UNDERLINE = TRUE, EMPHASIZE = TRUE),
-            mod_seg_competence_ui("seg_inputs"),
-            break_vspace("small"),
-            mod_seg_q_ui("seg_inputs", num_q = 16,
-                         title_text = "Kommunikasjon og samhandling",
-                         settings_seg$q16),
-            break_vspace("small"),
-            mod_seg_q_ui("seg_inputs", num_q = 17,
-                         title_text = "Informasjonssikkerhet og personvern",
-                         settings_seg$q17),
-            break_vspace("small"),
-            mod_seg_q_ui("seg_inputs", num_q = 14,
-                         title_text = "Bruk av programvare",
-                         settings_seg$q14),
-            break_vspace("small"),
-            mod_seg_q_ui("seg_inputs", num_q = 19,
-                         title_text = "Bruk av teknologi",
-                         settings_seg$q19),
-            break_vspace("small"),
-            auth0::logoutButton(label = "Logg ut", id = "my_logout")
-          # ),
-          ,
+          mod_01_seg_all_ui("segmentation"),
           width = 2
         ),
         main_panel = shiny.semantic::main_panel(
