@@ -91,12 +91,7 @@ mod_cat_choices_data_srv <- function(id, data_set_seg_all) {
   })
 }
 get_list_cat_choices <- function(input_q36, input_q37, input_q38, input_q40) {
-  input_q36_taken <- eval(parse(text = input_q36))
-  input_q37_taken <- eval(parse(text = input_q37))
-  input_q38_taken <- eval(parse(text = input_q38))
-  input_q40_taken <- eval(parse(text = input_q40))
-  choices_vec_base      <- rep("Nei", time = 4)
-  list_cat_choices_base <- list(
+  list_cat_choices <- list(
     Q36 = list(
       `Nei, kjenner ikke til` = "Nei",
       `Ja, kjenner litt til` = "Ja",
@@ -118,31 +113,28 @@ get_list_cat_choices <- function(input_q36, input_q37, input_q38, input_q40) {
       `I noen grad` = "Ja",
       `I stor grad` = "Ja")
   )
-  list_cat_choices_out <- list_cat_choices_base
+  list_cat_choices <- list_cat_choices
 
-  choices_vec_used <- choices_vec_base
-  choices_vec_used[input_q36_taken] <- "Ja"
+  input_q36_taken <- eval(parse(text = input_q36))
+  input_q37_taken <- eval(parse(text = input_q37))
+  input_q38_taken <- eval(parse(text = input_q38))
+  input_q40_taken <- eval(parse(text = input_q40))
+
+  list_cat_choices$Q36 <-update_cat_choices(input_q36_taken,
+                                            list_cat_choices$Q36)
+  list_cat_choices$Q37 <-update_cat_choices(input_q37_taken,
+                                            list_cat_choices$Q37)
+  list_cat_choices$Q38 <-update_cat_choices(input_q38_taken,
+                                            list_cat_choices$Q38)
+  list_cat_choices$Q40 <-update_cat_choices(input_q40_taken,
+                                            list_cat_choices$Q40)
+
+  return(list_cat_choices)
+}
+update_cat_choices <- function(id_to_change_Ja, names_choices) {
+  choices_vec_used <- rep("Nei", time = 4)
+  choices_vec_used[id_to_change_Ja] <- "Ja"
   choices_vec_used <- as.list(choices_vec_used)
-  names(choices_vec_used) <- names(list_cat_choices_base$Q36)
-  list_cat_choices_out$Q36 <- choices_vec_used
-
-  choices_vec_used <- choices_vec_base
-  choices_vec_used[input_q37_taken] <- "Ja"
-  choices_vec_used <- as.list(choices_vec_used)
-  names(choices_vec_used) <- names(list_cat_choices_base$Q37)
-  list_cat_choices_out$Q37 <- choices_vec_used
-
-  choices_vec_used <- choices_vec_base
-  choices_vec_used[input_q38_taken] <- "Ja"
-  choices_vec_used <- as.list(choices_vec_used)
-  names(choices_vec_used) <- names(list_cat_choices_base$Q38)
-  list_cat_choices_out$Q38 <- choices_vec_used
-
-  choices_vec_used <- choices_vec_base
-  choices_vec_used[input_q40_taken] <- "Ja"
-  choices_vec_used <- as.list(choices_vec_used)
-  names(choices_vec_used) <- names(list_cat_choices_base$Q40)
-  list_cat_choices_out$Q40 <- choices_vec_used
-
-  return(list_cat_choices_out)
+  names(choices_vec_used) <- names(names_choices)
+  choices_vec_used
 }
