@@ -9,35 +9,32 @@
 #' @importFrom shiny NS tagList
 mod_seg_q_ui <- function(id, num_q, title_text, sttgs = NULL) {
   stopifnot(!is.null(sttgs))
-  title_used <- paste0("Q", num_q, " - ", title_text, ":")
-  sub_ns      <- get_sub_ns(num_q)
-  sub_ns_sum  <- sub_ns$sub_ns_sum
-  sub_ns_type <- sub_ns$sub_ns_type
   ns <- shiny::NS(id)
-  # browser()
+
+  title_used <- paste0("Q", num_q, " - ", title_text, ":")
+  sub_ns     <- get_sub_ns(id_prefix = ns(""), num_q)
+
+  competence_types <- list("grun", "vide", "avan")
+  list_titles      <- list(grun = "Grunnlegende",
+                           vide = paste0("Videreg", "\u00e5", "ende:"),
+                           avan = "Avansert:")
   htmltools::tagList(
     add_header(title_used, size = 4, EMPHASIZE = TRUE),
-    generate_q_ui(title = "Grunnlegende",
-                  value_sum = sttgs$sum_score_val_grun,
-                  value_type = sttgs$type_val_grun,
-                  sub_id_sum = ns(sub_ns_sum[1]),
-                  sub_id_type = ns(sub_ns_type[1])),
-    generate_q_ui(title = paste0("Videreg", "\u00e5", "ende:"),
-                  value_sum = sttgs$sum_score_val_vide,
-                  value_type = sttgs$type_val_vide,
-                  sub_id_sum = ns(sub_ns_sum[2]),
-                  sub_id_type = ns(sub_ns_type[2])),
-    generate_q_ui(title = "Avansert:",
-                  value_sum = sttgs$sum_score_val_avan,
-                  value_type = sttgs$type_val_avan,
-                  sub_id_sum = ns(sub_ns_sum[3]),
-                  sub_id_type = ns(sub_ns_type[3])),
+    lapply(competence_types, generate_q_ui,
+           list_titles,
+           sttgs = sttgs,
+           sub_ids = sub_ns),
     break_vspace("small")
   )
 }
-generate_q_ui <- function(title, value_sum, value_type, sub_id_sum, sub_id_type) {
+generate_q_ui <- function(competence_type, titles, sttgs, sub_ids) {
+  title_taken <- titles[[competence_type]]
+  value_sum   <- sttgs[[competence_type]]$sum_score_val
+  value_type  <- sttgs[[competence_type]]$type_val
+  sub_id_sum  <- sub_ids[["sub_ns_sum"]][[competence_type]]
+  sub_id_type <- sub_ids[["sub_ns_type"]][[competence_type]]
   shiny::tagList(
-    add_header(title, size = 5, EMPHASIZE = TRUE),
+    add_header(title_taken, size = 5, EMPHASIZE = TRUE),
     shiny.semantic::flow_layout(
       shiny.semantic::numericInput(sub_id_sum,
                                    "Total/Sum poengsum: ",
@@ -58,22 +55,31 @@ generate_q_ui <- function(title, value_sum, value_type, sub_id_sum, sub_id_type)
 mod_seg_q_srv <- function(id, num_q) {
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    sub_ns      <- get_sub_ns(num_q)
-    sub_ns_sum  <- sub_ns$sub_ns_sum
-    sub_ns_type <- sub_ns$sub_ns_type
+    sub_ns  <- get_sub_ns(num_q = num_q)
+    ns_sum  <- sub_ns$sub_ns_sum
+    ns_type <- sub_ns$sub_ns_type
     shiny::reactive({
-      get_segmentation_sub_settings(sum_score_val_grun = input[[sub_ns_sum[1]]],
-                                    sum_score_val_vide = input[[sub_ns_sum[2]]],
-                                    sum_score_val_avan = input[[sub_ns_sum[3]]],
-                                    type_val_grun = input[[sub_ns_type[1]]],
-                                    type_val_vide = input[[sub_ns_type[2]]],
-                                    type_val_avan = input[[sub_ns_type[3]]])
+      get_segmentation_sub_settings(input[[ns_sum[["grun"]]]],
+                                    input[[ns_sum[["vide"]]]],
+                                    input[[ns_sum[["avan"]]]],
+                                    input[[ns_type[["grun"]]]],
+                                    input[[ns_type[["vide"]]]],
+                                    input[[ns_type[["avan"]]]])
     })
   })
 }
-get_sub_ns <- function(num_q) {
-  list(sub_ns_sum = paste0("seg_q", num_q, "_",
-                           paste0(c("grun", "vide", "avan"), "_sum")),
-       sub_ns_type = paste0("seg_q", num_q, "_",
-                            paste0(c("grun", "vide", "avan"), "_type")))
+get_sub_ns <- function(id_prefix = NULL, num_q) {
+  sum_taken <- paste0("seg_q", num_q, "_",
+                      paste0(c("grun", "vide", "avan"), "_sum"))
+  type_taken <- paste0("seg_q", num_q, "_",
+                       paste0(c("grun", "vide", "avan"), "_type"))
+  if (!is.null(id_prefix)) {
+    sum_taken  <- paste0(id_prefix, sum_taken)
+    type_taken <- paste0(id_prefix, type_taken)
+  }
+
+  names(sum_taken) <- c("grun", "vide", "avan")
+  names(type_taken) <- c("grun", "vide", "avan")
+
+  list(sub_ns_sum = sum_taken, sub_ns_type = type_taken)
 }
