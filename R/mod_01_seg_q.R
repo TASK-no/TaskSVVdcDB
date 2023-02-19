@@ -14,19 +14,20 @@ mod_seg_q_ui <- function(id, num_q, title_text, sttgs = NULL) {
   sub_ns_sum  <- sub_ns$sub_ns_sum
   sub_ns_type <- sub_ns$sub_ns_type
   ns <- shiny::NS(id)
+  # browser()
   htmltools::tagList(
     add_header(title_used, size = 4, EMPHASIZE = TRUE),
-    generate_q_ui(tile = "Grunnlegende",
+    generate_q_ui(title = "Grunnlegende",
                   value_sum = sttgs$sum_score_val_grun,
                   value_type = sttgs$type_val_grun,
                   sub_id_sum = ns(sub_ns_sum[1]),
                   sub_id_type = ns(sub_ns_type[1])),
-    generate_q_ui(tile = paste0("Videreg", "\u00e5", "ende:"),
+    generate_q_ui(title = paste0("Videreg", "\u00e5", "ende:"),
                   value_sum = sttgs$sum_score_val_vide,
                   value_type = sttgs$type_val_vide,
                   sub_id_sum = ns(sub_ns_sum[2]),
                   sub_id_type = ns(sub_ns_type[2])),
-    generate_q_ui(tile = "Avansert:",
+    generate_q_ui(title = "Avansert:",
                   value_sum = sttgs$sum_score_val_avan,
                   value_type = sttgs$type_val_avan,
                   sub_id_sum = ns(sub_ns_sum[3]),
@@ -72,7 +73,7 @@ mod_seg_q_srv <- function(id, num_q) {
 }
 get_sub_ns <- function(num_q) {
   list(sub_ns_sum = paste0("seg_q", num_q, "_",
-                           paste0(c("grun", "videre", "avan"), "_sum")),
+                           paste0(c("grun", "vide", "avan"), "_sum")),
        sub_ns_type = paste0("seg_q", num_q, "_",
-                            paste0(c("grun", "videre", "avan"), "_type")))
+                            paste0(c("grun", "vide", "avan"), "_type")))
 }
