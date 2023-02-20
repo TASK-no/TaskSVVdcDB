@@ -71,7 +71,6 @@ mod_plot_subplot_ui <- function(id, name_plot_out) {
 mod_plot_subplot_srv <- function(id, data_set, name_plot_out){
   stopifnot(shiny::is.reactive(data_set))
   shiny::moduleServer(id, function(input, output, session){
-    ns <- session$ns
     output[[name_plot_out]] <- plotly::renderPlotly({
       year_taken <- input[["slider_year"]]
       if (input[["slider_type"]] == "type_pie") {
@@ -93,7 +92,6 @@ mod_plot_subplot_srv <- function(id, data_set, name_plot_out){
 mod_data_subplot_srv <- function(id, data_sets_segmented_list) {
   check_reactive_inputs(data_sets_segmented_list)
   shiny::moduleServer(id, function(input, output, session) {
-    ns <- session$ns
     shiny::reactive({
       data_sets <- data_sets_segmented_list()
       num_ds    <- length(data_sets)

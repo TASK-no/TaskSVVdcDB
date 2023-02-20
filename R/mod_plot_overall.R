@@ -69,7 +69,6 @@ mod_plot_overall_ui <- function(id) {
 mod_plot_overall_srv <- function(id, data_set_jnd){
   stopifnot(shiny::is.reactive(data_set_jnd))
   shiny::moduleServer(id, function(input, output, session) {
-    ns <- session$ns
     output$plot_overall <- plotly::renderPlotly({
       plot_out <- TaskAnalyticsTB::plot_overall(data_set_jnd(),
                                                 return_type = "shinyDB")
@@ -80,7 +79,6 @@ mod_plot_overall_srv <- function(id, data_set_jnd){
 mod_data_overall_srv <- function(id, data_sets_segmented_list) {
   check_reactive_inputs(data_sets_segmented_list)
   shiny::moduleServer(id, function(input, output, session) {
-    ns <- session$ns
     shiny::reactive({
       data_sets <- data_sets_segmented_list()
       num_ds   <- length(data_sets)

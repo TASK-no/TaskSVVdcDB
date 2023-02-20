@@ -36,7 +36,6 @@ generate_seq_ui <- function(Qxx, id_sub, title_seq, sttgs_seq) {
 #' @noRd
 mod_01_seg_all_server <- function(id){
   shiny::moduleServer(id, function(input, output, session) {
-    ns <- session$ns
     settingsDC  <- mod_seg_competence_srv("seg_inputs")
     settingsQ16 <- mod_seg_q_srv("seg_inputs", num_q = 16)
     settingsQ17 <- mod_seg_q_srv("seg_inputs", num_q = 17)

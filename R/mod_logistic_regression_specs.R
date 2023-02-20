@@ -75,7 +75,6 @@ mod_logistic_regression_specs_02_ui <- function(id, num_obs) {
 #' @noRd
 mod_logistic_regression_specs_02_srv <- function(id, check_nobs){
   shiny::moduleServer(id, function(input, output, session){
-    ns <- session$ns
     shiny::observeEvent(check_nobs, {
       nobs <- check_nobs()
       shiny.semantic::update_numeric_input(session,
@@ -90,7 +89,6 @@ mod_logistic_regression_specs_02_srv <- function(id, check_nobs){
 mod_logistic_regression_specs_01_srv <- function(id, data_set){
   check_reactive_inputs(data_set)
   shiny::moduleServer(id, function(input, output, session) {
-    ns <- session$ns
     log_out <- shiny::reactive({
       data_chosen <- get_data_logistics_all(data_set(), input[["slider_year"]])
       model_specs <- deparse_input_logistic_to_model(dep = input[["slider_dep"]],

@@ -68,7 +68,6 @@ mod_cat_choices_ui <- function(id){
 }
 mod_cat_choices_data_srv <- function(id, data_set_seg_all) {
   shiny::moduleServer(id, function(input, output, session) {
-    ns <- session$ns
     sttgs_fact <- list(ADJUST_LABELS = TRUE,
                        AS_FACTOR = TRUE,
                        ORDERED = FALSE,

@@ -54,7 +54,6 @@ generate_q_ui <- function(competence_type, titles, sttgs, sub_ids) {
 #' @noRd
 mod_seg_q_srv <- function(id, num_q) {
   shiny::moduleServer(id, function(input, output, session) {
-    ns <- session$ns
     sub_ns  <- get_sub_ns(num_q = num_q)
     ns_sum  <- sub_ns$sub_ns_sum
     ns_type <- sub_ns$sub_ns_type

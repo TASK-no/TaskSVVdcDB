@@ -14,7 +14,6 @@ mod_data_segmentation_srv <- function(id, ...,
   year_seq   <- 2020 + 1:num_ds
   ds_list                 <- vector("list", num_ds)
   shiny::moduleServer(id, function(input, output, session) {
-    ns <- session$ns
     shiny::reactive({
       for (i in seq_len(num_ds)) {
         ds_list[[i]] <- ds_raw_all[[i]] %>%

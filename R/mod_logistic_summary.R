@@ -31,7 +31,6 @@ mod_logistic_summary_ou <- function(id, name_log_out){
 mod_logistic_summary_srv <- function(id, data_log01, name_log_out){
   check_reactive_inputs(data_log01)
   shiny:: moduleServer( id, function(input, output, session){
-    ns <- session$ns
     log_out <- shiny::reactive({
       data_log <- data_log01()
       data_set <- data_log[["data_chosen"]]

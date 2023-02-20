@@ -26,7 +26,6 @@ mod_seg_competence_ui <- function(id){
 #' @noRd
 mod_seg_competence_srv <- function(id){
   shiny::moduleServer(id, function(input, output, session){
-    ns <- session$ns
     shiny::reactive({
       eval(parse(text = input[["seg_digital_comp"]]))
     })
