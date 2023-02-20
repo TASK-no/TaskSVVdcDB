@@ -9,62 +9,46 @@
 #' @importFrom shiny NS tagList
 mod_cat_choices_ui <- function(id){
   ns <- shiny::NS(id)
-  shiny.semantic::flow_layout(
-    shiny::tagList(
-      add_header("Q36 - Kjennskap til 'Digitalt på vei':",
-                 size = 4, EMPHASIZE = TRUE, UNDERLINE = FALSE),
-      add_header("Kod om til 'ja' hvis",
-                 size = 5, EMPHASIZE = FALSE),
-      shiny.semantic::multiple_radio(ns("cat_Q36"),
-                                     "",
-                                     choices = c("Ja, kjenner litt, noe og godt til",
-                                                 "Ja, kjenner noe og godt til",
-                                                 "Ja, kjenner godt til"),
-                                     choices_value = list(2:4, c(3, 4), 4),
-                                     selected = list(2:4),
-                                     position = "grouped")),
-    shiny::tagList(
-      add_header("Q37 - Forståelse av kompetansekrav:",
-                 size = 4, EMPHASIZE = TRUE, UNDERLINE = FALSE),
-      add_header("Kodes om til 'ja' hvis",
-                 size = 5, EMPHASIZE = FALSE),
-      shiny.semantic::multiple_radio(ns("cat_Q37"),
-                                     "",
-                                     choices = c("Ja, kjenner litt, noe og godt til",
-                                                 "Ja, kjenner noe og godt til",
-                                                 "Ja, kjenner godt til"),
-                                     choices_value = list(2:4, c(3, 4), 4),
-                                     selected = list(2:4),
-                                     position = "grouped")),
-    shiny::tagList(
-      add_header("Q38 - Gjennomføring av programmet:",
-                 size = 4, EMPHASIZE = TRUE, UNDERLINE = FALSE),
-      add_header("Kodes om til 'ja' hvis",
-                 size = 5, EMPHASIZE = FALSE),
-      shiny.semantic::multiple_radio(ns("cat_Q38"),
-                                     "",
-                                     choices = c("Ja, har gjennomført noe, mye og alt",
-                                                 "Ja, har gjennomført mye og alt",
-                                                 "Ja, har gjennomført alt"),
-                                     choices_value = list(2:4, c(3, 4), 4),
-                                     selected = list(2:4),
-                                     position = "grouped")),
-    shiny::tagList(
-      add_header("Q40 - Omfanget av læring:",
-                 size = 4, EMPHASIZE = TRUE, UNDERLINE = FALSE),
-      add_header("Kodes om til 'ja' hvis",
-                 size = 5, EMPHASIZE = FALSE),
-      shiny.semantic::multiple_radio(ns("cat_Q40"),
-                                     "",
-                                     choices = c("I liten, noen, og stor grad",
-                                                 "I noen og stor grad",
-                                                 "I stor grad"),
-                                     choices_value = list(2:4, c(3, 4), 4),
-                                     selected = list(2:4),
-                                     position = "grouped")),
-    min_cell_width = "250px",
-    max_cell_width = "250px"
-  )
+  list_QXX <- list("Q36", "Q37", "Q38", "Q40")
+  list_headers <- list(Q36 = "Q36 - Kjennskap til 'Digitalt på vei':",
+                       Q37 = "Q37 - Forståelse av kompetansekrav:",
+                       Q38 = "Q38 - Gjennomføring av programmet:",
+                       Q40 = "Q40 - Omfanget av læring:")
+  list_sub_ns <- list(Q36 = ns("cat_Q36"),
+                      Q37 = ns("cat_Q37"),
+                      Q38 = ns("cat_Q38"),
+                      Q40 = ns("cat_Q40"))
+  list_choices <- list(Q36 = c("Ja, kjenner litt, noe og godt til",
+                               "Ja, kjenner noe og godt til",
+                               "Ja, kjenner godt til"),
+                       Q37 = c("Ja, kjenner litt, noe og godt til",
+                               "Ja, kjenner noe og godt til",
+                               "Ja, kjenner godt til"),
+                       Q38 = c("Ja, har gjennomført noe, mye og alt",
+                               "Ja, har gjennomført mye og alt",
+                               "Ja, har gjennomført alt"),
+                       Q40 = c("I liten, noen, og stor grad",
+                               "I noen og stor grad",
+                               "I stor grad"))
+  list_cat_ui <- lapply(list_QXX, generate_cat_ui, list_headers,
+                        list_sub_ns, list_choices)
+  list_out_all <- c(list_cat_ui,
+                    min_cell_width = "250px",
+                    max_cell_width = "250px")
+  do.call(shiny.semantic::flow_layout, list_out_all)
+}
+generate_cat_ui <- function(Qxx, headers, sub_ns, choices) {
+  shiny::tagList(
+    add_header(headers[[Qxx]],
+               size = 4, EMPHASIZE = TRUE, UNDERLINE = FALSE),
+    add_header("Kodes om til 'ja' hvis",
+               size = 5, EMPHASIZE = FALSE),
+    shiny.semantic::multiple_radio(sub_ns[[Qxx]],
+                                   "",
+                                   choices = choices[[Qxx]],
+                                   choices_value = list(2:4, c(3, 4), 4),
+                                   selected = list(2:4),
+                                   position = "grouped"))
 }
 mod_cat_choices_data_srv <- function(id, data_set_seg_all) {
   shiny::moduleServer(id, function(input, output, session) {
