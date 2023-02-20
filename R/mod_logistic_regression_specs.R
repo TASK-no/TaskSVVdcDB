@@ -86,16 +86,17 @@ mod_logistic_regression_specs_02_srv <- function(id, check_nobs){
 #' logistic_regression_specs Server Functions
 #'
 #' @noRd
-mod_logistic_regression_specs_01_srv <- function(id, data_set){
-  check_reactive_inputs(data_set)
+mod_logistic_regression_specs_01_srv <- function(id, r){
+  # check_reactive_inputs(r$datasets$data_log01)
   shiny::moduleServer(id, function(input, output, session) {
-    log_out <- shiny::reactive({
-      data_chosen <- get_data_logistics_all(data_set(), input[["slider_year"]])
+    shiny::reactive({
+      data_chosen <- get_data_logistics_all(r$datasets$data_log01(),
+                                            input[["slider_year"]])
       model_specs <- deparse_input_logistic_to_model(dep = input[["slider_dep"]],
                                                      reg = input[["slider_reg"]],
                                                      exp = input[["slider_exp"]])
-      list(data_chosen = data_chosen,
-           model_specs = model_specs)
+      log_out <- list(data_chosen = data_chosen,
+                      model_specs = model_specs)
     })
   })
 }

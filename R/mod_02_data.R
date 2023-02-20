@@ -1,20 +1,15 @@
-mod_data_segmentation_srv <- function(id, ...,
-                                      sttgs_dc,
-                                      sttgs_q16,
-                                      sttgs_q17,
-                                      sttgs_q14,
-                                      sttgs_q19) {
-  stopifnot(shiny::is.reactive(sttgs_dc))
-  stopifnot(shiny::is.reactive(sttgs_q16))
-  stopifnot(shiny::is.reactive(sttgs_q17))
-  stopifnot(shiny::is.reactive(sttgs_q14))
-  stopifnot(shiny::is.reactive(sttgs_q19))
+mod_data_segmentation_srv <- function(id, r, ...) {
   ds_raw_all <- list(...)
   num_ds     <- length(ds_raw_all)
   year_seq   <- 2020 + 1:num_ds
-  ds_list                 <- vector("list", num_ds)
+  ds_list    <- vector("list", num_ds)
   shiny::moduleServer(id, function(input, output, session) {
     shiny::reactive({
+      sttgs_dc  <- r$ui_inputs$input_seg$sttgs_DC
+      sttgs_q16 <- r$ui_inputs$input_seg$sttgs_Q16
+      sttgs_q17 <- r$ui_inputs$input_seg$sttgs_Q17
+      sttgs_q14 <- r$ui_inputs$input_seg$sttgs_Q14
+      sttgs_q19 <- r$ui_inputs$input_seg$sttgs_Q19
       for (i in seq_len(num_ds)) {
         ds_list[[i]] <- ds_raw_all[[i]] %>%
           TaskAnalyticsTB::segmentation_analysis(ind1_vals = sttgs_dc(),
@@ -26,7 +21,7 @@ mod_data_segmentation_srv <- function(id, ...,
                         tidyselect::starts_with("kat"))
       }
       names(ds_list) <- paste0("data_", year_seq)
-      ds_list
+      r$datasets$data_seg <- ds_list
     })
   })
 }

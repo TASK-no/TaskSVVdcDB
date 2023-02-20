@@ -66,24 +66,26 @@ mod_plot_overall_ui <- function(id) {
 #' plot_overall Server Functions
 #'
 #' @noRd
-mod_plot_overall_srv <- function(id, data_set_jnd){
-  stopifnot(shiny::is.reactive(data_set_jnd))
+mod_plot_overall_srv <- function(id, r){
+  # stopifnot(shiny::is.reactive(r$datasets$data_plot01))
   shiny::moduleServer(id, function(input, output, session) {
     output$plot_overall <- plotly::renderPlotly({
-      plot_out <- TaskAnalyticsTB::plot_overall(data_set_jnd(),
+      browser()
+      plot_out <- TaskAnalyticsTB::plot_overall(r$datasets$data_plot01(),
                                                 return_type = "shinyDB")
       generate_plotly(plot_out)
     })
   })
 }
-mod_data_overall_srv <- function(id, data_sets_segmented_list) {
-  check_reactive_inputs(data_sets_segmented_list)
+mod_data_overall_srv <- function(id, r) {
+  # check_reactive_inputs(r$datasets$data_cat)
   shiny::moduleServer(id, function(input, output, session) {
     shiny::reactive({
-      data_sets <- data_sets_segmented_list()
-      num_ds   <- length(data_sets)
-      year_seq <- 2020 + 1:num_ds
-      ds_list <- vector("list", num_ds)
+      browser()
+      data_sets <- r$datasets$data_cat()
+      num_ds    <- length(data_sets)
+      year_seq  <- 2020 + 1:num_ds
+      ds_list   <- vector("list", num_ds)
       for (i in seq_len(num_ds)) {
         ds_list[[i]] <- data_sets[[i]] %>%
           filter_for_samansi_leder_cat(year_seq[i],
@@ -96,8 +98,8 @@ mod_data_overall_srv <- function(id, data_sets_segmented_list) {
           TaskAnalyticsTB::get_data_summary(year = year_seq[i], type = "report")
         ds_list[[i]]$year <- as.factor(ds_list[[i]]$year)
       }
-      data_jnd <- do.call(TaskAnalyticsTB::get_data_joined, ds_list)
-      return(data_jnd)
+      r$datasets$data_plot01 <- do.call(TaskAnalyticsTB::get_data_joined,
+                                        ds_list)
     })
   })
 }

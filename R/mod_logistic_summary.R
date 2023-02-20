@@ -28,17 +28,17 @@ mod_logistic_summary_ou <- function(id, name_log_out){
 #' logistic_summary Server Functions
 #'
 #' @noRd
-mod_logistic_summary_srv <- function(id, data_log01, name_log_out){
-  check_reactive_inputs(data_log01)
+mod_logistic_summary_srv <- function(id, r, name_log_out){
+  # check_reactive_inputs(r$datasets$data_log01)
   shiny:: moduleServer( id, function(input, output, session){
-    log_out <- shiny::reactive({
-      data_log <- data_log01()
+    shiny::reactive({
+      data_log <- r$datasets$data_log01()
       data_set <- data_log[["data_chosen"]]
       mod_spec <- data_log[["model_specs"]]
       log_out_all <- TaskAnalyticsTB::logistic_learn(data_set,
                                                      model = mod_spec,
                                                      type = "shinyDB")
-      log_out_all
+      log_out <- log_out_all
     })
     output[[paste0(name_log_out, "_output")]] <- shiny::renderPrint({
       log_out()[[1]]
