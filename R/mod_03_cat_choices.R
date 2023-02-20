@@ -112,7 +112,6 @@ get_list_cat_choices <- function(input_q36, input_q37, input_q38, input_q40) {
       `I noen grad` = "Ja",
       `I stor grad` = "Ja")
   )
-  list_cat_choices <- list_cat_choices
 
   input_q36_taken <- eval(parse(text = input_q36))
   input_q37_taken <- eval(parse(text = input_q37))
