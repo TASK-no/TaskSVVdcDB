@@ -50,7 +50,7 @@ generate_cat_ui <- function(Qxx, headers, sub_ns, choices) {
                                    selected = list(2:4),
                                    position = "grouped"))
 }
-mod_cat_choices_data_srv <- function(id, data_set_seg_all) {
+mod_cat_choices_data_srv <- function(id, r) {
   shiny::moduleServer(id, function(input, output, session) {
     sttgs_fact <- list(ADJUST_LABELS = TRUE,
                        AS_FACTOR = TRUE,
@@ -61,7 +61,7 @@ mod_cat_choices_data_srv <- function(id, data_set_seg_all) {
                                                  input[["cat_Q37"]],
                                                  input[["cat_Q38"]],
                                                  input[["cat_Q40"]])
-      data_segs_cat_all <- data_set_seg_all()
+      data_segs_cat_all <- r$datasets$data_seg()
       data_segs_cat_all[["data_2023"]] <- data_segs_cat_all[["data_2023"]] %>%
         TaskAnalyticsTB::recode_qXX_cats(q_names = c("Q36", "Q37",
                                                      "Q38", "Q40"),
@@ -69,7 +69,8 @@ mod_cat_choices_data_srv <- function(id, data_set_seg_all) {
                                          new_names = c("Q36_c", "Q37_c",
                                                        "Q38_c", "Q40_c"),
                                          SETTINGS_FACT = sttgs_fact)
-      data_segs_cat_all
+      browser()
+      r$datasets$data_cat <- data_segs_cat_all
     })
   })
 }

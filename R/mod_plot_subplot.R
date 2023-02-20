@@ -68,19 +68,19 @@ mod_plot_subplot_ui <- function(id, name_plot_out) {
 #' mod_plot_pie Server Functions
 #'
 #' @noRd
-mod_plot_subplot_srv <- function(id, data_set, name_plot_out){
-  stopifnot(shiny::is.reactive(data_set))
+mod_plot_subplot_srv <- function(id, r, name_dataset, name_plot_out){
+  # stopifnot(shiny::is.reactive(r$datasets[[name_dataset]]))
   shiny::moduleServer(id, function(input, output, session){
     output[[name_plot_out]] <- plotly::renderPlotly({
       year_taken <- input[["slider_year"]]
       if (input[["slider_type"]] == "type_pie") {
-        plot_out <- TaskAnalyticsTB::plot_pie_figures(data_set(),
+        plot_out <- TaskAnalyticsTB::plot_pie_figures(r$datasets[[name_dataset]](),
                                                       year = year_taken,
                                                       return_type = "shinyDB")
         generate_plotly(plot_out,  list(font = list(size = 12)))
       } else if (input[["slider_type"]] == "type_bar") {
         df
-        data_rader <- TaskAnalyticsTB::get_data_summary_radar(data_set())
+        data_rader <- TaskAnalyticsTB::get_data_summary_radar(r$datasets[[name_dataset]]())
         plot_out <- TaskAnalyticsTB::plot_radar(data_rader,
                                                 year_taken,
                                                 return_type = "shinyDB")
@@ -89,8 +89,8 @@ mod_plot_subplot_srv <- function(id, data_set, name_plot_out){
     })
   })
 }
-mod_data_subplot_srv <- function(id, data_sets_segmented_list) {
-  check_reactive_inputs(data_sets_segmented_list)
+mod_data_subplot_srv <- function(id, r, name_dataset) {
+  # check_reactive_inputs(data_sets_segmented_list)
   shiny::moduleServer(id, function(input, output, session) {
     shiny::reactive({
       data_sets <- data_sets_segmented_list()
@@ -105,7 +105,7 @@ mod_data_subplot_srv <- function(id, data_sets_segmented_list) {
       } else {
         type_taken <- "report"
       }
-      ds_used %>%
+      r$datasets[[name_dataset]] <- ds_used %>%
         filter_for_samansi_leder_cat(yr_chosen,
                                      SAMANSI = input[["slider_samansi"]],
                                      LEDER = input[["slider_leder"]],
