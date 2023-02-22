@@ -2,7 +2,7 @@ global <- quote({
   library(magrittr)
   library(TaskAnalyticsTB)
 
-  pth_to_data <- "./data"
+  pth_to_data <- "./inst/extdata"
 
   data_raw_SVV_2021 <- haven::read_sav(file.path(pth_to_data, "2021",
                                                  "SNA80543_210212New_BG_weighted_Tables_JUS_ANT_Ilya.sav")) # 2021
