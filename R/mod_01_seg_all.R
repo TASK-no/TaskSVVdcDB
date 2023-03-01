@@ -42,10 +42,27 @@ mod_01_seg_all_server <- function(id, r){
     settingsQ14 <- mod_seg_q_srv("seg_inputs", num_q = 14)
     settingsQ19 <- mod_seg_q_srv("seg_inputs", num_q = 19)
     browser()
-    shiny::reactive({r$ui_inputs$input_seg <- list(sttgs_DC = settingsDC,
-                                                   sttgs_Q16 = settingsQ16,
-                                                   sttgs_Q17 = settingsQ17,
-                                                   sttgs_Q14 = settingsQ14,
-                                                   sttgs_Q19 = settingsQ19)})
+    # shiny::reactive({r$ui_inputs$input_seg <- list(sttgs_DC = settingsDC,
+    #                                                sttgs_Q16 = settingsQ16,
+    #                                                sttgs_Q17 = settingsQ17,
+    #                                                sttgs_Q14 = settingsQ14,
+    #                                                sttgs_Q19 = settingsQ19)})
+  #   shiny::observeEvent({
+  #     settingsDC;settingsQ16;settingsQ17;settingsQ14;settingsQ19;
+  #   },
+  #   r$ui_inputs$input_seg <- list(sttgs_DC = settingsDC,
+  #                                 sttgs_Q16 = settingsQ16,
+  #                                 sttgs_Q17 = settingsQ17,
+  #                                 sttgs_Q14 = settingsQ14,
+  #                                 sttgs_Q19 = settingsQ19)
+  #   )
+  # })
+    shiny::observe({
+        r$ui_inputs$input_seg <- list(sttgs_DC = settingsDC,
+                                      sttgs_Q16 = settingsQ16,
+                                      sttgs_Q17 = settingsQ17,
+                                      sttgs_Q14 = settingsQ14,
+                                      sttgs_Q19 = settingsQ19)
+    })
   })
 }

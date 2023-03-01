@@ -5,6 +5,7 @@ mod_data_segmentation_srv <- function(id, r, ...) {
   ds_list    <- vector("list", num_ds)
   shiny::moduleServer(id, function(input, output, session) {
     shiny::reactive({
+      browser()
       sttgs_dc  <- r$ui_inputs$input_seg$sttgs_DC
       sttgs_q16 <- r$ui_inputs$input_seg$sttgs_Q16
       sttgs_q17 <- r$ui_inputs$input_seg$sttgs_Q17
