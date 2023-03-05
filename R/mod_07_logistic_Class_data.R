@@ -9,4 +9,6 @@ Data_logistics <- R6::R6Class("Data_logisitics",
                                 data_logistics_all = NULL,
                                 data_logistics_learn = NULL,
                                 data_logistics_predict1 = NULL,
-                                data_logistics_predict2 = NULL))
+                                data_logistics_predict2 = NULL,
+                                get_data_summary = function(){},
+                                get_data_predcts = function(){}))
