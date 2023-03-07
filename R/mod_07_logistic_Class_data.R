@@ -12,6 +12,8 @@ Data_logistics <- R6::R6Class("Data_logisitics",
                                 data_logistics_predict2 = NULL,
                                 get_data_summary = function(){},
                                 get_data_predcts = function(){
+                                  self$data_predict1 <- data_train
+                                  self$data_predict2 <- data_preds
                                   return(list(data_train = NULL,
                                               data_preds = NULL))
                                 }))
