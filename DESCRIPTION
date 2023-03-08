@@ -17,6 +17,7 @@ Imports:
     haven,
     shiny (>= 1.7.2),
     shiny.semantic,
+    gargoyle,
     reactable,
     jsonlite,
     magrittr,
