@@ -34,17 +34,27 @@ generate_seq_ui <- function(Qxx, id_sub, title_seq, sttgs_seq) {
 #' 01_seg_all Server Functions
 #'
 #' @noRd
-mod_01_seg_all_server <- function(id){
+mod_01_seg_all_server <- function(id, r) {
   shiny::moduleServer(id, function(input, output, session) {
-    settingsDC  <- mod_seg_competence_srv("seg_inputs")
-    settingsQ16 <- mod_seg_q_srv("seg_inputs", num_q = 16)
-    settingsQ17 <- mod_seg_q_srv("seg_inputs", num_q = 17)
-    settingsQ14 <- mod_seg_q_srv("seg_inputs", num_q = 14)
-    settingsQ19 <- mod_seg_q_srv("seg_inputs", num_q = 19)
-    list(sttgs_DC = settingsDC,
-         sttgs_Q16 = settingsQ16,
-         sttgs_Q17 = settingsQ17,
-         sttgs_Q14 = settingsQ14,
-         sttgs_Q19 = settingsQ19)
+    # settingsDC  <- mod_seg_competence_srv("seg_inputs")
+    # settingsQ16 <- mod_seg_q_srv("seg_inputs", num_q = 16)
+    # settingsQ17 <- mod_seg_q_srv("seg_inputs", num_q = 17)
+    # settingsQ14 <- mod_seg_q_srv("seg_inputs", num_q = 14)
+    # settingsQ19 <- mod_seg_q_srv("seg_inputs", num_q = 19)
+    # r$seg_inputs <- list(sttgs_DC = settingsDC,
+    #                      sttgs_Q16 = settingsQ16,
+    #                      sttgs_Q17 = settingsQ17,
+    #                      sttgs_Q14 = settingsQ14,
+    #                      sttgs_Q19 = settingsQ19)
+    browser()
+    shiny::observe({
+      r$seg_inputs$settingsDC  <- mod_seg_competence_srv("seg_inputs")
+      r$seg_inputs$settingsQ16 <- mod_seg_q_srv("seg_inputs", num_q = 16)
+      r$seg_inputs$settingsQ17 <- mod_seg_q_srv("seg_inputs", num_q = 17)
+      r$seg_inputs$settingsQ14 <- mod_seg_q_srv("seg_inputs", num_q = 14)
+      r$seg_inputs$settingsQ19 <- mod_seg_q_srv("seg_inputs", num_q = 19)
+      browser()
+      gargoyle::trigger("seg_inputs")
+    })
   })
 }
