@@ -8,16 +8,15 @@ app_server <- function(input, output, session) {
   shiny::observeEvent(input$my_logout, {
     auth0::logout()
   })
-  seg_inputs <- mod_01_seg_all_server("segmentation")
+  r <- shiny::reactiveValues(seg_inputs = shiny::reactiveValues())
+  gargoyle::init("seg_inputs")
+  mod_01_seg_all_server("segmentation", r)
+  browser()
   data_seg_all <- mod_data_segmentation_srv("segmentation",
                                             data_raw_SVV_2021,
                                             data_raw_SVV_2022,
                                             data_raw_SVV_2023,
-                                            sttgs_dc = seg_inputs$sttgs_DC,
-                                            sttgs_q16 = seg_inputs$sttgs_Q16,
-                                            sttgs_q17 = seg_inputs$sttgs_Q17,
-                                            sttgs_q14 = seg_inputs$sttgs_Q14,
-                                            sttgs_q19 = seg_inputs$sttgs_Q19)
+                                            r = r)
 
   data_seg_cat_all <- mod_cat_choices_data_srv("cat_inputs", data_seg_all)
   data_plot01 <- mod_data_overall_srv("plot_01", data_seg_cat_all)
