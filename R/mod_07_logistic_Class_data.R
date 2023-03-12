@@ -1,9 +1,8 @@
 # Design of R6 object for handling logistic data
 Data_logistics <- R6::R6Class("Data_logisitics",
                               public = list(
-                                initialize = function(...) {
-                                  for (item in list(...)) {
-                                    self$add(item)
+                                initialize = function(data_raw) {
+                                  private$..data_raw <- data_raw
                                   }
                                 },
                                 class = FALSE,
@@ -19,4 +18,7 @@ Data_logistics <- R6::R6Class("Data_logisitics",
                                   self$data_predict2 <- data_preds
                                   return(list(data_train = NULL,
                                               data_preds = NULL))
-                                }))
+                                }),
+                              private = list(
+                                ..data_raw = NULL
+                              ))
