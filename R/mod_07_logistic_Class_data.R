@@ -3,8 +3,7 @@ Data_logistics <- R6::R6Class("Data_logisitics",
                               public = list(
                                 initialize = function(data_raw) {
                                   private$..data_raw <- data_raw
-                                  }
-                                },
+                                  },
                                 class = FALSE,
                                 portable = FALSE,
                                 cloneable = FALSE,
