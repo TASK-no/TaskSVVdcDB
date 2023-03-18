@@ -56,7 +56,6 @@ mod_cat_choices_data_srv <- function(id, data_seg) {
                        AS_FACTOR = TRUE,
                        ORDERED = FALSE,
                        ADD_LABELS = TRUE)
-    # shiny::reactive({
     shiny::observeEvent(
       {
         gargoyle::watch("data_seg");
@@ -70,20 +69,9 @@ mod_cat_choices_data_srv <- function(id, data_seg) {
                                                    input[["cat_Q37"]],
                                                    input[["cat_Q38"]],
                                                    input[["cat_Q40"]])
-        # data_segs_cat_all <- data_seg
         data_seg$update_cat23(list_recodes_taken, sttgs_fact)
         gargoyle::trigger("data_cat")
-
-
-        # data_segs_cat_all[["data_2023"]] <- data_segs_cat_all[["data_2023"]] %>%
-        #   TaskAnalyticsTB::recode_qXX_cats(q_names = c("Q36", "Q37",
-        #                                                "Q38", "Q40"),
-        #                                    list_recodes = list_recodes_taken,
-        #                                    new_names = c("Q36_c", "Q37_c",
-        #                                                  "Q38_c", "Q40_c"),
-        #                                    SETTINGS_FACT = sttgs_fact)
       })
-    # return(data_segs_cat_all)
   })
 }
 get_list_cat_choices <- function(input_q36, input_q37, input_q38, input_q40) {
