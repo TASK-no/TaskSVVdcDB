@@ -74,13 +74,13 @@ mod_plot_subplot_srv <- function(id, r, name_dataset, name_plot_out){
     output[[name_plot_out]] <- plotly::renderPlotly({
       year_taken <- input[["slider_year"]]
       if (input[["slider_type"]] == "type_pie") {
-        plot_out <- TaskAnalyticsTB::plot_pie_figures(r$datasets[[name_dataset]](),
+        plot_out <- TaskAnalyticsTB::plot_pie_figures(r$datasets[[name_dataset]],
                                                       year = year_taken,
                                                       return_type = "shinyDB")
         generate_plotly(plot_out,  list(font = list(size = 12)))
       } else if (input[["slider_type"]] == "type_bar") {
         df
-        data_rader <- TaskAnalyticsTB::get_data_summary_radar(r$datasets[[name_dataset]]())
+        data_rader <- TaskAnalyticsTB::get_data_summary_radar(r$datasets[[name_dataset]])
         plot_out <- TaskAnalyticsTB::plot_radar(data_rader,
                                                 year_taken,
                                                 return_type = "shinyDB")
@@ -89,11 +89,22 @@ mod_plot_subplot_srv <- function(id, r, name_dataset, name_plot_out){
     })
   })
 }
-mod_data_subplot_srv <- function(id, r, name_dataset) {
-  # check_reactive_inputs(data_sets_segmented_list)
+mod_data_subplot_srv <- function(id, r, data_seg, name_dataset) {
   shiny::moduleServer(id, function(input, output, session) {
-    shiny::reactive({
-      data_sets <- data_sets_segmented_list()
+    shiny::observeEvent(
+      {
+        gargoyle::watch("data_cat");
+        input[["slider_year"]];
+        input[["slider_type"]];
+        SAMANSI = input[["slider_samansi"]];
+        LEDER = input[["slider_leder"]];
+        CAT_Q36 = input[["slider_q36"]];
+        CAT_Q37 = input[["slider_q37"]];
+        CAT_Q38 = input[["slider_q38"]];
+        CAT_Q40 = input[["slider_q40"]];
+      },
+      {
+      data_sets <- data_seg$get_data_segmentation()
       num_ds    <- length(data_sets)
       year_seq  <- 2020 + 1:num_ds
 
