@@ -70,19 +70,27 @@ mod_plot_overall_srv <- function(id, r){
   # stopifnot(shiny::is.reactive(r$datasets$data_plot01))
   shiny::moduleServer(id, function(input, output, session) {
     output$plot_overall <- plotly::renderPlotly({
-      browser()
-      plot_out <- TaskAnalyticsTB::plot_overall(r$datasets$data_plot01(),
+      plot_out <- TaskAnalyticsTB::plot_overall(r$datasets$data_plot01,
                                                 return_type = "shinyDB")
       generate_plotly(plot_out)
     })
   })
 }
-mod_data_overall_srv <- function(id, r) {
+mod_data_overall_srv <- function(id, r, data_seg) {
   # check_reactive_inputs(r$datasets$data_cat)
   shiny::moduleServer(id, function(input, output, session) {
-    shiny::reactive({
-      browser()
-      data_sets <- r$datasets$data_cat()
+    shiny::observeEvent(
+      {
+        gargoyle::watch("data_cat");
+        input[["slider_samansi"]];
+        input[["slider_leder"]];
+        input[["slider_q36"]];
+        input[["slider_q37"]];
+        input[["slider_q38"]];
+        input[["slider_q40"]];
+      },
+      {
+      data_sets <- data_seg$get_data_segmentation()
       num_ds    <- length(data_sets)
       year_seq  <- 2020 + 1:num_ds
       ds_list   <- vector("list", num_ds)
