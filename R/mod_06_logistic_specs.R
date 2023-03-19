@@ -31,7 +31,7 @@ mod_logistic_regression_specs_01_ui <- function(id) {
   list_multiple <- list(yrs = TRUE,
                         dep = FALSE,
                         exp = FALSE,
-                        reg = FALSE)
+                        reg = TRUE)
   list_out_all <- lapply(list_ids_ui, generate_log_specs_ui,
                          list_sub_ns, list_titles,
                          list_choices,list_selected,
@@ -89,12 +89,11 @@ mod_logistic_regression_specs_01_srv <- function(id,
         gargoyle::watch("data_cat")
       },
       {
-        data_logistics$update_data_base(data_seg)
+        data_logistics$update_data_base(data_seg$get_data_segmentation())
       }
     )
     shiny::observeEvent(
       {
-        gargoyle::watch("data_cat")
         input[["slider_year"]]
       },
       {
@@ -117,7 +116,7 @@ mod_logistic_regression_specs_01_srv <- function(id,
     shiny::observeEvent(
       {
         gargoyle::watch("data_cat");
-        input[["slider_year"]]
+        input[["slider_year"]];
         input[["slider_dep"]];
         input[["slider_reg"]];
         input[["slider_exp"]];

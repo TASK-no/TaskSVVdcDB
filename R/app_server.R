@@ -17,6 +17,7 @@ app_server <- function(input, output, session) {
   data_seg_all <- DataSegmentation$new(r, data_raw_SVV_2021,
                                        data_raw_SVV_2022,
                                        data_raw_SVV_2023)
+  data_logistics_all <- DataLogistics$new(data_seg_all$get_data_segmentation())
   mod_01_seg_all_server("segmentation", r)
   mod_data_segmentation_srv("segmentation", r = r,
                             data_seg = data_seg_all)
@@ -31,9 +32,8 @@ app_server <- function(input, output, session) {
   mod_plot_subplot_srv("plot_02", r, "data_plot02", "sub_01")
   mod_plot_subplot_srv("plot_03", r, "data_plot03", "sub_02")
 
-  data_logistics_all <- DataLogistics$new(data_seg_all$get_data_segmentation())
   mod_logistic_regression_specs_01_srv("logistic_reg_01",
                                        data_logistics_all,
-                                       data_seg_all$get_data_segmentation(),
+                                       data_seg_all,
                                        "logistic_out_01")
 }
