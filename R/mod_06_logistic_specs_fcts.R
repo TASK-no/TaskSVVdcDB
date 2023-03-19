@@ -1,4 +1,5 @@
-get_data_logistics_all <- function(data_set_list, years) {
+get_data_logistics_all <- function(data_set_list, years = NULL) {
+  if(is.null(years)) return(NULL)
   names_ds <- paste0("data_", years)
   if (length(names_ds) > 1) {
     data_chosen  <- data_set_list[names_ds]

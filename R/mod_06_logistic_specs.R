@@ -49,19 +49,91 @@ generate_log_specs_ui <- function(input_type, sub_ns, title,
                                 multiple = mult[[input_type]])
   )
 }
+#' logistic_summary UI Function
+#'
+#' @description A shiny Module.
+#'
+#' @param id,input,output,session Internal parameters for {shiny}.
+#'
+#' @noRd
+#'
+#' @importFrom shiny NS tagList
+mod_logistic_summary_ou <- function(id, name_log_out){
+  ns <- shiny::NS(id)
+  shiny::tagList(
+    add_header("Estimerte effekter av logistisk regresjon: ",
+               size = 5, UNDERLINE = TRUE, EMPHASIZE = TRUE),
+    htmltools::tags$head(htmltools::tags$style(paste0("#", ns(name_log_out),
+                                                      "{color: black;
+                                                        font-size: 16px;
+                                                        font-style: verbatim;}")
+    )
+    ),
+    shiny::verbatimTextOutput(ns(paste0(name_log_out, "_output"))),
+    break_vspace("medium"),
+    add_header("Odds ratioer:",
+               size = 5, UNDERLINE = TRUE, EMPHASIZE = TRUE),
+    shiny::verbatimTextOutput(ns(paste0(name_log_out, "_odds")))
+  )
+}
 #' logistic_regression_specs Server Functions
 #'
 #' @noRd
-mod_logistic_regression_specs_01_srv <- function(id, data_set){
-  check_reactive_inputs(data_set)
+mod_logistic_regression_specs_01_srv <- function(id,
+                                                 data_logistics,
+                                                 data_seg,
+                                                 name_log_out){
   shiny::moduleServer(id, function(input, output, session) {
-    log_out <- shiny::reactive({
-      data_chosen <- get_data_logistics_all(data_set(), input[["slider_year"]])
-      model_specs <- deparse_input_logistic_to_model(dep = input[["slider_dep"]],
-                                                     reg = input[["slider_reg"]],
-                                                     exp = input[["slider_exp"]])
-      list(data_chosen = data_chosen,
-           model_specs = model_specs)
-    })
+    shiny::observeEvent(
+      {
+        gargoyle::watch("data_cat")
+      },
+      {
+        data_logistics$update_data_base(data_seg)
+      }
+    )
+    shiny::observeEvent(
+      {
+        gargoyle::watch("data_cat")
+        input[["slider_year"]]
+      },
+      {
+        data_logistics$update_yrs(input[["slider_year"]])
+      }
+    )
+    shiny::observeEvent(
+      {
+        input[["slider_dep"]];
+        input[["slider_reg"]];
+        input[["slider_exp"]];
+      },
+      {
+        data_logistics$update_mod(
+          dep = input[["slider_dep"]],
+          reg = input[["slider_reg"]],
+          exp = input[["slider_exp"]])
+      }
+    )
+    shiny::observeEvent(
+      {
+        gargoyle::watch("data_cat");
+        input[["slider_year"]]
+        input[["slider_dep"]];
+        input[["slider_reg"]];
+        input[["slider_exp"]];
+      },
+      {
+        log_out <- TaskAnalyticsTB::logistic_learn(
+          data_set = data_logistics$get_data_logistics(),
+          model = data_logistics$get_model_logistics(),
+          type = "shinyDB")
+        output[[paste0(name_log_out, "_output")]] <- shiny::renderPrint({
+          log_out[[1]]
+        })
+        output[[paste0(name_log_out, "_odds")]] <- shiny::renderPrint({
+          log_out[[2]]
+        })
+      }
+      )
   })
 }
