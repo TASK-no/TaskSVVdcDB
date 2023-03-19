@@ -15,9 +15,9 @@ DataSegmentation <- R6::R6Class(
       private$..num_ds   <- length(private$..data_raw)
       private$..year_seq <- 2020 + 1:private$..num_ds
     },
-    get_data_segmentation = function(id = NULL) {
-      if (is.null(id)) return(private$..data_segmentation)
-      return(self$data_segmentation[[id]])
+    get_data_segmentation = function(num = NULL) {
+      if (is.null(num)) return(private$..data_segmentation)
+      return(self$data_segmentation[[num]])
     },
     update_data_segmentation = function(r) {
       private$..r <- r
