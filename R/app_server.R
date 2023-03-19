@@ -31,7 +31,9 @@ app_server <- function(input, output, session) {
   mod_plot_subplot_srv("plot_02", r, "data_plot02", "sub_01")
   mod_plot_subplot_srv("plot_03", r, "data_plot03", "sub_02")
 
-  # data_log01 <- mod_logistic_regression_specs_01_srv("seg_inputs",
-  #                                                    data_seg_cat_all)
-  # mod_logistic_summary_srv("logistic_reg_01", data_log01, "logistic_out_01")
+  data_logistics_all <- DataLogistics$new(data_seg_all$get_data_segmentation())
+  mod_logistic_regression_specs_01_srv("logistic_reg_01",
+                                       data_logistics_all,
+                                       data_seg_all$get_data_segmentation(),
+                                       "logistic_out_01")
 }

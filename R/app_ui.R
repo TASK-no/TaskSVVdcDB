@@ -42,17 +42,17 @@ app_ui <- function(request) {
                      id = "tab_1"),
                 list(menu = "Binaer klassifisering / logistisk regresjon",
                      content = htmltools::div(
-                       # break_vspace("small"),
-                       # add_header("Legg til logistisk regresjonsspesifikasjon",
-                       #            size = 3, UNDERLINE = TRUE, EMPHASIZE = TRUE),
-                       # break_vspace("medium"),
-                       # mod_logistic_regression_specs_01_ui("seg_inputs"),
-                       # break_vspace("small"),
-                       # mod_logistic_summary_ou("logistic_reg_01",
-                       #                         "logistic_out_01"),
-                       # break_vspace("medium"),
-                       # mod_logistic_regression_specs_02_ui("logistic_prd_01",
-                       #                                     200)
+                       break_vspace("small"),
+                       add_header("Legg til logistisk regresjonsspesifikasjon",
+                                  size = 3, UNDERLINE = TRUE, EMPHASIZE = TRUE),
+                       break_vspace("medium"),
+                       mod_logistic_regression_specs_01_ui("logistic_reg_01"),
+                       break_vspace("small"),
+                       mod_logistic_summary_ou("logistic_reg_01",
+                                               "logistic_out_01"),
+                       break_vspace("medium"),
+                       mod_logistic_regression_specs_02_ui("logistic_prd_01",
+                                                           200)
                      ),
                      id = "tab_2")
               ),
