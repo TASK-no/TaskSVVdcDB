@@ -105,11 +105,11 @@ mod_logistic_regression_specs_01_srv <- function(id,
       },
       {
         data_logistics$update_data_base(data_seg$get_data_segmentation())
+        gargoyle::trigger("logistics_run")
       }
     )
     shiny::observeEvent(
       {
-        # input[["slider_year"]];
         input[["run_logistics"]];
       },
       {
@@ -119,11 +119,7 @@ mod_logistic_regression_specs_01_srv <- function(id,
     )
     shiny::observeEvent(
       {
-
         input[["run_logistics"]];
-        # input[["slider_dep"]];
-        # input[["slider_reg"]];
-        # input[["slider_exp"]];
       },
       {
         data_logistics$update_mod(
@@ -136,11 +132,6 @@ mod_logistic_regression_specs_01_srv <- function(id,
     shiny::observeEvent(
       {
         gargoyle::watch("logistics_run");
-        # input[["run_logistics"]];
-        # input[["slider_year"]];
-        # input[["slider_dep"]];
-        # input[["slider_reg"]];
-        # input[["slider_exp"]];
       },
       {
         log_out <- TaskAnalyticsTB::logistic_learn(

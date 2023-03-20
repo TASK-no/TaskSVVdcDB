@@ -7,7 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_cat_choices_ui <- function(id){
+mod_cat_choices_A_ui <- function(id){
   ns <- shiny::NS(id)
   list_QXX <- list("Q36", "Q37", "Q38", "Q40")
   list_headers <- list(Q36 = "Q36 - Kjennskap til 'Digitalt på vei':",
@@ -37,6 +37,12 @@ mod_cat_choices_ui <- function(id){
                     max_cell_width = "250px")
   do.call(shiny.semantic::flow_layout, list_out_all)
 }
+mod_cat_choices_B_ui <- function(id){
+  ns <- shiny::NS(id)
+  shiny.semantic::button(ns("action_cat_choices"),
+                         "Oppdater definisjonen av kategorier!",
+                         icon = shiny.semantic::icon("home"))
+}
 generate_cat_ui <- function(Qxx, headers, sub_ns, choices) {
   shiny::tagList(
     add_header(headers[[Qxx]],
@@ -59,10 +65,7 @@ mod_cat_choices_data_srv <- function(id, data_seg) {
     shiny::observeEvent(
       {
         gargoyle::watch("data_seg");
-        input[["cat_Q36"]];
-        input[["cat_Q37"]];
-        input[["cat_Q38"]];
-        input[["cat_Q40"]];
+        input[["action_cat_choices"]];
       },
       {
         list_recodes_taken <- get_list_cat_choices(input[["cat_Q36"]],

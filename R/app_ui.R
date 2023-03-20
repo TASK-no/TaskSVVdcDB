@@ -26,7 +26,10 @@ app_ui <- function(request) {
           break_vspace("small"),
           add_header("Kjennskap til 'Digitalt på vei'",
                      size = 3, EMPHASIZE = TRUE, UNDERLINE = TRUE),
-          mod_cat_choices_ui("cat_inputs"),
+          mod_cat_choices_A_ui("cat_inputs"),
+          break_vspace("small"),
+          mod_cat_choices_B_ui("cat_inputs"),
+          break_vspace("small"),
           shiny.semantic::tabset(
             tabs =
               list(
@@ -45,11 +48,11 @@ app_ui <- function(request) {
                        break_vspace("small"),
                        add_header("Legg til logistisk regresjonsspesifikasjon",
                                   size = 3, UNDERLINE = TRUE, EMPHASIZE = TRUE),
-                       break_vspace("medium"),
+                       break_vspace("small"),
                        mod_logistic_regression_specs_01_A_ui("logistic_reg_01"),
                        break_vspace("small"),
                        mod_logistic_regression_specs_01_B_ui("logistic_reg_01"),
-                       break_vspace("small"),
+                       break_vspace("medium"),
                        mod_logistic_summary_ou("logistic_reg_01",
                                                "logistic_out_01"),
                        break_vspace("medium"),
