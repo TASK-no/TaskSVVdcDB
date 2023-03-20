@@ -46,7 +46,9 @@ app_ui <- function(request) {
                        add_header("Legg til logistisk regresjonsspesifikasjon",
                                   size = 3, UNDERLINE = TRUE, EMPHASIZE = TRUE),
                        break_vspace("medium"),
-                       mod_logistic_regression_specs_01_ui("logistic_reg_01"),
+                       mod_logistic_regression_specs_01_A_ui("logistic_reg_01"),
+                       break_vspace("small"),
+                       mod_logistic_regression_specs_01_B_ui("logistic_reg_01"),
                        break_vspace("small"),
                        mod_logistic_summary_ou("logistic_reg_01",
                                                "logistic_out_01"),
@@ -65,7 +67,7 @@ app_ui <- function(request) {
                      ),
                      id = "tab_3")
               ),
-            active = "tab_3",
+            active = "tab_2",
             id = "tab_id"
           ),
           width = 5

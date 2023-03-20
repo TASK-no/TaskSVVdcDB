@@ -13,6 +13,7 @@ app_server <- function(input, output, session) {
   gargoyle::init("seg_inputs")
   gargoyle::init("data_seg")
   gargoyle::init("data_cat")
+  gargoyle::init("logistics_run")
 
   data_seg_all <- DataSegmentation$new(r, data_raw_SVV_2021,
                                        data_raw_SVV_2022,

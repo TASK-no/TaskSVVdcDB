@@ -7,7 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_logistic_regression_specs_01_ui <- function(id) {
+mod_logistic_regression_specs_01_A_ui <- function(id) {
   ns <- shiny::NS(id)
   list_ids_ui <- list("yrs", "dep", "exp", "reg")
   list_sub_ns <- list(yrs = ns("slider_year"),
@@ -37,6 +37,21 @@ mod_logistic_regression_specs_01_ui <- function(id) {
                          list_choices,list_selected,
                          list_multiple)
   do.call(shiny::tagList, list_out_all)
+}
+#' logistic_regression_specs UI Function
+#'
+#' @description A shiny Module.
+#'
+#' @param id,input,output,session Internal parameters for {shiny}.
+#'
+#' @noRd
+#'
+#' @importFrom shiny NS tagList
+mod_logistic_regression_specs_01_B_ui <- function(id) {
+  ns <- shiny::NS(id)
+  shiny.semantic::button(ns("run_logistics"),
+                         label = "Kjør logistisk regresjon!",
+                         shiny.semantic::icon("horizontally flipped cloud"))
 }
 generate_log_specs_ui <- function(input_type, sub_ns, title,
                                   choice, select, mult) {
@@ -94,32 +109,38 @@ mod_logistic_regression_specs_01_srv <- function(id,
     )
     shiny::observeEvent(
       {
-        input[["slider_year"]]
+        # input[["slider_year"]];
+        input[["run_logistics"]];
       },
       {
         data_logistics$update_yrs(input[["slider_year"]])
+        gargoyle::trigger("logistics_run")
       }
     )
     shiny::observeEvent(
       {
-        input[["slider_dep"]];
-        input[["slider_reg"]];
-        input[["slider_exp"]];
+
+        input[["run_logistics"]];
+        # input[["slider_dep"]];
+        # input[["slider_reg"]];
+        # input[["slider_exp"]];
       },
       {
         data_logistics$update_mod(
           dep = input[["slider_dep"]],
           reg = input[["slider_reg"]],
           exp = input[["slider_exp"]])
+        gargoyle::trigger("logistics_run")
       }
     )
     shiny::observeEvent(
       {
-        gargoyle::watch("data_cat");
-        input[["slider_year"]];
-        input[["slider_dep"]];
-        input[["slider_reg"]];
-        input[["slider_exp"]];
+        gargoyle::watch("logistics_run");
+        # input[["run_logistics"]];
+        # input[["slider_year"]];
+        # input[["slider_dep"]];
+        # input[["slider_reg"]];
+        # input[["slider_exp"]];
       },
       {
         log_out <- TaskAnalyticsTB::logistic_learn(
@@ -133,6 +154,6 @@ mod_logistic_regression_specs_01_srv <- function(id,
           log_out[[2]]
         })
       }
-      )
+    )
   })
 }
