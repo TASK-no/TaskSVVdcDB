@@ -54,9 +54,18 @@ app_ui <- function(request) {
                        mod_logistic_regression_specs_02_ui("logistic_prd_01",
                                                            200)
                      ),
-                     id = "tab_2")
+                     id = "tab_2"),
+                list(menu = "Datanedlasting",
+                     content = htmltools::div(
+                       break_vspace("small"),
+                       add_header("Velg type data og datainnstillinger for nedlasting",
+                                  size = 3, UNDERLINE = TRUE, EMPHASIZE = TRUE),
+                       mod_08_data_download_ui("data_download"),
+                       mod_08_data_table_ui("data_download")
+                     ),
+                     id = "tab_3")
               ),
-            active = "tab_1",
+            active = "tab_3",
             id = "tab_id"
           ),
           width = 5
