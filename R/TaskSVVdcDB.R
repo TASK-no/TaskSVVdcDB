@@ -14,5 +14,8 @@
 #' @docType package
 #' @name TaskSVVdcDB
 #' @importFrom magrittr `%>%`
+#' @importFrom grDevices rgb
+#' @importFrom stats df
+#' @importFrom utils write.csv
 NULL
 #> NULL
