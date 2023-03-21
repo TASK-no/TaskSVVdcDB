@@ -42,7 +42,7 @@ mod_08_data_download_ui <- function(id){
     shiny::actionButton(
       inputId = ns("action"),
       label = "Nedlasting!",
-      icon = icon("download")
+      icon = shiny.semantic::icon("download")
     ),
     break_vspace(size = "small")
   )
@@ -54,7 +54,7 @@ mod_08_data_table_ui <- function(id){
 #' 08_data_download Server Functions
 #'
 #' @noRd
-mod_08_data_download_server <- function(id, filename) {
+mod_08_data_download_server <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
     data_to_download <- shiny::reactive({
