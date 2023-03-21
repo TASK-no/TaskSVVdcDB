@@ -15,19 +15,19 @@ mod_08_data_download_ui <- function(id){
         add_header(paste("Data-type"), size = 5),
         shiny.semantic::selectInput(ns("data_type"),
                                     label = "",
-                                    choices = c("Rådata"),
+                                    choices = get_data_names_norsk(1:5),
                                     multiple = FALSE)
       ),
-      shiny::tagList(
-        add_header( paste0("\u00c5", "r "), size = 5),
-        shiny.semantic::selectInput(ns("year_taken"),
-                                    label = "",
-                                    choices = c("2021" = 2021,
-                                                "2022" = 2022,
-                                                "2023" = 2023),
-                                    selected = 2021,
-                                    multiple = TRUE)
-      ),
+      # shiny::tagList(
+      #   add_header( paste0("\u00c5", "r "), size = 5),
+      #   shiny.semantic::selectInput(ns("year_taken"),
+      #                               label = "",
+      #                               choices = c("2021" = 2021,
+      #                                           "2022" = 2022,
+      #                                           "2023" = 2023),
+      #                               selected = 2021,
+      #                               multiple = TRUE)
+      # ),
       shiny::tagList(
         add_header("Dataformat", size = 5),
         shiny.semantic::selectInput(ns("data_format"),
@@ -54,19 +54,14 @@ mod_08_data_table_ui <- function(id){
 #' 08_data_download Server Functions
 #'
 #' @noRd
-mod_08_data_download_server <- function(id) {
+mod_08_data_download_server <- function(id, r) {
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
     data_to_download <- shiny::reactive({
-      if (input[["data_type"]] == "Rådata") {
-        get_raw_data(input[["year_taken"]])
-      }
+      get_data(input, r)
     })
     shiny::observeEvent(input$action, {
       shiny.semantic::show_modal('download_modal')
-    })
-    shiny::observeEvent(input$cancel, {
-      shiny.semantic::hide_modal('download_modal')
     })
     shiny::observeEvent(input$cancel, {
       shiny.semantic::hide_modal('download_modal')
