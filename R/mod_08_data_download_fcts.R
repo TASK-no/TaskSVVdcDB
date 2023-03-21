@@ -8,7 +8,7 @@ get_raw_data <- function(yrs) {
 modal_download <- function(ns, session_passed) {
   shiny.semantic::create_modal(
     shiny.semantic::modal(
-      shiny.semantic::action_button(ns("cancel"), "Cancel/Close"),
+      shiny.semantic::action_button(ns("cancel"), "Avbryt/lukk."),
       id = ns("download_modal"),
       header = htmltools::h3("Download the file?", style = "text-align: center;"),
       footer = htmltools::tagList(
