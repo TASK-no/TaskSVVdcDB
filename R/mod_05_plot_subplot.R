@@ -93,15 +93,17 @@ mod_data_subplot_srv <- function(id, r, data_seg, name_dataset) {
   shiny::moduleServer(id, function(input, output, session) {
     shiny::observeEvent(
       {
-        gargoyle::watch("data_cat");
-        input[["slider_year"]];
-        input[["slider_type"]];
-        SAMANSI = input[["slider_samansi"]];
-        LEDER = input[["slider_leder"]];
-        CAT_Q36 = input[["slider_q36"]];
-        CAT_Q37 = input[["slider_q37"]];
-        CAT_Q38 = input[["slider_q38"]];
-        CAT_Q40 = input[["slider_q40"]];
+        list(
+          gargoyle::watch("data_cat"),
+          input[["slider_year"]],
+          input[["slider_type"]],
+          SAMANSI = input[["slider_samansi"]],
+          LEDER = input[["slider_leder"]],
+          CAT_Q36 = input[["slider_q36"]],
+          CAT_Q37 = input[["slider_q37"]],
+          CAT_Q38 = input[["slider_q38"]],
+          CAT_Q40 = input[["slider_q40"]]
+        )
       },
       {
       data_sets <- data_seg$get_data_segmentation()

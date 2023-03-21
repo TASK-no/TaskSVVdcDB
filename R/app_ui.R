@@ -70,7 +70,7 @@ app_ui <- function(request) {
                      ),
                      id = "tab_3")
               ),
-            active = "tab_2",
+            active = "tab_1",
             id = "tab_id"
           ),
           width = 5

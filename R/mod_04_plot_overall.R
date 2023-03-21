@@ -81,13 +81,16 @@ mod_data_overall_srv <- function(id, r, data_seg) {
   shiny::moduleServer(id, function(input, output, session) {
     shiny::observeEvent(
       {
-        gargoyle::watch("data_cat");
-        input[["slider_samansi"]];
-        input[["slider_leder"]];
-        input[["slider_q36"]];
-        input[["slider_q37"]];
-        input[["slider_q38"]];
-        input[["slider_q40"]];
+        list(
+          gargoyle::watch("data_cat"),
+          input[["slider_samansi"]],
+          input[["slider_leder"]],
+          input[["slider_q36"]],
+          input[["slider_q37"]],
+          input[["slider_q38"]],
+          input[["slider_q40"]]
+        )
+
       },
       {
       data_sets <- data_seg$get_data_segmentation()

@@ -41,14 +41,11 @@ mod_01_seg_all_server <- function(id, r) {
     settingsQ17 <- mod_seg_q_srv("seg_inputs", num_q = 17)
     settingsQ14 <- mod_seg_q_srv("seg_inputs", num_q = 14)
     settingsQ19 <- mod_seg_q_srv("seg_inputs", num_q = 19)
+
     shiny::observeEvent(
       eventExpr = {
-        settingsDC();
-        settingsDC();
-        settingsQ16();
-        settingsQ17();
-        settingsQ14();
-        settingsQ19();
+        list(settingsDC(), settingsDC(),settingsQ16(),
+             settingsQ17(), settingsQ14(), settingsQ19())
       },
       handlerExpr = {
       r$seg_inputs$sttgs_DC  <- settingsDC()

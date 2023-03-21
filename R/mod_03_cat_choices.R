@@ -64,8 +64,8 @@ mod_cat_choices_data_srv <- function(id, data_seg) {
                        ADD_LABELS = TRUE)
     shiny::observeEvent(
       {
-        gargoyle::watch("data_seg");
-        input[["action_cat_choices"]];
+        list(tmp1 = gargoyle::watch("data_seg"),
+             tmp2 = input[["action_cat_choices"]])
       },
       {
         list_recodes_taken <- get_list_cat_choices(input[["cat_Q36"]],
