@@ -64,7 +64,8 @@ download_handler_content_01 <- function(file, input, data_set){
       write.csv(data_set(), file,
                 row.names = FALSE, fileEncoding =  "utf-16")
     } else if(input$data_format == "xls") {
-      xlsx::write.xlsx(data_set(), file, row.names = FALSE)
+      writexl::write_xlsx(data_set(), file)
+      # xlsx::write.xlsx(data_set(), file, row.names = FALSE)
     } else if(input$data_format == "spss") {
       haven::write_sav(data_set(), file)
     }

@@ -17,7 +17,7 @@ Imports:
     dplyr,
     config,
     purrr,
-    xlsx,
+    writexl,
     shiny (>= 1.7.2),
     shiny.semantic,
     gargoyle,
