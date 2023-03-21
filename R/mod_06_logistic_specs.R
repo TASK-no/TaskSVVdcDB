@@ -139,11 +139,31 @@ mod_logistic_regression_specs_01_srv <- function(id,
           model = data_logistics$get_model_logistics(),
           type = "shinyDB")
         output[[paste0(name_log_out, "_output")]] <- shiny::renderPrint({
-          log_out[[1]]
+          log_out[["model_summary"]]
         })
         output[[paste0(name_log_out, "_odds")]] <- shiny::renderPrint({
-          log_out[[2]]
+          log_out[["odds_info"]]
         })
+        if(isTRUE(log_out[["fail_conv"]])) {
+          msg_non_conv <- paste0("Algoritmen konvergerte ikke, noe som ",
+                                 "gj", "\u00f8", "r estimeringsresultatene ",
+                                 "svært upålitelige! Juster regressorer eller",
+                                 "andre variabler og kjør estimeringen på nytt.")
+            shiny.semantic::create_modal(shiny.semantic::modal(
+              id = "simple-modal",
+              header = htmltools::h2("Dette er et viktig budskap!"),
+              msg_non_conv))
+        }
+        if(isTRUE(log_out[["fail_num"]])) {
+          msg_non_conv <- paste0("Algoritmen fikk numeriske problemer som gjør",
+                                 "estimeringsresultatene svært upålitelige!",
+                                 " Juster regressorer eller andre variabler",
+                                 "og kjør estimeringen på nytt.")
+          shiny.semantic::create_modal(shiny.semantic::modal(
+            id = "simple-modal",
+            header = htmltools::h2("Dette er et viktig budskap!"),
+            msg_non_conv))
+        }
       }
     )
   })
