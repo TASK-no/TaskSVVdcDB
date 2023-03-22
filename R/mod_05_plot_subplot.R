@@ -24,7 +24,6 @@ mod_plot_subplot_ui <- function(id, name_plot_out) {
                                        is_marked = FALSE,
                                        type = "slider"),
         add_header(paste0("Velg ", "\u00e5", "rstall"), size = 5),
-        # shiny::tags$h5(paste0("Velg ", "\u00e5", "rstall")),
         shiny.semantic::selectInput(ns("slider_year"),
                                     label = "",
                                     choices = c(2021, 2022, 2023),
@@ -40,11 +39,10 @@ mod_plot_subplot_ui <- function(id, name_plot_out) {
                                        is_marked = FALSE,
                                        type = "slider"),
         add_header("Velg type", size = 5),
-        # shiny::tags$h5("Velg type"),
         shiny.semantic::selectInput(ns("slider_type"),
                                     label = "",
-                                    choices = c(`Ekspertiseomrader inndelt i kompetanse` = "type_pie",
-                                                `Kompetanse inndelt i kompetanseomr` = "type_bar"),
+                                    choices = c(`Digital kompetanse fordelt på kompetanseområder` = "type_pie",
+                                                `Kompetanseområder inndelt i digitale kompetanser` = "type_bar"),
                                     width = "310px")
       ),
       shiny::tagList(
@@ -57,8 +55,9 @@ mod_plot_subplot_ui <- function(id, name_plot_out) {
                                        is_marked = FALSE,
                                        type = "slider"),
         add_header(paste0("Fordelt p", "\u00e5" ," divisjoner"), size = 5),
-        shiny.semantic::checkbox_input(ns("divisions"),
-                                       is_marked = FALSE)
+        shiny.semantic::selectInput(ns("divisions_subsection"),
+                                    label = "",
+                                    choices = get_choices_divisions(kind = "into_area"))
       ),
       min_cell_width = "75px",
       max_cell_width = "320px",
