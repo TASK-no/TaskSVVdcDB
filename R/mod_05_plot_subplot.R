@@ -79,7 +79,6 @@ mod_plot_subplot_srv <- function(id, r, name_dataset, name_plot_out){
                                                       return_type = "shinyDB")
         generate_plotly(plot_out,  list(font = list(size = 12)))
       } else if (input[["slider_type"]] == "type_bar") {
-        df
         data_rader <- TaskAnalyticsTB::get_data_summary_radar(r$datasets[[name_dataset]])
         plot_out <- TaskAnalyticsTB::plot_radar(data_rader,
                                                 year_taken,
