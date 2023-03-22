@@ -1,16 +1,31 @@
 get_data_names_norsk <- function(num) {
   c("Rådata 2021", "Rådata 2022", "Rådata 2023",
+    "Segmenteringsdata",
     "Overordnede/hovedplottdata",
-    "Ekspertise og kompetanse data for delplott")[num]
+    "Delplottdata (første)",
+    "Delplottdata (andre)",
+    "Logistiske regresjonsdata (alle)",
+    "Logistiske regresjonsdata (opplæring)",
+    "Logistiske regresjonsdata (prediksjon)")[num]
 }
-get_data <- function(input, r) {
+get_data <- function(input, r, data_seg, data_log) {
   if (input[["data_type"]] %in% get_data_names_norsk(1:3)) {
     year_taken <- get_year_raw_data(input[["data_type"]])
     get_raw_data(year_taken)
   } else if(input[["data_type"]] == get_data_names_norsk(4)) {
-    r$datasets$data_plot01
+    data_seg$get_data_segmentation()
   } else if(input[["data_type"]] == get_data_names_norsk(5)) {
+    r$datasets$data_plot01
+  } else if(input[["data_type"]] == get_data_names_norsk(6)) {
     r$datasets$data_plot02
+  } else if(input[["data_type"]] == get_data_names_norsk(7)) {
+    r$datasets$data_plot03
+  } else if(input[["data_type"]] == get_data_names_norsk(8)) {
+    # r$datasets$data_plot02
+  } else if(input[["data_type"]] == get_data_names_norsk(9)) {
+    # r$datasets$data_plot02
+  } else if(input[["data_type"]] == get_data_names_norsk(10)) {
+    # r$datasets$data_plot02
   }
 }
 get_year_raw_data <- function(data_name) {
@@ -51,9 +66,9 @@ download_handler_filename_01 <- function(input) {
                         "spss" = ".sav")
     if (input[["data_type"]] %in% get_data_names_norsk(1:3)) {
       return(paste0("data_raw_SVV_", extension))
-    } else if (input[["data_type"]] == get_data_names_norsk(4)) {
-      return(paste0("data_plot_overall", extension))
     } else if (input[["data_type"]] == get_data_names_norsk(5)) {
+      return(paste0("data_plot_overall", extension))
+    } else if (input[["data_type"]] == get_data_names_norsk(6)) {
       return(paste0("data_subplot_competence_expertise", extension))
     }
   }

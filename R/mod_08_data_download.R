@@ -15,7 +15,7 @@ mod_08_data_download_ui <- function(id){
         add_header(paste("Data-type"), size = 5),
         shiny.semantic::selectInput(ns("data_type"),
                                     label = "",
-                                    choices = get_data_names_norsk(1:5),
+                                    choices = get_data_names_norsk(1:10),
                                     multiple = FALSE)
       ),
       # shiny::tagList(
@@ -54,11 +54,11 @@ mod_08_data_table_ui <- function(id){
 #' 08_data_download Server Functions
 #'
 #' @noRd
-mod_08_data_download_server <- function(id, r) {
+mod_08_data_download_server <- function(id, r, data_seg, data_log) {
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
     data_to_download <- shiny::reactive({
-      get_data(input, r)
+      get_data(input, r, data_seg, data_log)
     })
     shiny::observeEvent(input$action, {
       shiny.semantic::show_modal('download_modal')
