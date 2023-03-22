@@ -15,7 +15,7 @@ mod_08_data_download_ui <- function(id){
         add_header(paste("Data-type"), size = 5),
         shiny.semantic::selectInput(ns("data_type"),
                                     label = "",
-                                    choices = get_data_names_norsk(1:10),
+                                    choices = get_data_names_norsk(num = 1:12),
                                     multiple = FALSE)
       ),
       # shiny::tagList(

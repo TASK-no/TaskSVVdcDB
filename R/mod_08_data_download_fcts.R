@@ -1,31 +1,49 @@
-get_data_names_norsk <- function(num) {
-  c("Rådata 2021", "Rådata 2022", "Rådata 2023",
-    "Segmenteringsdata",
-    "Overordnede/hovedplottdata",
-    "Delplottdata (første)",
-    "Delplottdata (andre)",
-    "Logistiske regresjonsdata (alle)",
-    "Logistiske regresjonsdata (opplæring)",
-    "Logistiske regresjonsdata (prediksjon)")[num]
+get_data_names_norsk <- function(name = NULL, num = NULL) {
+  vec_data_names <- c(raw_data_2021 = "Rådata 2021",
+                      raw_data_2022 = "Rådata 2022",
+                      raw_data_2023 = "Rådata 2023",
+                      seg_data_2021 = "Segmenteringsdata 2021",
+                      seg_data_2022 = "Segmenteringsdata 2022",
+                      seg_data_2023 = "Segmenteringsdata 2023",
+                      overall_data = "Overordnede/hovedplottdata",
+                      subplot_data_01 = "Delplottdata (første)",
+                      subplot_data_02 = "Delplottdata (andre)",
+                      log_data_all = "Logistiske regresjonsdata (alle)",
+                      log_data_trn = "Logistiske regresjonsdata (opplæring)",
+                      log_data_prd = "Logistiske regresjonsdata (prediksjon)")
+  if (is.null(name) && !is.null(num)) {
+    unname(vec_data_names[num])
+  } else if (!is.null(name) && is.null(num)) {
+    vec_data_names[[name]]
+  } else if (!is.null(name) && !is.null(num)) {
+    warning("Both arguments specified, but name argument takes precedence ...")
+    vec_data_names[[name]]
+  } else {
+    stop("Specify exactly one argument: either 'name' or 'num'.")
+  }
 }
 get_data <- function(input, r, data_seg, data_log) {
-  if (input[["data_type"]] %in% get_data_names_norsk(1:3)) {
+  if (input[["data_type"]] %in% get_data_names_norsk(num = 1:3)) {
     year_taken <- get_year_raw_data(input[["data_type"]])
     get_raw_data(year_taken)
-  } else if(input[["data_type"]] == get_data_names_norsk(4)) {
-    data_seg$get_data_segmentation()
-  } else if(input[["data_type"]] == get_data_names_norsk(5)) {
+  } else if(input[["data_type"]] == get_data_names_norsk("seg_data_2021")) {
+    data_seg$get_data_segmentation()[["data_2021"]]
+  }  else if(input[["data_type"]] == get_data_names_norsk("seg_data_2022")) {
+    data_seg$get_data_segmentation()[["data_2022"]]
+  }  else if(input[["data_type"]] == get_data_names_norsk("seg_data_2023")) {
+    data_seg$get_data_segmentation()[["data_2023"]]
+  } else if(input[["data_type"]] == get_data_names_norsk("overall_data")) {
     r$datasets$data_plot01
-  } else if(input[["data_type"]] == get_data_names_norsk(6)) {
+  } else if(input[["data_type"]] == get_data_names_norsk("subplot_data_01")) {
     r$datasets$data_plot02
-  } else if(input[["data_type"]] == get_data_names_norsk(7)) {
+  } else if(input[["data_type"]] == get_data_names_norsk("subplot_data_02")) {
     r$datasets$data_plot03
-  } else if(input[["data_type"]] == get_data_names_norsk(8)) {
-    # r$datasets$data_plot02
-  } else if(input[["data_type"]] == get_data_names_norsk(9)) {
-    # r$datasets$data_plot02
-  } else if(input[["data_type"]] == get_data_names_norsk(10)) {
-    # r$datasets$data_plot02
+  } else if(input[["data_type"]] == get_data_names_norsk("log_data_all")) {
+    data_log$get_data_logistics()
+  } else if(input[["data_type"]] == get_data_names_norsk("log_data_trn")) {
+    data_log$get_data_logistics()
+  } else if(input[["data_type"]] == get_data_names_norsk("log_data_prd")) {
+    data_log$get_data_logistics()
   }
 }
 get_year_raw_data <- function(data_name) {
@@ -64,12 +82,26 @@ download_handler_filename_01 <- function(input) {
                         "csv" = ".csv",
                         "xls" = ".xlsx",
                         "spss" = ".sav")
-    if (input[["data_type"]] %in% get_data_names_norsk(1:3)) {
+    if (input[["data_type"]] %in% get_data_names_norsk(num = 1:3)) {
       return(paste0("data_raw_SVV_", extension))
-    } else if (input[["data_type"]] == get_data_names_norsk(5)) {
+    } else if (input[["data_type"]] %in% get_data_names_norsk("seg_data_2021")) {
+      return(paste0("data_segmentation_2021", extension))
+    } else if (input[["data_type"]] %in% get_data_names_norsk("seg_data_2022")) {
+      return(paste0("data_segmentation_2022", extension))
+    } else if (input[["data_type"]] %in% get_data_names_norsk("seg_data_2023")) {
+      return(paste0("data_segmentation_2023", extension))
+    } else if (input[["data_type"]] == get_data_names_norsk("overall_data")) {
       return(paste0("data_plot_overall", extension))
-    } else if (input[["data_type"]] == get_data_names_norsk(6)) {
-      return(paste0("data_subplot_competence_expertise", extension))
+    } else if (input[["data_type"]] == get_data_names_norsk("subplot_data_01")) {
+      return(paste0("data_subplot_01", extension))
+    } else if (input[["data_type"]] %in% get_data_names_norsk("subplot_data_02")) {
+      return(paste0("data_subplot_02", extension))
+    } else if (input[["data_type"]] %in% get_data_names_norsk("log_data_all")) {
+      return(paste0("data_logistics_all", extension))
+    } else if (input[["data_type"]] %in% get_data_names_norsk("log_data_trn")) {
+      return(paste0("data_logistics_training", extension))
+    } else if (input[["data_type"]] %in% get_data_names_norsk("log_data_prd")) {
+      return(paste0("data_logistics_prediction", extension))
     }
   }
 }
@@ -80,7 +112,6 @@ download_handler_content_01 <- function(file, input, data_set){
                 row.names = FALSE, fileEncoding =  "utf-16")
     } else if(input$data_format == "xls") {
       writexl::write_xlsx(data_set(), file)
-      # xlsx::write.xlsx(data_set(), file, row.names = FALSE)
     } else if(input$data_format == "spss") {
       haven::write_sav(data_set(), file)
     }
