@@ -5,9 +5,9 @@ account: cologne-analytics
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 8317417
-bundleId: 6857488
+bundleId: 6997303
 url: https://cologne-analytics.shinyapps.io/TaskSVVdcDB/
-when: 1676633373.40539
-lastSyncTime: 1676633373.40541
+when: 1679569504.69975
+lastSyncTime: 1679569504.69976
 asMultiple: FALSE
 asStatic: FALSE
