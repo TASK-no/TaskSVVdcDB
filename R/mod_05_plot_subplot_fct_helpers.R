@@ -1,11 +1,11 @@
 get_choices_divisions <- function(kind = "into_area") {
-  tmp_into_area <- c(`Samlet (ikke inndelt i divisjoner` = "all",
+  tmp_into_area <- c(`Samlet (ikke inndelt i divisjoner)` = "all",
                      `Uerfaren` = "Uerfaren",
                      `Grunnleggende` = "Grunnleggende",
                      `Videregående` = "Videregående",
                      `Avansert` = "Avansert")
 
-  tmp_into_competence <- c(`Samlet (ikke inndelt i divisjoner` = "all",
+  tmp_into_competence <- c(`Samlet (ikke inndelt i divisjoner)` = "all",
                            `Kommunikasjon og samhandling` = "Kommunikasjon og samhandling",
                            `Informasjonssikkerhet og personvern` = "Informasjonssikkerhet og personvern",
                            `Bruk av programvare` = "Bruk av programvare",
