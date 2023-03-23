@@ -10,10 +10,8 @@ app_server <- function(input, output, session) {
   })
   r <- shiny::reactiveValues(seg_inputs = shiny::reactiveValues(),
                              datasets = shiny::reactiveValues())
-  gargoyle::init("seg_inputs")
-  gargoyle::init("data_seg")
-  gargoyle::init("data_cat")
-  gargoyle::init("logistics_run")
+  gargoyle::init("seg_inputs", "data_seg", "data_cat", "logistics_run",
+                 "compute_data_plot02", "compute_data_plot03")
 
   data_seg_all <- DataSegmentation$new(r, data_raw_SVV_2021,
                                        data_raw_SVV_2022,
@@ -28,7 +26,10 @@ app_server <- function(input, output, session) {
   mod_data_overall_srv("plot_01", r, data_seg_all)
   mod_data_subplot_srv("plot_02", r, data_seg_all, "data_plot02")
   mod_data_subplot_srv("plot_03", r, data_seg_all, "data_plot03")
-  #
+
+  mod_observe_subplot_srv("plot_02")
+  mod_observe_subplot_srv("plot_03")
+
   mod_plot_overall_srv("plot_01", r)
   mod_plot_subplot_srv("plot_02", r, "data_plot02", "sub_01")
   mod_plot_subplot_srv("plot_03", r, "data_plot03", "sub_02")
