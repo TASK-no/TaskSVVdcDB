@@ -75,20 +75,29 @@ generate_log_specs_ui <- function(input_type, sub_ns, title,
 #' @importFrom shiny NS tagList
 mod_logistic_summary_ou <- function(id, name_log_out){
   ns <- shiny::NS(id)
-  shiny::tagList(
-    add_header("Estimerte effekter av logistisk regresjon: ",
-               size = 5, UNDERLINE = TRUE, EMPHASIZE = TRUE),
-    htmltools::tags$head(htmltools::tags$style(paste0("#", ns(name_log_out),
-                                                      "{color: black;
+  shiny.semantic::flow_layout(
+    shiny::tagList(
+      add_header("Estimerte effekter av logistisk regresjon: ",
+                 size = 5, UNDERLINE = TRUE, EMPHASIZE = TRUE),
+      htmltools::tags$head(htmltools::tags$style(paste0("#", ns(name_log_out),
+                                                        "{color: black;
                                                         font-size: 16px;
                                                         font-style: verbatim;}")
-    )
+      )
+      ),
+      shiny::verbatimTextOutput(ns(paste0(name_log_out, "_output"))),
     ),
-    shiny::verbatimTextOutput(ns(paste0(name_log_out, "_output"))),
-    break_vspace("medium"),
-    add_header("Odds ratioer:",
-               size = 5, UNDERLINE = TRUE, EMPHASIZE = TRUE),
-    shiny::verbatimTextOutput(ns(paste0(name_log_out, "_odds")))
+    shiny::tagList(add_header("                    ",
+                              size = 5, UNDERLINE = FALSE, EMPHASIZE = FALSE)),
+    shiny::tagList(add_header("                    ",
+                              size = 5, UNDERLINE = FALSE, EMPHASIZE = FALSE)),
+    shiny::tagList(add_header("Odds ratioer:",
+                              size = 5, UNDERLINE = TRUE, EMPHASIZE = TRUE),
+                   shiny::verbatimTextOutput(ns(paste0(name_log_out, "_odds"))),
+                   add_header("Pseudo R^2:",
+                              size = 5, UNDERLINE = TRUE, EMPHASIZE = TRUE),
+                   shiny::verbatimTextOutput(ns(paste0(name_log_out, "_psR2"))),
+                   shiny::htmlOutput(ns(paste0(name_log_out, "_R2_TEXT"))))
   )
 }
 #' logistic_regression_specs Server Functions
@@ -141,8 +150,14 @@ mod_logistic_regression_specs_01_srv <- function(id,
         output[[paste0(name_log_out, "_output")]] <- shiny::renderPrint({
           log_out[["model_summary"]]
         })
+        output[[paste0(name_log_out, "_psR2")]] <- shiny::renderPrint({
+          log_out[["psR2_info"]]
+        })
         output[[paste0(name_log_out, "_odds")]] <- shiny::renderPrint({
           log_out[["odds_info"]]
+        })
+        output[[paste0(name_log_out, "_R2_TEXT")]] <- shiny::renderUI({
+          htmltools::HTML(get_mcfadden_text())
         })
         if(isTRUE(log_out[["fail_conv"]])) {
           msg_non_conv <- paste0("Algoritmen konvergerte ikke, noe som ",
