@@ -23,7 +23,6 @@ app_ui <- function(request) {
           width = 2
         ),
         main_panel = shiny.semantic::main_panel(
-          break_vspace("small"),
           add_header("Kjennskap til 'Digitalt på vei'",
                      size = 3, EMPHASIZE = TRUE, UNDERLINE = TRUE),
           mod_cat_choices_A_ui("cat_inputs"),
@@ -35,7 +34,6 @@ app_ui <- function(request) {
               list(
                 list(menu = "Preliminaer dataanalyse",
                      content = htmltools::div(
-                       break_vspace("small"),
                        mod_plot_overall_ui("plot_01"),
                        break_vspace("small"),
                        mod_plot_subplot_ui("plot_02", "sub_01"),
@@ -45,7 +43,6 @@ app_ui <- function(request) {
                      id = "tab_1"),
                 list(menu = "Binaer klassifisering / logistisk regresjon",
                      content = htmltools::div(
-                       break_vspace("small"),
                        add_header("Legg til logistisk regresjonsspesifikasjon",
                                   size = 3, UNDERLINE = TRUE, EMPHASIZE = TRUE),
                        break_vspace("small"),
@@ -62,7 +59,6 @@ app_ui <- function(request) {
                      id = "tab_2"),
                 list(menu = "Datanedlasting",
                      content = htmltools::div(
-                       break_vspace("small"),
                        add_header("Velg type data og datainnstillinger for nedlasting",
                                   size = 3, UNDERLINE = TRUE, EMPHASIZE = TRUE),
                        mod_08_data_download_ui("data_download"),
