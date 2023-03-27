@@ -54,6 +54,12 @@ mod_plot_overall_ui <- function(id) {
                                        is_marked = FALSE,
                                        type = "slider")
       ),
+      shiny.semantic::flow_layout(
+        add_header(paste0("Fordelt p", "\u00e5" ," divisjoner"), size = 5),
+        shiny.semantic::selectInput(ns("division_type"),
+                                    label = "",
+                                    choices = get_choices_divisions(kind = "into_area"))
+      ),
       min_cell_width = "75px",
       max_cell_width = "340px"
     ),
