@@ -8,19 +8,19 @@
 #' @importFrom shiny shinyApp
 #' @importFrom golem with_golem_options
 run_app <- function(
-  onStart = NULL,
-  options = list(),
-  enableBookmarking = NULL,
-  uiPattern = "/",
-  ...
-) {
+    onStart = NULL,
+    options = list(),
+    enableBookmarking = NULL,
+    uiPattern = "/",
+    ...) {
   with_golem_options(
     app = shinyApp(
       ui = app_ui,
       server = app_server,
       onStart = purrr::partial(eval,
-                               expr = global,
-                               envir = globalenv()),
+        expr = global,
+        envir = globalenv()
+      ),
       options = options,
       enableBookmarking = enableBookmarking,
       uiPattern = uiPattern
@@ -42,17 +42,18 @@ run_app_auth0 <- function(
     options = list(),
     enableBookmarking = NULL,
     uiPattern = "/",
-    ...
-) {
+    ...) {
   with_golem_options(
     app = auth0::shinyAppAuth0(
       ui = app_ui(),
       server = app_server,
       config_file = system.file("app/_auth0.yml",
-                                package = "TaskSVVdcDB"),
+        package = "TaskSVVdcDB"
+      ),
       onStart = purrr::partial(eval,
-                               expr = global,
-                               envir = globalenv()),
+        expr = global,
+        envir = globalenv()
+      ),
       options = options,
       enableBookmarking = enableBookmarking,
       uiPattern = uiPattern

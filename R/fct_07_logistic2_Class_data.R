@@ -1,4 +1,4 @@
-#' 07_logistic2_Class_data 
+#' 07_logistic2_Class_data
 #'
 #' @description A fct function
 #'

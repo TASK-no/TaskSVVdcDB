@@ -24,7 +24,8 @@ DataLogistics <- R6::R6Class(
       private$..mod <- deparse_input_logistic_to_model(
         dep = dep,
         reg = reg,
-        exp = exp)
+        exp = exp
+      )
     }
   ),
   private = list(
@@ -32,4 +33,5 @@ DataLogistics <- R6::R6Class(
     ..data_logistics_base = NULL,
     ..data_logistics = NULL,
     ..mod = NULL
-  ))
+  )
+)

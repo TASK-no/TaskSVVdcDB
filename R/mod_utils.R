@@ -14,13 +14,17 @@ break_vspace <- function(size) {
   if (size == "small") {
     return(htmltools::tagList(htmltools::tags$br()))
   } else if (size == "medium") {
-    return(htmltools::tagList(htmltools::tags$br(),
-                              htmltools::tags$br(),
-                              htmltools::tags$br()))
+    return(htmltools::tagList(
+      htmltools::tags$br(),
+      htmltools::tags$br(),
+      htmltools::tags$br()
+    ))
   } else if (size == "large") {
-    return(htmltools::tagList(htmltools::tags$br(), htmltools::tags$br(),
-                              htmltools::tags$br(), htmltools::tags$br(),
-                              htmltools::tags$br(), htmltools::tags$br()))
+    return(htmltools::tagList(
+      htmltools::tags$br(), htmltools::tags$br(),
+      htmltools::tags$br(), htmltools::tags$br(),
+      htmltools::tags$br(), htmltools::tags$br()
+    ))
   } else {
     stop("Unknown size argument or typo!")
   }
@@ -51,11 +55,22 @@ add_header <- function(text, size = 1, UNDERLINE = FALSE, EMPHASIZE = FALSE) {
     text_out <- htmltools::tags$u(text_out)
   }
   switch(size,
-         `1` = {text_out <- htmltools::h1(text_out)},
-         `2` = {text_out <- htmltools::h2(text_out)},
-         `3` = {text_out <- htmltools::h3(text_out)},
-         `4` = {text_out <- htmltools::h4(text_out)},
-         `5` = {text_out <- htmltools::h5(text_out)})
+    `1` = {
+      text_out <- htmltools::h1(text_out)
+    },
+    `2` = {
+      text_out <- htmltools::h2(text_out)
+    },
+    `3` = {
+      text_out <- htmltools::h3(text_out)
+    },
+    `4` = {
+      text_out <- htmltools::h4(text_out)
+    },
+    `5` = {
+      text_out <- htmltools::h5(text_out)
+    }
+  )
   return(text_out)
 }
 #' Check if arguments to function call are reactive
@@ -101,12 +116,14 @@ get_segmentation_sub_settings <- function(sum_score_val_grun,
                                           type_val_grun,
                                           type_val_vide,
                                           type_val_avan) {
-  list(sum_score_val_grun = sum_score_val_grun,
-       sum_score_val_vide = sum_score_val_vide,
-       sum_score_val_avan = sum_score_val_avan,
-       type_val_grun = type_val_grun,
-       type_val_vide = type_val_vide,
-       type_val_avan = type_val_avan)
+  list(
+    sum_score_val_grun = sum_score_val_grun,
+    sum_score_val_vide = sum_score_val_vide,
+    sum_score_val_avan = sum_score_val_avan,
+    type_val_grun = type_val_grun,
+    type_val_vide = type_val_vide,
+    type_val_avan = type_val_avan
+  )
 }
 generate_plotly <- function(ggplot_to_use,
                             sttgs_legend = NULL,
@@ -125,7 +142,7 @@ filter_for_samansi_leder <- function(ds, year, SAMANSI, LEDER) {
   if (SAMANSI && year == 2022) {
     data_out <- data_out %>% dplyr::filter(.data$SamAnsi == 1)
   }
-  if(LEDER) {
+  if (LEDER) {
     data_out <- data_out %>% dplyr::filter(.data$leder_c == "Ja")
   }
   return(data_out)
@@ -137,19 +154,19 @@ filter_for_samansi_leder_cat <- function(ds, year, SAMANSI, LEDER,
   if (SAMANSI && year == 2022) {
     data_out <- data_out %>% dplyr::filter(.data$SamAnsi == 1)
   }
-  if(LEDER) {
+  if (LEDER) {
     data_out <- data_out %>% dplyr::filter(.data$leder_c == "Ja")
   }
-  if(CAT_Q36 && year == 2023) {
+  if (CAT_Q36 && year == 2023) {
     data_out <- data_out %>% dplyr::filter(.data$Q36_c == "Ja")
   }
-  if(CAT_Q37 && year == 2023) {
+  if (CAT_Q37 && year == 2023) {
     data_out <- data_out %>% dplyr::filter(.data$Q37_c == "Ja")
   }
-  if(CAT_Q38 && year == 2023) {
+  if (CAT_Q38 && year == 2023) {
     data_out <- data_out %>% dplyr::filter(.data$Q38_c == "Ja")
   }
-  if(CAT_Q40 && year == 2023) {
+  if (CAT_Q40 && year == 2023) {
     data_out <- data_out %>% dplyr::filter(.data$Q40_c == "Ja")
   }
   return(data_out)

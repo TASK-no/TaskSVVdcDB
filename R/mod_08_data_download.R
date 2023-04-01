@@ -7,16 +7,17 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_08_data_download_ui <- function(id){
+mod_08_data_download_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny.semantic::flow_layout(
       shiny::tagList(
         add_header(paste("Data-type"), size = 5),
         shiny.semantic::selectInput(ns("data_type"),
-                                    label = "",
-                                    choices = get_data_names_norsk(num = 1:12),
-                                    multiple = FALSE)
+          label = "",
+          choices = get_data_names_norsk(num = 1:12),
+          multiple = FALSE
+        )
       ),
       # shiny::tagList(
       #   add_header( paste0("\u00c5", "r "), size = 5),
@@ -31,11 +32,14 @@ mod_08_data_download_ui <- function(id){
       shiny::tagList(
         add_header("Dataformat", size = 5),
         shiny.semantic::selectInput(ns("data_format"),
-                                    label = "",
-                                    choices = c("csv (.csv)" = "csv",
-                                                "excel (.xlsx)" = "xls",
-                                                "spss (.sav)" = "spss"),
-                                    multiple = FALSE)
+          label = "",
+          choices = c(
+            "csv (.csv)" = "csv",
+            "excel (.xlsx)" = "xls",
+            "spss (.sav)" = "spss"
+          ),
+          multiple = FALSE
+        )
       )
     ),
     break_vspace(size = "small"),
@@ -47,7 +51,7 @@ mod_08_data_download_ui <- function(id){
     break_vspace(size = "small")
   )
 }
-mod_08_data_table_ui <- function(id){
+mod_08_data_table_ui <- function(id) {
   ns <- shiny::NS(id)
   reactable::reactableOutput(ns("table"))
 }
@@ -61,15 +65,15 @@ mod_08_data_download_server <- function(id, r, data_seg, data_log) {
       get_data(input, r, data_seg, data_log)
     })
     shiny::observeEvent(input$action, {
-      shiny.semantic::show_modal('download_modal')
+      shiny.semantic::show_modal("download_modal")
     })
     shiny::observeEvent(input$cancel, {
-      shiny.semantic::hide_modal('download_modal')
+      shiny.semantic::hide_modal("download_modal")
     })
     shiny::observeEvent(
       input$action,
       {
-        modal_download(ns,session_passed = shiny::getDefaultReactiveDomain())
+        modal_download(ns, session_passed = shiny::getDefaultReactiveDomain())
       }
     )
     output$dataDownload <- shiny::downloadHandler(
@@ -78,6 +82,8 @@ mod_08_data_download_server <- function(id, r, data_seg, data_log) {
     )
     output$table <- reactable::renderReactable({
       reactable::reactable(data_to_download(),
-                           defaultPageSize = 35)})
+        defaultPageSize = 35
+      )
+    })
   })
 }

@@ -12,11 +12,13 @@ DataSegmentation <- R6::R6Class(
     initialize = function(r, ...) {
       private$..r <- r
       private$..data_raw <- list(...)
-      private$..num_ds   <- length(private$..data_raw)
+      private$..num_ds <- length(private$..data_raw)
       private$..year_seq <- 2020 + 1:private$..num_ds
     },
     get_data_segmentation = function(num = NULL) {
-      if (is.null(num)) return(private$..data_segmentation)
+      if (is.null(num)) {
+        return(private$..data_segmentation)
+      }
       return(self$data_segmentation[[num]])
     },
     update_data_segmentation = function(r) {
@@ -43,9 +45,12 @@ DataSegmentation <- R6::R6Class(
             settings_q16 = private$..r[["seg_inputs"]][["sttgs_Q16"]],
             settings_q17 = private$..r[["seg_inputs"]][["sttgs_Q17"]],
             settings_q14 = private$..r[["seg_inputs"]][["sttgs_Q14"]],
-            settings_q19 = private$..r[["seg_inputs"]][["sttgs_Q19"]]) %>%
-          dplyr::select(tidyselect::any_of(var_to_use_after_seg),
-                        tidyselect::starts_with("kat"))
+            settings_q19 = private$..r[["seg_inputs"]][["sttgs_Q19"]]
+          ) %>%
+          dplyr::select(
+            tidyselect::any_of(var_to_use_after_seg),
+            tidyselect::starts_with("kat")
+          )
       }
       names(ds_list) <- paste0("data_", private$..year_seq)
       private$..data_segmentation <- ds_list
@@ -54,12 +59,18 @@ DataSegmentation <- R6::R6Class(
     run_cat23 = function(list_recodes,
                          SETTINGS_FACT) {
       private$..data_segmentation[["data_2023"]] <- private$..data_segmentation[["data_2023"]] %>%
-        TaskAnalyticsTB::recode_qXX_cats(q_names = c("Q36", "Q37",
-                                                     "Q38", "Q40"),
-                                         list_recodes = list_recodes,
-                                         new_names = c("Q36_c", "Q37_c",
-                                                       "Q38_c", "Q40_c"),
-                                         SETTINGS_FACT = SETTINGS_FACT)
+        TaskAnalyticsTB::recode_qXX_cats(
+          q_names = c(
+            "Q36", "Q37",
+            "Q38", "Q40"
+          ),
+          list_recodes = list_recodes,
+          new_names = c(
+            "Q36_c", "Q37_c",
+            "Q38_c", "Q40_c"
+          ),
+          SETTINGS_FACT = SETTINGS_FACT
+        )
     }
   )
 )
