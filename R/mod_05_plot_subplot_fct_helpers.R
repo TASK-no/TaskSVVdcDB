@@ -12,7 +12,8 @@ get_choices_divisions <- function(kind = "into_area") {
     `Kommunikasjon og samhandling` = "Kommunikasjon og samhandling",
     `Informasjonssikkerhet og personvern` = "Informasjonssikkerhet og personvern",
     `Bruk av programvare` = "Bruk av programvare",
-    `Bruk av teknologi` = "Bruk av teknologi"
+    `Bruk av teknologi` = "Bruk av teknologi",
+    `Alle kompetanser` = "Alle kompetanser"
   )
   if (kind == "into_area") {
     return(tmp_into_area)
