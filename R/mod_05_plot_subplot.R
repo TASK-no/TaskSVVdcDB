@@ -126,11 +126,15 @@ mod_plot_subplot_srv <- function(id, r, name_dataset, name_plot_out) {
             } else {
               data_divisions <- r$datasets[[name_dataset]] %>%
                 dplyr::filter(.data$category == input[["division_type"]])
+              lab_y_axis <- ifelse(
+                input[["division_type"]] ==  "Alle kompetanser",
+                "Digital kompetanse i divisjonene",
+                "Digital kompetanse i divisjonene (per kompetanseområde)")
               plot_out <- TaskAnalyticsTB::plot_division(
                 data_divisions,
                 year_taken,
                 input[["division_type"]],
-                "Digital kompetanse i divisjonene (per kompetanseområde)"
+                lab_y_axis
               )
               generate_plotly(plot_out)
             }
