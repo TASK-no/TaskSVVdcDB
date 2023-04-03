@@ -26,8 +26,7 @@ mod_01_seg_all_ui <- function(id) {
     lapply(seq_num_q, generate_seq_ui,
       id_sub = ns("seg_inputs"),
       title_seq = seq_title, sttgs_seq = settings_seg
-    ),
-    auth0::logoutButton(label = "Logg ut", id = "my_logout")
+    )
   )
 }
 generate_seq_ui <- function(Qxx, id_sub, title_seq, sttgs_seq) {
