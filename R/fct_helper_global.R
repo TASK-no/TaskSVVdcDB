@@ -1,4 +1,12 @@
-global <- quote({
+#' helper_global
+#'
+#' @description A fct function
+#'
+#' @return The return value, if any, from executing the function.
+#'
+#' @noRd
+get_var_to_use <- function(num) {
+  tmp_var_exp <- paste0("var_to_use", num)
   var_to_use1 <- c(
     "SamGender", "SamAnsi", "SamAge", "h_age", "SamDivision",
     "leder_c", "utdanning_c"
@@ -7,10 +15,15 @@ global <- quote({
   var_to_use3 <- c("Q22", paste0("Q25r", 1:7))
   var_to_use4 <- c("Q36", "Q37", "Q38", "Q39", "Q40")
   var_to_use5 <- c("Q36_c", "Q37_c", "Q38_c", "Q40_c")
-
-  var_to_use_before_seg <- var_to_use2
-  var_to_use_after_seg <- c(var_to_use1, var_to_use3, var_to_use4)
-
+  eval(parse(text = tmp_var_exp))
+}
+get_var_to_use_after_seg <- function() {
+  c(get_var_to_use(1),
+    get_var_to_use(3),
+    get_var_to_use(4))
+}
+get_exp_all <- function(num) {
+  tmp_var_exp <- paste0("experience_all", 1)
   experience_all1 <- "Uerfaren og Grunnleggende"
   experience_all2 <- paste0("Grunnleggende og ", paste0(
     "Videreg",
@@ -21,7 +34,10 @@ global <- quote({
     paste0("Videreg", "\u00e5", "ende og "),
     "Avansert"
   )
-  settings_logistic <- list(
+  eval(parse(text = tmp_var_exp))
+}
+get_sttgs_log <- function(sub_elem = NULL) {
+  li_out <- list(
     var_dep_choices = c(
       "kat_kommunikasjon",
       "kat_informasjon1",
@@ -35,16 +51,21 @@ global <- quote({
       "Bruk av teknologi"
     ),
     var_reg_choices = c(
-      var_to_use1,
-      var_to_use3,
-      var_to_use4,
-      var_to_use5,
+      get_var_to_use(1),
+      get_var_to_use(3),
+      get_var_to_use(4),
+      get_var_to_use(5),
       "year"
     ),
     var_exp_choices = c(
-      experience_all1,
-      experience_all2,
-      experience_all3
+      get_exp_all(1),
+      get_exp_all(2),
+      get_exp_all(3)
     )
   )
-})
+  if (is.null(sub_elem)) {
+    return(li_out)
+  }
+  stopifnot(`Unknown value for arg 'sub_elem'` = sub_elem %in% names(li_out))
+  li_out[[sub_elem]]
+}

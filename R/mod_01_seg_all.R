@@ -25,7 +25,7 @@ mod_01_seg_all_ui <- function(id) {
     break_vspace("small"),
     lapply(seq_num_q, generate_seq_ui,
       id_sub = ns("seg_inputs"),
-      title_seq = seq_title, sttgs_seq = settings_seg
+      title_seq = seq_title, sttgs_seq =  get_sttgs_seg()
     )
   )
 }

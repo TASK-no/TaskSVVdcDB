@@ -30,15 +30,15 @@ mod_logistic_regression_specs_01_A_ui <- function(id) {
   )
   list_choices <- list(
     yrs = c(2021, 2022, 2023),
-    dep = settings_logistic$lab_dep_choices,
-    exp = settings_logistic$var_exp_choices,
-    reg = settings_logistic$var_reg_choices
+    dep = get_sttgs_log("lab_dep_choices"),
+    exp = get_sttgs_log("var_exp_choices"),
+    reg = get_sttgs_log("var_reg_choices")
   )
   list_selected <- list(
     yrs = 2021,
     dep = NULL,
     exp = NULL,
-    reg = settings_logistic$var_reg_choices[1]
+    reg = get_sttgs_log("var_reg_choices")[1]
   )
   list_multiple <- list(
     yrs = TRUE,

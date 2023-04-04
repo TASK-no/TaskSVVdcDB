@@ -1,5 +1,5 @@
 get_sttgs_seg <- function() {
-  settings_seg <- list(
+ list(
     Q16 = list(
       grun = list(
         sum_score_val = 4,

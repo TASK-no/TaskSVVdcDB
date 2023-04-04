@@ -32,7 +32,7 @@ get_data_logistics_all <- function(data_set_list, years = NULL) {
   }
 }
 deparse_input_logistic_to_model <- function(dep, reg, exp) {
-  dep_taken <- settings_logistic$var_dep_choices[which(settings_logistic$lab_dep_choices %in% dep)]
+  dep_taken <- get_sttgs_log("var_dep_choices")[which(get_sttgs_log("lab_dep_choices") %in% dep)]
   mod_deparsed <- list(
     dependent = dep_taken,
     regressors = reg

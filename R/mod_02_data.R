@@ -48,7 +48,7 @@ DataSegmentation <- R6::R6Class(
             settings_q19 = private$..r[["seg_inputs"]][["sttgs_Q19"]]
           ) %>%
           dplyr::select(
-            tidyselect::any_of(var_to_use_after_seg),
+            tidyselect::any_of(get_var_to_use_after_seg()),
             tidyselect::starts_with("kat")
           )
       }
