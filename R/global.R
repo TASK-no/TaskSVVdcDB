@@ -11,65 +11,6 @@ global <- quote({
   var_to_use_before_seg <- var_to_use2
   var_to_use_after_seg <- c(var_to_use1, var_to_use3, var_to_use4)
 
-  settings_seg <- list(
-    Q16 = list(
-      grun = list(
-        sum_score_val = 4,
-        type_val = "larger-equal"
-      ),
-      vide = list(
-        sum_score_val = 2,
-        type_val = "larger-equal"
-      ),
-      avan = list(
-        sum_score_val = 2,
-        type_val = "equal"
-      )
-    ),
-    Q17 = list(
-      grun = list(
-        sum_score_val = 3,
-        type_val = "larger-equal"
-      ),
-      vide = list(
-        sum_score_val = 3,
-        type_val = "equal"
-      ),
-      avan = list(
-        sum_score_val = 3,
-        type_val = "equal"
-      )
-    ),
-    Q14 = list(
-      grun = list(
-        sum_score_val = 2,
-        type_val = "larger-equal"
-      ),
-      vide = list(
-        sum_score_val = 3,
-        type_val = "equal"
-      ),
-      avan = list(
-        sum_score_val = 2,
-        type_val = "equal"
-      )
-    ),
-    Q19 = list(
-      grun = list(
-        sum_score_val = 2,
-        type_val = "larger-equal"
-      ),
-      vide = list(
-        sum_score_val = 5,
-        type_val = "equal"
-      ),
-      avan = list(
-        sum_score_val = 3,
-        type_val = "equal"
-      )
-    )
-  )
-
   experience_all1 <- "Uerfaren og Grunnleggende"
   experience_all2 <- paste0("Grunnleggende og ", paste0(
     "Videreg",
