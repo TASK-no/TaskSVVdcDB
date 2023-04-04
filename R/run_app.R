@@ -17,10 +17,10 @@ run_app <- function(
     app = shinyApp(
       ui = app_ui,
       server = app_server,
-      onStart = purrr::partial(eval,
-        expr = global,
-        envir = globalenv()
-      ),
+      # onStart = purrr::partial(eval,
+      #   expr = global,
+      #   envir = globalenv()
+      # ),
       options = options,
       enableBookmarking = enableBookmarking,
       uiPattern = uiPattern
@@ -28,7 +28,7 @@ run_app <- function(
     golem_opts = list(...)
   )
 }
-#' Run the Shiny Application
+#' Run the Shiny Application with auth0
 #'
 #' @param ... arguments to pass to golem_opts.
 #' See `?golem::get_golem_options` for more details.
@@ -43,6 +43,7 @@ run_app_auth0 <- function(
     enableBookmarking = NULL,
     uiPattern = "/",
     ...) {
+  browser()
   with_golem_options(
     app = auth0::shinyAppAuth0(
       ui = app_ui(),
@@ -50,10 +51,10 @@ run_app_auth0 <- function(
       config_file = system.file("app/_auth0.yml",
         package = "TaskSVVdcDB"
       ),
-      onStart = purrr::partial(eval,
-        expr = global,
-        envir = globalenv()
-      ),
+      # onStart = purrr::partial(eval,
+      #   expr = global,
+      #   envir = globalenv()
+      # ),
       options = options,
       enableBookmarking = enableBookmarking,
       uiPattern = uiPattern

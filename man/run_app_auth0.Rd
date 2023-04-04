@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_app.R
 \name{run_app_auth0}
 \alias{run_app_auth0}
-\title{Run the Shiny Application}
+\title{Run the Shiny Application with auth0}
 \usage{
 run_app_auth0(
   onStart = NULL,
@@ -37,5 +37,5 @@ expression in order for the match to be considered successful.}
 See `?golem::get_golem_options` for more details.}
 }
 \description{
-Run the Shiny Application
+Run the Shiny Application with auth0
 }
