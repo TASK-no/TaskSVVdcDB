@@ -6,7 +6,6 @@ RUN installGithub.r TASK-no/TaskAnalyticsTB \
 WORKDIR /home/TaskSVVdcDB
 COPY app.R app.R
 COPY deploy.R deploy.R
-COPY deploy.R deploy.R
 COPY DESCRIPTION DESCRIPTION
 COPY NAMESPACE NAMESPACE
 ADD R R
