@@ -8,6 +8,7 @@ COPY app.R app.R
 COPY deploy.R deploy.R
 COPY DESCRIPTION DESCRIPTION
 COPY NAMESPACE NAMESPACE
-ADD R R
 ADD data data
+ADD inst inst
+ADD R R
 CMD Rscript deploy.R
