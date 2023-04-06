@@ -23,9 +23,9 @@ app_ui <- function(request) {
     shiny.semantic::semanticPage(
       shiny::titlePanel(title = title_used),
       shiny.semantic::sidebar_layout(
-        auth0::logoutButton(label = "Log out",
-                            id = "my_logout"),
         sidebar_panel = shiny.semantic::sidebar_panel(
+          auth0::logoutButton(label = "Log out",
+                              id = "my_logout"),
           mod_01_seg_all_ui("segmentation"),
           width = 2
         ),

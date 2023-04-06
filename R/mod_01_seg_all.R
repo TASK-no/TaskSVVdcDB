@@ -21,6 +21,10 @@ mod_01_seg_all_ui <- function(id) {
       size = 2,
       UNDERLINE = TRUE, EMPHASIZE = TRUE
     ),
+    shiny.semantic::action_button(
+      ns("run_segmentation"),
+      label = paste0("Kj", "\u00f8", "r segmentering!")
+    ),
     mod_seg_competence_ui(ns("seg_inputs")),
     break_vspace("small"),
     lapply(seq_num_q, generate_seq_ui,
@@ -50,10 +54,11 @@ mod_01_seg_all_server <- function(id, r) {
 
     shiny::observeEvent(
       eventExpr = {
-        list(
-          settingsDC(), settingsDC(), settingsQ16(),
-          settingsQ17(), settingsQ14(), settingsQ19()
-        )
+        # list(
+          input[["run_segmentation"]]
+          # settingsDC(), settingsDC(), settingsQ16(),
+          # settingsQ17(), settingsQ14(), settingsQ19()
+        # )
       },
       handlerExpr = {
         r$seg_inputs$sttgs_DC <- settingsDC()
