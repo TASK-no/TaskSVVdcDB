@@ -1,6 +1,6 @@
 name: Run on push master, main
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
@@ -23,13 +23,13 @@ jobs:
 
       # build the docker image and give it the name main
       - name: Build image
-        run: docker build -t main . 
-      # run the docker image supply the secrets from the github secrets store.  
+        run: docker build -t main .
+      # run the docker image supply the secrets from the github secrets store.
       - name: execute
         run: >
-          docker run 
-          -e SHINY_ACC_NAME=${{ secrets.SHINY_ACC_NAME }} 
-          -e TOKEN=${{secrets.TOKEN}} 
-          -e SECRET=${{secrets.SECRET}} 
-          -e MASTERNAME=${{secrets.MASTER_NAME}} 
+          docker run
+          -e SHINY_ACC_NAME=${{ vars.SHINY_ACC_NAME }}
+          -e TOKEN=${{secrets.TOKEN}}
+          -e SECRET=${{secrets.SECRET}}
+          -e MASTERNAME=${{vars.MASTER_NAME}}
           main
