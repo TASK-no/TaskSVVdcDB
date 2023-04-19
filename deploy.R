@@ -16,7 +16,7 @@ rsconnect::setAccountInfo(
 )
 # Deploy the application.
 rsconnect::deployApp(forceUpdate = TRUE,
-                     appName = error_on_missing_name("TEST_NAME"),
+                     appName = error_on_missing_name("APP_NAME"),
                      account = "cologne-analytics")
 #   appFiles = c(
 #     "app.R" # , you can specify which files to deploy,
