@@ -14,11 +14,9 @@ rsconnect::setAccountInfo(
   token = error_on_missing_name("TOKEN"),
   secret = error_on_missing_name("SECRET")
 )
-branch_name <- system("git rev-parse --abbrev-ref HEAD", intern = TRUE)
-if (branch_name == "main") {branch_name <- "MASTERNAME"} else {branch_name <- "TEST_NAME"}
 # Deploy the application.
 rsconnect::deployApp(forceUpdate = TRUE,
-                     appName = error_on_missing_name(branch_name),
+                     appName = error_on_missing_name("APP_NAME"),
                      account = "cologne-analytics")
 #   appFiles = c(
 #     "app.R" # , you can specify which files to deploy,
