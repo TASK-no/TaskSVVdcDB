@@ -32,6 +32,8 @@ DataLogistics <- R6::R6Class(
         private$..num_obs_prdct <- min(num_obs, private$..num_obs_all)
         private$..num_obs_train <- private$..num_obs_all - private$..num_obs_prdct
       }
+      private$update_data_log_train()
+      private$update_data_log_prdct()
     },
     update_data_base = function(data_seg) {
       private$..data_logistics_base <- data_seg
