@@ -24,7 +24,8 @@ Imports:
     reactable,
     magrittr,
     plotly,
-    auth0
+    auth0,
+    InformationValue
 Depends: R (>= 3.5.0)
 Encoding: UTF-8
 LazyData: true
