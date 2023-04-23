@@ -50,5 +50,7 @@ app_server <- function(input, output, session) {
   )
   mod_logistic_regression_specs_02_srv("logistic_reg_01",
                                        data_logistics_all)
+  mod_logistics_classification_run_server("logistic_cls_01",
+                                          data_logistics_all)
   mod_08_data_download_server("data_download", r, data_seg_all, data_logistics_all)
 }
