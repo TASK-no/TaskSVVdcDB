@@ -68,9 +68,7 @@ app_ui <- function(request) {
                     ),
                     break_vspace("medium"),
                     mod_logistic_regression_specs_02_ui(
-                      "logistic_prd_01",
-                      200
-                    )
+                      "logistic_reg_01")
                   ),
                   id = "tab_2"
                 ),
