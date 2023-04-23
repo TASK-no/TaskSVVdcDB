@@ -15,13 +15,9 @@ rsconnect::setAccountInfo(
   secret = error_on_missing_name("SECRET")
 )
 # Deploy the application.
+# IF USED INTERNALLY RUN:
+# Sys.setenv("APP_NAME" = Sys.getenv("TEST_NAME"))
+# IF FROM GITHUB ACTION THEN UNCOMMENT ABOVE LINE
 rsconnect::deployApp(forceUpdate = TRUE,
                      appName = error_on_missing_name("APP_NAME"),
                      account = "cologne-analytics")
-#   appFiles = c(
-#     "app.R" # , you can specify which files to deploy,
-#     # or keep this NULL to deploy everything
-#   ),
-#   appName = error_on_missing_name("MASTERNAME"),
-#   appTitle = "shinyapplication"
-# )
