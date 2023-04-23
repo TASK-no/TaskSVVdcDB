@@ -8,7 +8,6 @@ DataLogistics <- R6::R6Class(
       }
     },
     get_data_logistics = function(type = "all") {
-      browser()
       if(type == "all") return(private$..data_logistics)
       if(type == "train") {
         return(private$..data_logistics_train)

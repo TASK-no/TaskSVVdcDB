@@ -73,7 +73,6 @@ mod_logistic_regression_specs_02_srv <- function(id, class_data_log) {
             value = class_data_log$get_num_obs("prdct")
           )
         }
-
       }
     )
     shiny::observeEvent(
