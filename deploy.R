@@ -8,6 +8,16 @@ error_on_missing_name <- function(name) {
   }
   gsub("\"", "", var)
 }
+#
+set_env_deploy <- function() {
+  branch_name <- system("git rev-parse --abbrev-ref HEAD", intern = TRUE)
+  if (branch_name != "main") {
+    env_var_name <- "TEST_NAME"
+  } else {
+    env_var_name <- "MASTERNAME"
+  }
+  Sys.setenv("APP_NAME" = Sys.getenv(env_var_name))
+}
 # Authenticate
 rsconnect::setAccountInfo(
   name = error_on_missing_name("SHINY_ACC_NAME"),
@@ -15,13 +25,9 @@ rsconnect::setAccountInfo(
   secret = error_on_missing_name("SECRET")
 )
 # Deploy the application.
+# IF USED INTERNALLY RUN:
+# set_env_deploy()
+# IF FROM GITHUB ACTION THEN UNCOMMENT ABOVE LINE
 rsconnect::deployApp(forceUpdate = TRUE,
                      appName = error_on_missing_name("APP_NAME"),
                      account = "cologne-analytics")
-#   appFiles = c(
-#     "app.R" # , you can specify which files to deploy,
-#     # or keep this NULL to deploy everything
-#   ),
-#   appName = error_on_missing_name("MASTERNAME"),
-#   appTitle = "shinyapplication"
-# )
