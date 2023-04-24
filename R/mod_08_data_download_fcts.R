@@ -43,9 +43,9 @@ get_data <- function(input, r, data_seg, data_log) {
   } else if (input[["data_type"]] == get_data_names_norsk("log_data_all")) {
     data_log$get_data_logistics()
   } else if (input[["data_type"]] == get_data_names_norsk("log_data_trn")) {
-    data_log$get_data_logistics()
+    data_log$get_data_logistics(type = "train")
   } else if (input[["data_type"]] == get_data_names_norsk("log_data_prd")) {
-    data_log$get_data_logistics()
+    data_log$get_data_logistics(type = "prdct")
   }
 }
 get_year_raw_data <- function(data_name) {

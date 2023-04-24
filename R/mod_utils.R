@@ -46,7 +46,6 @@ break_vspace <- function(size) {
 #' @return the corresponding html-format string
 #' @export
 add_header <- function(text, size = 1, UNDERLINE = FALSE, EMPHASIZE = FALSE) {
-  # browser()
   text_out <- text
   if (EMPHASIZE) {
     text_out <- htmltools::tags$em(text_out)
