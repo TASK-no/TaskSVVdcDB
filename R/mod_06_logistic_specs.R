@@ -100,9 +100,7 @@ mod_logistic_summary_ou <- function(id, name_log_out) {
       ),
       htmltools::tags$head(htmltools::tags$style(paste0(
         "#", ns(name_log_out),
-        "{color: black;
-                                                        font-size: 16px;
-                                                        font-style: verbatim;}"
+        "{color: black;font-size: 16px;font-style: verbatim;}"
       ))),
       shiny::verbatimTextOutput(ns(paste0(name_log_out, "_output"))),
     ),
