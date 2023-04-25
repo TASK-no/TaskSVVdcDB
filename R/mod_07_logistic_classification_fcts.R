@@ -13,3 +13,41 @@ get_roc_text <- function() {
 
   paste(msg0, paste(msg1, msg2, msg3, sep = "<br/> <br/>"), sep = "<br/>")
 }
+plot_roc <- function(true_ones, preds) {
+  if (!(is.null(true_ones) || is.null(preds))) {
+    df_tmp <- data.frame(true_ones = true_ones, preds = preds)
+    df_tmp <- data.frame(true_ones = true_ones, preds = preds)
+    roc_plot <- ggplot2::ggplot(
+      df_tmp,
+      ggplot2::aes(d = .data$true_ones, m = .data$preds)) +
+      plotROC::geom_roc(labelround = 2, n.cuts = 15)
+    roc_plot <- roc_plot +
+      plotROC::style_roc(theme = ggplot2::theme_grey) +
+      ggplot2::ggtitle("ROC curve") +
+      ggplot2::annotate("text", x = .75, y = .25,
+                        label = paste(
+                          "AUC =",
+                          round(plotROC::calc_auc(roc_plot)$AUC, 4))) +
+      ggplot2::scale_x_continuous("1 - Specificity (FPR)") +
+      ggplot2::scale_y_continuous("Sensitivity (TPR)")
+    plotROC <- shiny::renderUI({
+      htmltools::HTML(
+        plotROC::export_interactive_roc(roc_plot)
+      )})
+  } else {
+    plotROC  <- NULL
+  }
+  return(plotROC)
+}
+output_roc_text <- function(true_ones, preds) {
+  if (!(is.null(true_ones) || is.null(preds))) {
+    roc_text <- shiny::renderUI({
+      htmltools::HTML(get_roc_text())
+    })
+  } else {
+    roc_text <- shiny::renderUI({
+      htmltools::HTML("")
+    })
+  }
+  roc_text
+}

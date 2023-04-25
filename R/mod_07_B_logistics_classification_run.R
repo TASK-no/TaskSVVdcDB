@@ -16,7 +16,7 @@ modlogistics_classification_run_ui <- function(id){
     ),
     shiny.semantic::flow_layout(
       shiny::htmlOutput(ns("plotROC")),
-      shiny::htmlOutput(ns("roc_text")),
+      shiny::htmlOutput(ns("rocTEXT")),
       min_cell_width = "375px",
       column_gap = "50px")
   )
@@ -51,40 +51,9 @@ mod_logistics_classification_run_server <- function(id, class_logistics_data){
         true_ONES,
         predictions
       )
-      if (!(is.null(true_ONES) || is.null(predictions))) {
-        df_tmp <- data.frame(true_ones = true_ONES, preds = predictions)
-        roc_plot <- ggplot2::ggplot(
-          df_tmp,
-          ggplot2::aes(d = .data$true_ones, m = .data$preds)) +
-          plotROC::geom_roc(labelround = 2, n.cuts = 15)
-        roc_plot <- roc_plot +
-          plotROC::style_roc(theme = ggplot2::theme_grey) +
-          ggplot2::ggtitle("ROC curve") +
-          ggplot2::annotate("text", x = .75, y = .25,
-                            label = paste(
-                              "AUC =",
-                              round(plotROC::calc_auc(roc_plot)$AUC, 4))) +
-          ggplot2::scale_x_continuous("1 - Specificity (FPR)") +
-          ggplot2::scale_y_continuous("Sensitivity (TPR)")
-        output$plotROC <- shiny::renderUI({
-          htmltools::HTML(
-            plotROC::export_interactive_roc(roc_plot)
-            )})
-        output$roc_text <- shiny::renderUI({
-          htmltools::HTML(get_roc_text())
-          })
-      } else {
-        output$plotROC  <- NULL
-        output$roc_text <- shiny::renderUI({
-          htmltools::HTML("")
-        })
-      }
+      output$plotROC <- plot_roc(true_ONES, predictions)
+      output$rocTEXT <- output_roc_text(true_ONES, predictions)
       }
     )
   })
 }
-## To be copied in the UI
-# mod_07_B_logistics_classification_run_ui("07_B_logistics_classification_run_1")
-
-## To be copied in the server
-# mod_07_B_logistics_classification_run_server("07_B_logistics_classification_run_1")
