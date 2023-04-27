@@ -51,3 +51,39 @@ output_roc_text <- function(true_ones, preds) {
   }
   roc_text
 }
+output_info_text <- function() {
+  cls_info_name <- c("Optimal sannsynlighetsgrenseverdi:",
+                     "Prosentandel samsvarende par:",
+                     "Feilklassifiseringsfeil:")
+  # Optimal cut-off value
+  ocv <- paste0("optimal sannsynlighetsgrenseverdi for et gitt sett med ",
+                "faktiske 1-klassifiseringer (testdata) og predikerte ",
+                "sannsynlighetsverdier basert på treningsdata.")
+  # missclassification error
+  mce <- paste0("antall uoverensstemmelser mellom det predikerte (basert på ",
+                "modell fra treningsdata) og det faktiske (i testdataene)")
+  # concordance
+  con <- paste0("et par er konkordant når den predikerte skåren for ",
+                "1-klassifisering (hendelse = baseline) er større enn for ",
+                "0-klassifisering (ikke-hendelse = uerfaren).")
+  info_text <- shiny::renderUI({
+      htmltools::HTML(paste0(
+        paste0("<em><u>", cls_info_name[1], "</u></em>", "<br/>", ocv, "<br/>"),
+        paste0("<em><u>", cls_info_name[2], "</u></em>", "<br/>", mce, "<br/>"),
+        paste0("<em><u>", cls_info_name[3], "</u></em>", "<br/>", con),
+        sep = "<br/> <br/>"))
+  })
+  info_text
+}
+output_cls_info <- function(cls_info) {
+  cls_info_name <- c("optimal sannsynlighetsgrenseverdi:",
+                     "prosentandel samsvarende par:",
+                     "feilklassifiseringsfeil:",
+                     "sensitivitet:",
+                     "én minus spesifisitet:")
+  cls_info_print <- round(unlist(cls_info), digits = 4)[1:5]
+  out_df <- data.frame(
+    `verdi` = cls_info_print)
+  rownames(out_df) <- cls_info_name
+  shiny::renderPrint({out_df})
+}
