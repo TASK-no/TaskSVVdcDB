@@ -5,4 +5,7 @@
 .httr-oauth
 .DS_Store
 .Renviron
+.vscode
+.lintr
 autodeploy.sh
+rsconnect
