@@ -2,21 +2,22 @@ library(magrittr)
 library(TaskAnalyticsTB)
 pth_to_data <- "./data-raw"
 
-data_raw_SVV_2021 <- haven::read_sav(file.path(
-  pth_to_data, "2021",
+data_raw_SVV_2021 <- read_and_distinct(
+  file.path(pth_to_data, "2021"),
   "SNA80543_210212New_BG_weighted_Tables_JUS_ANT_Ilya.sav"
-)) # 2021
-data_raw_SVV_2021 <- data_raw_SVV_2021 %>% dplyr::distinct()
-data_raw_SVV_2022 <- haven::read_sav(file.path(
-  pth_to_data,
-  "2022",
+)
+data_raw_SVV_2022 <- read_and_distinct(
+  file.path(pth_to_data, "2022"),
   "SNA93333_220131_enriched_weighted.sav"
-))
-data_raw_SVV_2023 <- haven::read_sav(file.path(
-  pth_to_data,
-  "2023",
+)
+data_raw_SVV_2023 <- read_and_distinct(
+  file.path(pth_to_data, "2023"),
   "SNA107320_230214_weighted.sav"
-))
+)
+data_raw_SVV_2024 <- read_and_distinct(
+  file.path(pth_to_data, "2024"),
+  "SNA127220_240207_weighted.sav"
+)
 
 utdanning_factor <- as.factor(data_raw_SVV_2021$utdanning)
 data_raw_SVV_2021$utdanning_c <- ifelse(utdanning_factor %in% levels(utdanning_factor)[c(1:4)], 0, 1)
