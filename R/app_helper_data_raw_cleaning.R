@@ -65,3 +65,37 @@ get_utdanning_c <- function(utd, lvl_range) {
   utd_c <- factor(utd_c, labels = c("low", "high"))
   return(utd_c)
 }
+
+#' Recode Leder Variable
+#'
+#' Recodes the `leder_c` variable based on the specified leadership variable and
+#' dataset structure. Adapts to different recoding needs for different years.
+#'
+#' @param data The dataset containing the leadership variable.
+#' @param leder_var The leadership variable to be recoded. This should be the
+#'        name of the column in `data` that contains leadership information,
+#'        specified as a symbol or string.
+#' @param method A character string specifying the recoding method. Valid
+#'        options are "direct" for direct factor assignment (used for 2022 and
+#'        2023 datasets) and "replace" for datasets requiring a replacement
+#'        logic before factor assignment (used for the 2021 dataset).
+#' @return The dataset with the `leder_c` variable recoded according to the
+#'         specified method.
+recode_leder_c <- function(data, leder_var, method = "direct") {
+  leder_var_sym <- rlang::ensym(leder_var)
+  if (method == "direct") {
+    data <- data %>% mutate(
+      leder_c = factor(!!leder_var_sym,
+                       # levels = c(0, 1), -> must be excluded currently
+                       labels = c("Nei", "Ja"))
+    )
+  } else if (method == "replace") {
+    data <- data %>% mutate(
+      leder_c = factor(
+        replace(!!leder_var_sym, !!leder_var_sym == 2, 0) + 1,
+        levels = c(1, 2), labels = c("Nei", "Ja")
+      )
+    )
+  }
+  return(data)
+}
