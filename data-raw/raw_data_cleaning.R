@@ -19,30 +19,17 @@ data_raw_SVV_2024 <- read_and_distinct(
   "SNA127220_240207_weighted.sav"
 )
 
-data_raw_SVV_2021 <- recode_utdanning(data_raw_SVV_2021, levels_range = 1:4)
-data_raw_SVV_2022 <- recode_utdanning(data_raw_SVV_2022,
-                                      utdanning_name =  "Utdanning",
-                                      levels_range = 1:5)
-data_raw_SVV_2023 <- recode_utdanning(data_raw_SVV_2023,
-                                      utdanning_name =  "Utdanningsnivå",
-                                      levels_range = 1:5)
-data_raw_SVV_2024 <- recode_utdanning(data_raw_SVV_2024,
-                                      utdanning_name =  "Utdanning",
-                                      levels_range = 1:5)
+data_raw_SVV_2021 <- data_raw_SVV_2021 %>%
+  recode_utdanning(levels_range = 1:4) %>%
+  recode_leder_c(leder_var = "leder_c", method = "replace")
 
-factor_leder <- factor(data_raw_SVV_2023$Q32, labels = c("Nei", "Ja"))
-data_raw_SVV_2023$leder_c <- factor_leder
+data_raw_SVV_2022 <- data_raw_SVV_2022 %>%
+  recode_utdanning(utdanning_name = "Utdanning", levels_range = 1:5) %>%
+  recode_leder_c(leder_var = "Q32", method = "direct")
 
-factor_leder <- factor(data_raw_SVV_2022$Q32, labels = c("Nei", "Ja"))
-data_raw_SVV_2022$leder_c <- factor_leder
-
-data_raw_SVV_2021$leder_c <- factor(
-  replace(
-    data_raw_SVV_2021$leder_c,
-    data_raw_SVV_2021$leder_c == 2, 0
-  ) + 1,
-  levels = c(1, 2), labels = c("Nei", "Ja")
-)
+data_raw_SVV_2023 <- data_raw_SVV_2023 %>%
+  recode_utdanning(utdanning_name = "Utdanningsnivå", levels_range = 1:5) %>%
+  recode_leder_c(leder_var = "Q32", method = "direct")
 
 questions_relevel <- paste0("Q25r", 1:7)
 for (i in questions_relevel) {
