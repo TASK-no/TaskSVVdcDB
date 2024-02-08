@@ -26,7 +26,7 @@ rsconnect::setAccountInfo(
 )
 # Deploy the application.
 # IF USED INTERNALLY RUN:
-# set_env_deploy()
+set_env_deploy()
 # IF FROM GITHUB ACTION THEN UNCOMMENT ABOVE LINE
 rsconnect::deployApp(forceUpdate = TRUE,
                      appName = error_on_missing_name("APP_NAME"),
