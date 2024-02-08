@@ -126,3 +126,18 @@ recode_questions <- function(data,
   }
   return(data)
 }
+
+#' Recode Q22 Variable
+#'
+#' Recodes the `Q22` variable in the dataset, setting specific levels to a
+#' uniform label. This function is designed to standardize responses across
+#' different datasets.
+#'
+#' @param data The dataset containing the `Q22` variable.
+#' @return The dataset with the `Q22` variable recoded.
+recode_Q22 <- function(data) {
+  data$Q22 <- factor(data$Q22,
+                     labels = names(attr(data$Q22, "labels"))[1:5])
+  levels(data$Q22)[c(1, 5)] <- "Ikke i det hele tatt"
+  return(data)
+}
