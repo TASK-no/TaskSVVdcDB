@@ -19,19 +19,16 @@ data_raw_SVV_2024 <- read_and_distinct(
   "SNA127220_240207_weighted.sav"
 )
 
-utdanning_factor <- as.factor(data_raw_SVV_2021$utdanning)
-data_raw_SVV_2021$utdanning_c <- ifelse(utdanning_factor %in% levels(utdanning_factor)[c(1:4)], 0, 1)
-data_raw_SVV_2021$utdanning_c <- factor(data_raw_SVV_2021$utdanning_c, labels = c("low", "high"))
-
-data_raw_SVV_2022 <- data_raw_SVV_2022 %>% dplyr::rename(utdanning = Utdanning)
-utdanning_factor <- as.factor(data_raw_SVV_2022$utdanning)
-data_raw_SVV_2022$utdanning_c <- ifelse(utdanning_factor %in% levels(utdanning_factor)[c(1:5)], 0, 1)
-data_raw_SVV_2022$utdanning_c <- factor(data_raw_SVV_2022$utdanning_c, labels = c("low", "high"))
-
-data_raw_SVV_2023 <- data_raw_SVV_2023 %>% dplyr::rename(utdanning = Utdanningsnivå)
-utdanning_factor <- as.factor(data_raw_SVV_2023$utdanning)
-data_raw_SVV_2023$utdanning_c <- ifelse(utdanning_factor %in% levels(utdanning_factor)[c(1:5)], 0, 1)
-data_raw_SVV_2023$utdanning_c <- factor(data_raw_SVV_2023$utdanning_c, labels = c("low", "high"))
+data_raw_SVV_2021 <- recode_utdanning(data_raw_SVV_2021, levels_range = 1:4)
+data_raw_SVV_2022 <- recode_utdanning(data_raw_SVV_2022,
+                                      utdanning_name =  "Utdanning",
+                                      levels_range = 1:5)
+data_raw_SVV_2023 <- recode_utdanning(data_raw_SVV_2023,
+                                      utdanning_name =  "Utdanningsnivå",
+                                      levels_range = 1:5)
+data_raw_SVV_2024 <- recode_utdanning(data_raw_SVV_2024,
+                                      utdanning_name =  "Utdanning",
+                                      levels_range = 1:5)
 
 factor_leder <- factor(data_raw_SVV_2023$Q32, labels = c("Nei", "Ja"))
 data_raw_SVV_2023$leder_c <- factor_leder
