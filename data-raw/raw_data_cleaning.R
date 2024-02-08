@@ -1,6 +1,6 @@
 library(magrittr)
 library(TaskAnalyticsTB)
-pth_to_data <- "./dta-raw"
+pth_to_data <- "./data-raw"
 
 data_raw_SVV_2021 <- haven::read_sav(file.path(
   pth_to_data, "2021",
