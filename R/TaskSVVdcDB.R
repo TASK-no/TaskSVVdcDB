@@ -17,5 +17,6 @@
 #' @importFrom grDevices rgb
 #' @importFrom stats df
 #' @importFrom utils write.csv
+#' @importFrom rlang .data
 NULL
 #> NULL
