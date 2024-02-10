@@ -58,19 +58,38 @@ DataSegmentation <- R6::R6Class(
     },
     run_cat23 = function(list_recodes,
                          SETTINGS_FACT) {
-      private$..data_segmentation[["data_2023"]] <- private$..data_segmentation[["data_2023"]] %>%
-        TaskAnalyticsTB::recode_qXX_cats(
-          q_names = c(
-            "Q36", "Q37",
-            "Q38", "Q40"
-          ),
-          list_recodes = list_recodes,
-          new_names = c(
-            "Q36_c", "Q37_c",
-            "Q38_c", "Q40_c"
-          ),
-          SETTINGS_FACT = SETTINGS_FACT
-        )
+      years_to_change <- c(2023, 2024)
+      data_to_change <- paste0("data_", years_to_change)
+      num_data_change <- length(years_to_change)
+      for (i in seq_len(num_data_change)) {
+        private$..data_segmentation[[data_to_change[i]]] <-
+          private$..data_segmentation[[data_to_change[i]]] %>%
+          TaskAnalyticsTB::recode_qXX_cats(
+            q_names = c(
+              "Q36", "Q37",
+              "Q38", "Q40"
+            ),
+            list_recodes = list_recodes,
+            new_names = c(
+              "Q36_c", "Q37_c",
+              "Q38_c", "Q40_c"
+            ),
+            SETTINGS_FACT = SETTINGS_FACT
+          )
+      }
+    #   private$..data_segmentation[["data_2023"]] <- private$..data_segmentation[["data_2023"]] %>%
+    #     TaskAnalyticsTB::recode_qXX_cats(
+    #       q_names = c(
+    #         "Q36", "Q37",
+    #         "Q38", "Q40"
+    #       ),
+    #       list_recodes = list_recodes,
+    #       new_names = c(
+    #         "Q36_c", "Q37_c",
+    #         "Q38_c", "Q40_c"
+    #       ),
+    #       SETTINGS_FACT = SETTINGS_FACT
+    #     )
     }
   )
 )
