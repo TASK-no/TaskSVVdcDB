@@ -57,7 +57,8 @@ data_raw_SVV_2024 <- data_raw_SVV_2024 %>%
 # Additional specific recoding for the 2023 dataset using a custom function
 data_raw_SVV_2023 <- data_raw_SVV_2023 %>%
   TaskAnalyticsTB::recode_qXX_rVals(
-    q_names = c("Q38", "Q39", "Q40"),
+    # q_names = c("Q38", "Q39", "Q40"),
+    q_names = c("Q38", "Q40"),
     from = 5, to = 1,
     na_replacement = 1,
     list(
@@ -67,7 +68,18 @@ data_raw_SVV_2023 <- data_raw_SVV_2023 %>%
       ADD_LABELS = TRUE
     )
   )
-
+data_raw_SVV_2024 <- data_raw_SVV_2024 %>%
+  TaskAnalyticsTB::recode_qXX_rVals(
+    q_names = c("Q38", "Q40"),
+    from = 5, to = 1,
+    na_replacement = 1,
+    list(
+      ADJUST_LABELS = TRUE,
+      AS_FACTOR = TRUE,
+      ORDERED = FALSE,
+      ADD_LABELS = TRUE
+    )
+  )
 # Select relevant variables for saving and verify integrity against saved
 # versions Verification for 2021 dataset
 data_raw_SVV_2021_to_save <- data_raw_SVV_2021 %>%
