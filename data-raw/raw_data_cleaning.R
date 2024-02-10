@@ -21,7 +21,8 @@ data_raw_SVV_2023 <- read_and_distinct(
 # 2024 dataset
 data_raw_SVV_2024 <- read_and_distinct(
   file.path(pth_to_data, "2024"),
-  "SNA127220_240207_weighted.sav"
+  # "SNA127220_240207_weighted.sav"
+  "SNA127220_240209_weighted_cleaned.sav"
 )
 
 # Apply a series of cleaning and recoding functions to each dataset
