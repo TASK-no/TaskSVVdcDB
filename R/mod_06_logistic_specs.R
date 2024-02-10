@@ -29,7 +29,7 @@ mod_logistic_regression_specs_01_A_ui <- function(id) {
     )
   )
   list_choices <- list(
-    yrs = c(2021, 2022, 2023),
+    yrs = c(2021, 2022, 2023, 2024),
     dep = get_sttgs_log("lab_dep_choices"),
     exp = get_sttgs_log("var_exp_choices"),
     reg = get_sttgs_log("var_reg_choices")
