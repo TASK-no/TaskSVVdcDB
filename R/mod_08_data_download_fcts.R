@@ -3,9 +3,11 @@ get_data_names_norsk <- function(name = NULL, num = NULL) {
     raw_data_2021 = "Rådata 2021",
     raw_data_2022 = "Rådata 2022",
     raw_data_2023 = "Rådata 2023",
+    raw_data_2023 = "Rådata 2024",
     seg_data_2021 = "Segmenteringsdata 2021",
     seg_data_2022 = "Segmenteringsdata 2022",
     seg_data_2023 = "Segmenteringsdata 2023",
+    seg_data_2023 = "Segmenteringsdata 2024",
     overall_data = "Overordnede/hovedplottdata",
     subplot_data_01 = "Delplottdata (første)",
     subplot_data_02 = "Delplottdata (andre)",
@@ -34,6 +36,8 @@ get_data <- function(input, r, data_seg, data_log) {
     data_seg$get_data_segmentation()[["data_2022"]]
   } else if (input[["data_type"]] == get_data_names_norsk("seg_data_2023")) {
     data_seg$get_data_segmentation()[["data_2023"]]
+  } else if (input[["data_type"]] == get_data_names_norsk("seg_data_2024")) {
+    data_seg$get_data_segmentation()[["data_2024"]]
   } else if (input[["data_type"]] == get_data_names_norsk("overall_data")) {
     r$datasets$data_plot01
   } else if (input[["data_type"]] == get_data_names_norsk("subplot_data_01")) {
@@ -57,7 +61,8 @@ get_raw_data <- function(yrs) {
   raw_data_names <- c(
     "data_raw_SVV_2021",
     "data_raw_SVV_2022",
-    "data_raw_SVV_2023"
+    "data_raw_SVV_2023",
+    "data_raw_SVV_2024"
   )
   id_yr <- grepl(yrs, x = raw_data_names)
   eval(parse(text = raw_data_names[id_yr]))
@@ -95,6 +100,8 @@ download_handler_filename_01 <- function(input) {
       return(paste0("data_segmentation_2022", extension))
     } else if (input[["data_type"]] %in% get_data_names_norsk("seg_data_2023")) {
       return(paste0("data_segmentation_2023", extension))
+    } else if (input[["data_type"]] %in% get_data_names_norsk("seg_data_2024")) {
+      return(paste0("data_segmentation_2024", extension))
     } else if (input[["data_type"]] == get_data_names_norsk("overall_data")) {
       return(paste0("data_plot_overall", extension))
     } else if (input[["data_type"]] == get_data_names_norsk("subplot_data_01")) {
