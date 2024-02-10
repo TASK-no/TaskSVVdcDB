@@ -29,7 +29,7 @@ mod_plot_subplot_ui <- function(id, name_plot_out) {
         add_header(paste0("Velg ", "\u00e5", "rstall"), size = 5),
         shiny.semantic::selectInput(ns("slider_year"),
           label = "",
-          choices = c(2021, 2022, 2023),
+          choices = c(2021, 2022, 2023, 2024),
           width = "75px"
         )
       ),
