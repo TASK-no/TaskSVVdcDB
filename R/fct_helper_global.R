@@ -13,7 +13,8 @@ get_var_to_use <- function(num) {
   )
   var_to_use2 <- c("Q16", "Q17", "Q14", "Q19")
   var_to_use3 <- c("Q22", paste0("Q25r", 1:7))
-  var_to_use4 <- c("Q36", "Q37", "Q38", "Q39", "Q40")
+  # var_to_use4 <- c("Q36", "Q37", "Q38", "Q39", "Q40")
+  var_to_use4 <- c("Q36", "Q37", "Q38", "Q40")
   var_to_use5 <- c("Q36_c", "Q37_c", "Q38_c", "Q40_c")
   eval(parse(text = tmp_var_exp))
 }
