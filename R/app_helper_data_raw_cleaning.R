@@ -105,7 +105,7 @@ recode_leder_c <- function(data, leder_var, method = "direct") {
 #' Dynamically relevels specified questions within the dataset based on a given
 #' prefix, number of questions, and custom releveling logic.
 #'
-#' @param dataThe dataset containing the questions to be releveled.
+#' @param data The dataset containing the questions to be releveled.
 #' @param questions_prefix The prefix of the question variables to be releveled.
 #' @param seq_questions The sequence of questions numbers to relevel e.g. `1:7`
 #'        to generate `Q25r1-Q25r7` or `c(1:5, 7)` for the `data_raw_SVV_2024`.
@@ -149,7 +149,7 @@ recode_Q22 <- function(data) {
 #' to the sum of completed training sessions and the average progress in training
 #' sessions, renaming them according to a standardized naming convention.
 #'
-#' @param name The original name of the variable.
+#' @param name_var The original name of the variable.
 #'
 #' @return A character string representing the new variable name. If the
 #'   original name contains "SumofCompleted", it is replaced with
