@@ -16,6 +16,12 @@ get_var_to_use <- function(num) {
   # var_to_use4 <- c("Q36", "Q37", "Q38", "Q39", "Q40")
   var_to_use4 <- c("Q36", "Q37", "Q38", "Q40")
   var_to_use5 <- c("Q36_c", "Q37_c", "Q38_c", "Q40_c")
+  var_to_use6 <- c("T_1_c",
+                   "T_2_c",
+                   "T_3_c",
+                   "T_1_perc_prog",
+                   "T_2_perc_prog",
+                   "T_3_perc_prog")
   eval(parse(text = tmp_var_exp))
 }
 get_var_to_use_after_seg <- function() {
@@ -56,6 +62,7 @@ get_sttgs_log <- function(sub_elem = NULL) {
       get_var_to_use(3),
       get_var_to_use(4),
       get_var_to_use(5),
+      get_var_to_use(6),
       "year"
     ),
     var_exp_choices = c(
