@@ -218,7 +218,9 @@ add_training_variables <- function(df) {
 
   # Fix treatment of the variable Fjernleder.
   # Step 1: Replace empty strings with proper value
-  df$Fjernleder[df$Fjernleder == ""] <- "ikke_fjernleder"
+  df$Fjernleder[df$Fjernleder == ""] <- "Ikke fjernleder"
+  df$Fjernleder[df$Fjernleder ==  "Ikke fjernleder"] <- "ikke_fjernleder"
+  df$Fjernleder[df$Fjernleder ==  "Fjernleder"] <- "fjernleder"
   # Step 2: Convert to factor with specified levels and labels
   df$Fjernleder <- factor(df$Fjernleder,
                           levels = c("fjernleder", "ikke_fjernleder"),
@@ -229,13 +231,13 @@ add_training_variables <- function(df) {
   names(df)[names(df) == "Statusfullførtkurs"] <- "fullfortkurs"
   # Step 2: Replace empty strings with "none" to represent missing values
   df$fullfortkurs[df$fullfortkurs == ""] <- "none"
+  df$fullfortkurs[df$fullfortkurs == "Påbegynt"] <- "paebegynt"
+  df$fullfortkurs[df$fullfortkurs == "Fullført"] <- "fullfort"
   # Step 3: Convert to an ordered factor with specified levels and labels
   df$fullfortkurs <- factor(df$fullfortkurs,
-                            levels = c("none", "Påbegynt", "Fullført"),
+                            levels = c("ikke_deltatt", "paebegynt", "fullfort"),
                             labels = c("ikke_deltatt", "paebegynt", "fullfort"),
                             ordered = TRUE)
-  # Verify the transformation
-  table(df$status_fullfortkurs)
   return(df)
 }
 
