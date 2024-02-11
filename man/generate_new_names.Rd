@@ -7,7 +7,7 @@
 generate_new_names(name_var)
 }
 \arguments{
-\item{name}{The original name of the variable.}
+\item{name_var}{The original name of the variable.}
 }
 \value{
 A character string representing the new variable name. If the

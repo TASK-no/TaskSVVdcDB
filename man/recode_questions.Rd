@@ -7,12 +7,12 @@
 recode_questions(data, questions_prefix, seq_questions)
 }
 \arguments{
+\item{data}{The dataset containing the questions to be releveled.}
+
 \item{questions_prefix}{The prefix of the question variables to be releveled.}
 
 \item{seq_questions}{The sequence of questions numbers to relevel e.g. `1:7`
 to generate `Q25r1-Q25r7` or `c(1:5, 7)` for the `data_raw_SVV_2024`.}
-
-\item{dataThe}{dataset containing the questions to be releveled.}
 }
 \value{
 The dataset with questions releveled according to the specified
