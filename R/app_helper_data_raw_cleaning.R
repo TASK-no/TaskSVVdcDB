@@ -167,18 +167,21 @@ generate_new_names <- function(name_var) {
   }
 }
 
-#' Add Training Variables to raw data.
+#' Enhance Data with "Recoded" Training and Status Variables
 #'
-#' Identifies columns related to training completion and progress within a given
-#' data frame, renames and recodes these columns according to specified
-#' conventions, and optionally removes the original columns.
+#' Applies a series of transformations to a tibble, focusing on recoding
+#' specific training-related variables and adjusting other categorical variables
+#' according to predefined conventions. It renames variables, recodes them as
+#' ordered or unordered factors, and handles missing values appropriately.
 #'
-#' @param df A data frame containing the training variables to be transformed.
+#' @param df A tibble containing the variables to be transformed.
 #'
-#' @return A modified data frame with added training variables, where
-#'   'completed' training variables are recoded to ordered factors with levels
-#'   indicating participation status, and 'progress' variables are recoded to
-#'   ordered factors representing the percentage progress.
+#' @return A tibble with transformed variables: training variables are recoded
+#'   to ordered factors with levels indicating participation status or progress
+#'   percentage. The `Fjernleder` variable is recoded as an unordered factor
+#'   with levels for remote leadership status, and `Statusfullførtkurs` is
+#'   renamed and recoded to reflect course completion status with appropriate
+#'   handling of missing values.
 #'
 #' @export
 add_training_variables <- function(df) {
