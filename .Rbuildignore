@@ -6,3 +6,10 @@ dev_history.R
 $run_dev.*
 ^app.R
 ^rsconnect$
+.lintr
+.vscode
+.github
+.vscode
+Dockerfile
+autodeploy.sh
+deploy.R
