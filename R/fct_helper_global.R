@@ -33,7 +33,7 @@ get_var_to_use_after_seg <- function() {
     get_var_to_use(6))
 }
 get_exp_all <- function(num) {
-  tmp_var_exp <- paste0("experience_all", 1)
+  tmp_var_exp <- paste0("experience_all", num)
   experience_all1 <- "Uerfaren og Grunnleggende"
   experience_all2 <- paste0("Grunnleggende og ", paste0(
     "Videreg",
