@@ -79,7 +79,9 @@ data_raw_SVV_2024 <- data_raw_SVV_2024 %>%
       ORDERED = FALSE,
       ADD_LABELS = TRUE
     )
-  )
+  ) %>%
+   add_training_variables()
+
 # Select relevant variables for saving and verify integrity against saved
 # versions Verification for 2021 dataset
 data_raw_SVV_2021_to_save <- data_raw_SVV_2021 %>%
@@ -112,7 +114,8 @@ stopifnot(identical(data_raw_SVV_2023, data_raw_SVV_2023_to_save))
 data_raw_SVV_2024_to_save <- data_raw_SVV_2024 %>%
   dplyr::select(
     tidyselect::any_of(get_var_to_use_after_seg()),
-    tidyselect::starts_with(get_var_to_use(2))
+    tidyselect::starts_with(get_var_to_use(2)),
+    tidyselect::starts_with(get_var_to_use(6))
   )
 load("./data/data_raw_SVV_2024.rda")
 stopifnot(identical(data_raw_SVV_2024, data_raw_SVV_2024_to_save))
