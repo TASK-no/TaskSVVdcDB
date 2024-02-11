@@ -167,6 +167,55 @@ generate_new_names <- function(name_var) {
   }
 }
 
+#' Add Training Variables to raw data.
+#'
+#' Identifies columns related to training completion and progress within a given
+#' data frame, renames and recodes these columns according to specified
+#' conventions, and optionally removes the original columns.
+#'
+#' @param df A data frame containing the training variables to be transformed.
+#'
+#' @return A modified data frame with added training variables, where
+#'   'completed' training variables are recoded to ordered factors with levels
+#'   indicating participation status, and 'progress' variables are recoded to
+#'   ordered factors representing the percentage progress.
+#'
+#' @export
+add_training_variables <- function(df) {
+  # Check if the argument is a tibble
+  if (!inherits(df, "tbl_df")) {
+    stop("The input must be a tibble.", call. = FALSE)
+  }
+  # Identify relevant columns and their types
+  columns <- names(df)
+  completed_columns <- grep("SumofCompletedTrinn", columns, value = TRUE)
+  progress_columns <- grep("AverageofProgressTrinn", columns, value = TRUE)
+
+   # Check if the relevant columns are found
+  if (length(completed_columns) == 0 && length(progress_columns) == 0) {
+    stop("No relevant column names found in the data.", call. = FALSE)
+  }
+
+  # Rename and recode 'completed' variables
+  for (col in completed_columns) {
+    new_name <- generate_new_names(col)
+    df[[new_name]] <- recode_variable(df[[col]], "completed")
+  }
+
+  # Rename and recode 'progress' variables
+  for (col in progress_columns) {
+    new_name <- generate_new_names(col)
+    # Convert numeric strings to actual numeric values for proper sorting and factor creation
+    df[[col]] <- as.character(as.numeric(df[[col]]))
+    df[[new_name]] <- recode_variable(df[[col]], "progress")
+  }
+
+  # Optionally, remove original columns if no longer needed
+  df <- df[, !(names(df) %in% c(completed_columns, progress_columns))]
+
+  return(df)
+}
+
 #' Recode Variable to Ordered Factor Based on Type
 #'
 #' Recodes a given variable to an ordered factor with levels and labels
