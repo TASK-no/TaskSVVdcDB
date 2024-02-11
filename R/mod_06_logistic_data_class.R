@@ -8,8 +8,8 @@ DataLogistics <- R6::R6Class(
       }
     },
     get_data_logistics = function(type = "all") {
-      if(type == "all") return(private$..data_logistics)
-      if(type == "train") {
+      if (type == "all") return(private$..data_logistics)
+      if (type == "train") {
         return(private$..data_logistics_train)
       } else if (type == "prdct") {
         return(private$..data_logistics_prdct)
@@ -19,9 +19,9 @@ DataLogistics <- R6::R6Class(
       private$..mod
     },
     get_num_obs = function(type = "all") {
-      if(type == "all")   return(private$..num_obs_all)
-      if(type == "train") return(private$..num_obs_train)
-      if(type == "prdct") return(private$..num_obs_prdct)
+      if (type == "all")   return(private$..num_obs_all)
+      if (type == "train") return(private$..num_obs_train)
+      if (type == "prdct") return(private$..num_obs_prdct)
     },
     update_num_obs_train_prdct = function(num_obs, type = "train") {
       if (type == "train") {
