@@ -210,9 +210,29 @@ add_training_variables <- function(df) {
     df[[new_name]] <- recode_variable(df[[col]], "progress")
   }
 
-  # Optionally, remove original columns if no longer needed
+  # Remove original columns if no longer needed
   df <- df[, !(names(df) %in% c(completed_columns, progress_columns))]
 
+  # Fix treatment of the variable Fjernleder.
+  # Step 1: Replace empty strings with proper value
+  df$Fjernleder[df$Fjernleder == ""] <- "ikke_fjernleder"
+  # Step 2: Convert to factor with specified levels and labels
+  df$Fjernleder <- factor(df$Fjernleder,
+                          levels = c("fjernleder", "ikke_fjernleder"),
+                          labels = c("fjernleder", "ikke_fjernleder"))
+
+  # Fix treatment of the variable 'Statusfullførtkurs'
+  # Step 1: Rename the variable
+  names(df)[names(df) == "Statusfullførtkurs"] <- "fullfortkurs"
+  # Step 2: Replace empty strings with "none" to represent missing values
+  df$fullfortkurs[df$fullfortkurs == ""] <- "none"
+  # Step 3: Convert to an ordered factor with specified levels and labels
+  df$fullfortkurs <- factor(df$fullfortkurs,
+                            levels = c("none", "Påbegynt", "Fullført"),
+                            labels = c("ikke_deltatt", "paebegynt", "fullfort"),
+                            ordered = TRUE)
+  # Verify the transformation
+  table(df$status_fullfortkurs)
   return(df)
 }
 
