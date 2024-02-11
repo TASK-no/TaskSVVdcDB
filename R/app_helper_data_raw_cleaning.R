@@ -141,3 +141,81 @@ recode_Q22 <- function(data) {
   levels(data$Q22)[c(1, 5)] <- "Ikke i det hele tatt"
   return(data)
 }
+
+#' Generate New Variable Names Based on Training Type
+#'
+#' This function generates new variable names by identifying the type of training
+#' information contained within the variable name. It recognizes variables related
+#' to the sum of completed training sessions and the average progress in training
+#' sessions, renaming them according to a standardized naming convention.
+#'
+#' @param name The original name of the variable.
+#'
+#' @return A character string representing the new variable name. If the
+#'   original name contains "SumofCompleted", it is replaced with
+#'   "T_[number]_c", indicating the training type and that it represents a
+#'   count. If it contains "AverageofProgress", it is replaced with
+#'   "T_[number]_perc_prog", indicating the training type and that it represents
+#'   a percentage progress. Otherwise, the original name is returned.
+generate_new_names <- function(name_var) {
+  if (grepl("SumofCompleted", name_var)) {
+    sub("SumofCompletedTrinn(\\d)", "T_\\1_c", name_var)
+  } else if (grepl("AverageofProgress", name_var)) {
+    sub("AverageofProgressTrinn(\\d)", "T_\\1_perc_prog", name_var)
+  } else {
+    name_var
+  }
+}
+
+#' Recode Variable to Ordered Factor Based on Type
+#'
+#' Recodes a given variable to an ordered factor with levels and labels
+#' appropriate to the type of training data it represents. It supports recoding
+#' for both completed training counts and training progress percentages,
+#' including handling special cases such as non-participation.
+#'
+#' @param name_var The variable to be recoded, as a character vector.
+#' @param type A character string indicating the type of recoding to apply:
+#'   either "completed" for sum of completed trainings or "progress" for average
+#'   progress in training sessions.
+#'
+#' @return An ordered factor with levels and labels corresponding to the
+#'   specified type. For "completed" type, levels are "", "0", "1", with labels
+#'   "ikke_deltatt", "paebegynt", "fullfoert". For "progress" type, levels
+#'   include "none" and numeric progress levels, with labels "ikke_deltatt" and
+#'   various "_perc" labels corresponding to the numeric progress levels.
+recode_variable <- function(name_var, type) {
+  if (type == "completed") {
+    factor(name_var,
+           levels = c("", "0", "1"),
+           labels = c("ikke_deltatt", "paebegynt", "fullfoert"),
+           ordered = TRUE)
+  } else if (type == "progress") {
+    ## Replace "" with "none"
+    name_var <- get_clean_var(name_var, "none")
+    # Prepare levels and labels, including "none" explicitly
+    levels_progress <- get_lvl_progress(name_var, "none")
+    labels_progress <- get_lab_progress(name_var, "none")
+    # Create an ordered factor with these levels and labels
+    factor(name_var,
+           levels = levels_progress,
+           labels = labels_progress,
+           ordered = TRUE)
+  } else {
+    name_var
+  }
+}
+get_clean_var <- function(raw_var_taken, set_special_val = "none") {
+  raw_var_taken[is.na(raw_var_taken)] <- set_special_val
+  return(raw_var_taken)
+}
+get_lvl_progress <- function(raw_var_taken, special_val) {
+  tmp_val <- unique(raw_var_taken[!is.na(raw_var_taken)])
+  tmp_val <- as.character(sort(as.numeric(setdiff(tmp_val, special_val))))
+  c(special_val, tmp_val)
+}
+get_lab_progress <- function(raw_var_taken, special_val)  {
+  tmp_lvl_names <- get_lvl_progress(raw_var_taken, special_val)
+  tmp_lvl_names <- setdiff(tmp_lvl_names, "none")
+  c("ikke_deltatt", paste0(tmp_lvl_names, "_perc"))
+}
