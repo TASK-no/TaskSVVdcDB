@@ -46,12 +46,12 @@ mod_logistics_classification_run_server <- function(id, class_logistics_data){
           model = class_logistics_data$get_model_logistics(),
           type = "shinyDB"
         )
-        data_prediction <- TaskAnalyticsTB:::get_data_for_prediction(
+        data_prediction <- TaskAnalyticsTB::get_data_for_prediction(
           class_logistics_data$get_data_logistics(type = "prdct"),
           model = class_logistics_data$get_model_logistics())
         true_ONES <- TaskAnalyticsTB:::get_true_ones(data_prediction)
 
-        predictions <- TaskAnalyticsTB:::generate_predictions(
+        predictions <- TaskAnalyticsTB::generate_predictions(
           log_train_out$model_run,
           data_prediction,
           type = "response"
