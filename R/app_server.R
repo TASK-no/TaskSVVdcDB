@@ -17,13 +17,7 @@ app_server <- function(input, output, session) {
     "compute_data_plot02", "compute_data_plot03"
   )
 
-  data_seg_all <- DataSegmentation$new(
-    r,
-    data_raw_SVV_2021,
-    data_raw_SVV_2022,
-    data_raw_SVV_2023,
-    data_raw_SVV_2024
-  )
+  data_seg_all <- DataSegmentation$new(r)
   data_logistics_all <- DataLogistics$new(data_seg_all$get_data_segmentation())
   mod_01_seg_all_server("segmentation", r)
   mod_data_segmentation_srv("segmentation",

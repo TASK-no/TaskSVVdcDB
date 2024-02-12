@@ -9,9 +9,13 @@ mod_data_segmentation_srv <- function(id, r, data_seg) {
 DataSegmentation <- R6::R6Class(
   classname = "DataSegmentation",
   public = list(
-    initialize = function(r, ...) {
+    initialize = function(r) {
       private$..r <- r
-      private$..data_raw <- list(...)
+      private$..data_raw <- vector("list")
+      private$..data_raw$data_raw_SVV_2021 <- TaskSVVdcDB::data_raw_SVV_2021
+      private$..data_raw$data_raw_SVV_2022 <- TaskSVVdcDB::data_raw_SVV_2022
+      private$..data_raw$data_raw_SVV_2023 <- TaskSVVdcDB::data_raw_SVV_2023
+      private$..data_raw$data_raw_SVV_2024 <- TaskSVVdcDB::data_raw_SVV_2024
       private$..num_ds <- length(private$..data_raw)
       private$..year_seq <- 2020 + 1:private$..num_ds
     },
@@ -77,19 +81,6 @@ DataSegmentation <- R6::R6Class(
             SETTINGS_FACT = SETTINGS_FACT
           )
       }
-    #   private$..data_segmentation[["data_2023"]] <- private$..data_segmentation[["data_2023"]] %>%
-    #     TaskAnalyticsTB::recode_qXX_cats(
-    #       q_names = c(
-    #         "Q36", "Q37",
-    #         "Q38", "Q40"
-    #       ),
-    #       list_recodes = list_recodes,
-    #       new_names = c(
-    #         "Q36_c", "Q37_c",
-    #         "Q38_c", "Q40_c"
-    #       ),
-    #       SETTINGS_FACT = SETTINGS_FACT
-    #     )
     }
   )
 )
