@@ -124,7 +124,7 @@ download_handler_content_01 <- function(file, input, data_set) {
   function(file) {
     if (input$data_format == "csv") {
       write.csv(data_set(), file,
-        row.names = FALSE, fileEncoding = "utf-16"
+        row.names = FALSE, fileEncoding = "UTF-16LE"
       )
     } else if (input$data_format == "xls") {
       writexl::write_xlsx(data_set(), file)
