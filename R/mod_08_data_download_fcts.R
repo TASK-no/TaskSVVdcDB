@@ -3,11 +3,11 @@ get_data_names_norsk <- function(name = NULL, num = NULL) {
     raw_data_2021 = "Rådata 2021",
     raw_data_2022 = "Rådata 2022",
     raw_data_2023 = "Rådata 2023",
-    raw_data_2023 = "Rådata 2024",
+    raw_data_2024 = "Rådata 2024",
     seg_data_2021 = "Segmenteringsdata 2021",
     seg_data_2022 = "Segmenteringsdata 2022",
     seg_data_2023 = "Segmenteringsdata 2023",
-    seg_data_2023 = "Segmenteringsdata 2024",
+    seg_data_2024 = "Segmenteringsdata 2024",
     overall_data = "Overordnede/hovedplottdata",
     subplot_data_01 = "Delplottdata (første)",
     subplot_data_02 = "Delplottdata (andre)",
@@ -27,7 +27,7 @@ get_data_names_norsk <- function(name = NULL, num = NULL) {
   }
 }
 get_data <- function(input, r, data_seg, data_log) {
-  if (input[["data_type"]] %in% get_data_names_norsk(num = 1:3)) {
+  if (input[["data_type"]] %in% get_data_names_norsk(num = 1:4)) {
     year_taken <- get_year_raw_data(input[["data_type"]])
     get_raw_data(year_taken)
   } else if (input[["data_type"]] == get_data_names_norsk("seg_data_2021")) {
@@ -92,8 +92,11 @@ download_handler_filename_01 <- function(input) {
       "xls" = ".xlsx",
       "spss" = ".sav"
     )
-    if (input[["data_type"]] %in% get_data_names_norsk(num = 1:3)) {
-      return(paste0("data_raw_SVV_", extension))
+    if (input[["data_type"]] %in% get_data_names_norsk(num = 1:4)) {
+      tmp_year <- substr(input[["data_type"]],
+                         start = nchar(input[["data_type"]]) - 3,
+                         stop = 9999)
+      return(paste0("data_raw_SVV_", tmp_year, extension))
     } else if (input[["data_type"]] %in% get_data_names_norsk("seg_data_2021")) {
       return(paste0("data_segmentation_2021", extension))
     } else if (input[["data_type"]] %in% get_data_names_norsk("seg_data_2022")) {
