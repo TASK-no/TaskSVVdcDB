@@ -49,7 +49,7 @@ mod_logistics_classification_run_server <- function(id, class_logistics_data){
         data_prediction <- TaskAnalyticsTB::get_data_for_prediction(
           class_logistics_data$get_data_logistics(type = "prdct"),
           model = class_logistics_data$get_model_logistics())
-        true_ONES <- TaskAnalyticsTB:::get_true_ones(data_prediction)
+        true_ONES <- TaskAnalyticsTB::get_true_ones(data_prediction)
 
         predictions <- TaskAnalyticsTB::generate_predictions(
           log_train_out$model_run,
@@ -77,7 +77,7 @@ mod_logistics_classification_run_server <- function(id, class_logistics_data){
              input[["run_logistic_classification"]])
       },
       {
-        classification_infos <- TaskAnalyticsTB:::get_cls_infos(
+        classification_infos <- TaskAnalyticsTB::get_cls_infos(
           list_rp()$true_ones,
           list_rp()$predictions,
           input[["cls_cutoff"]])
