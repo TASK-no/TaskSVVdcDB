@@ -337,17 +337,48 @@ fix_type_to_factor <- function(data_set, list_vars) {
   num_vars_to_fix <- length(vars_to_fix)
   for (i in seq_len(num_vars_to_fix)) {
     if (is.null(data_set[[vars_to_fix[i]]])) next
-    data_set[[vars_to_fix[i]]] <- factor(data_set[[vars_to_fix[i]]],
-                                         ordered = ordered_log[i])
+    if (inherits(data_set[[vars_to_fix[i]]], "haven_labelled")) {
+      data_set[[vars_to_fix[i]]] <- haven::as_factor(data_set[[vars_to_fix[i]]],
+                                                     ordered = ordered_log[i])
+    } else {
+      data_set[[vars_to_fix[i]]] <- factor(data_set[[vars_to_fix[i]]],
+                                           ordered = ordered_log[i])
+    }
   }
   return(data_set)
 }
-# update_data_set <- function(data_set,
-#                             data_set_name,
-#                             pth = "./data/data_raw_SVV_XXX.rda") {
-#   assign(data_set_name, data_set)
-#   save(eval(parse(text = data_set_name)), file = pth)
-# }
+#' Update and Save a Dataset to a Specified Path
+#'
+#' This function updates the global environment with a new or modified dataset
+#' under a specified name and saves it to a specified path in RDA format. It is
+#' useful for persisting changes to datasets during data processing workflows.
+#'
+#' @param data_set The dataset to be updated and saved. This can be any R object
+#'   that you wish to save (e.g., data frame, list).
+#' @param data_set_name A character string specifying the name under which the
+#'   dataset should be saved in the global environment. This name is also used
+#'   as the variable name inside the RDA file.
+#' @param pth Optional. A character string specifying the path to the file where
+#'   the dataset should be saved. Defaults to "./data/data_raw_SVV_XXX.rda".
+#'
+#' @return Invisible. The function does not return a value but saves the
+#'   specified dataset under the given name both in the global environment and
+#'   to an RDA file at the specified path.
+#'
+#' @details The function uses `assign` to update the global environment and
+#'   `save` to write the dataset to an RDA file. It is important to ensure that
+#'   the specified path exists and is writable. The function overwrites existing
+#'   files without warning.
+#'
+#' @export
+#'
+#' @examples
+#' update_data_set(data_raw_SVV_2023_to_save, "data_raw_SVV_2023",
+#'                 "./data/data_raw_SVV_2023.rda")
+update_data_set <- function(data_set, data_set_name, pth = "./data/data_raw_SVV_XXX.rda") {
+  assign(data_set_name, data_set, envir = .GlobalEnv)
+  save(list = data_set_name, file = pth)
+}
 # fix_leder_c <- function(data_set, var_name_leder) {
 #   new_leder <- (as.integer(data_set$leder_c) - 2) * (-1) + 1
 #   new_leder <- c("Nei", "Ja")[new_leder]
