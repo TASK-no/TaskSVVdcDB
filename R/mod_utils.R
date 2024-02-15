@@ -139,7 +139,7 @@ generate_plotly <- function(ggplot_to_use,
 filter_for_samansi_leder <- function(ds, year, SAMANSI, LEDER) {
   data_out <- ds
   if (SAMANSI && year == 2022) {
-    data_out <- data_out %>% dplyr::filter(.data$SamAnsi == 1)
+    data_out <- data_out %>% dplyr::filter(.data$SamAnsi == "Yes")
   }
   if (LEDER) {
     data_out <- data_out %>% dplyr::filter(.data$leder_c == "Ja")
@@ -152,7 +152,7 @@ filter_for_samansi_leder_cat <- function(ds, year, SAMANSI, LEDER,
   data_out <- ds
   year_to_segment_style <- c(2023, 2024)
   if (SAMANSI && year == 2022) {
-    data_out <- data_out %>% dplyr::filter(.data$SamAnsi == 1)
+    data_out <- data_out %>% dplyr::filter(.data$SamAnsi == "Yes")
   }
   if (LEDER) {
     data_out <- data_out %>% dplyr::filter(.data$leder_c == "Ja")
