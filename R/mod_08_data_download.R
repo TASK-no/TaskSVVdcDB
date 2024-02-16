@@ -36,7 +36,8 @@ mod_08_data_download_ui <- function(id) {
           choices = c(
             "csv (.csv)" = "csv",
             "excel (.xlsx)" = "xls",
-            "spss (.sav)" = "spss"
+            "spss (.sav)" = "spss",
+            "R (.rda)" = "rda"
           ),
           multiple = FALSE
         )
