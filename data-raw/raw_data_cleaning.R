@@ -24,7 +24,13 @@ data_raw_SVV_2024 <- read_and_distinct(
   # "SNA127220_240207_weighted.sav"
   "SNA127220_240209_weighted_cleaned.sav"
 )
-
+list_vars_factors_info <- c("SamGender" = FALSE,
+                            "SamAnsi" = FALSE,
+                            "SamAge" = TRUE,
+                            "h_age" = TRUE,
+                            "SamDivision" = FALSE,
+                            "leder_c" = FALSE,
+                            "utdanning_c" = TRUE)
 # Apply a series of cleaning and recoding functions to each dataset
 # Recoding utdanning, leder_c, specific questions, and Q22 for 2021 dataset
 data_raw_SVV_2021 <- data_raw_SVV_2021 %>%
@@ -153,3 +159,4 @@ stopifnot(identical(data_raw_SVV_2024, data_raw_SVV_2024_to_save))
 # testme_paebegynt <- data_short %>% dplyr::filter(.data$fullfortkurs == "paebegynt")
 #
 # table(testme_fullfort$kat_kommunikasjon)
+# table(testme_paebegynt$kat_kommunikasjon)
