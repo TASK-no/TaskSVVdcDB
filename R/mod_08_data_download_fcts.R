@@ -29,7 +29,8 @@ get_data_names_norsk <- function(name = NULL, num = NULL) {
 get_data <- function(input, r, data_seg, data_log) {
   if (input[["data_type"]] %in% get_data_names_norsk(num = 1:4)) {
     year_taken <- get_year_raw_data(input[["data_type"]])
-    get_raw_data(year_taken)
+    tmp_raw_data <- get_raw_data(year_taken)
+    return(tmp_raw_data)
   } else if (input[["data_type"]] == get_data_names_norsk("seg_data_2021")) {
     data_seg$get_data_segmentation()[["data_2021"]]
   } else if (input[["data_type"]] == get_data_names_norsk("seg_data_2022")) {
@@ -59,10 +60,10 @@ get_year_raw_data <- function(data_name) {
 }
 get_raw_data <- function(yrs) {
   raw_data_names <- c(
-    "data_raw_SVV_2021",
-    "data_raw_SVV_2022",
-    "data_raw_SVV_2023",
-    "data_raw_SVV_2024"
+    "TaskSVVdcDB::data_raw_SVV_2021",
+    "TaskSVVdcDB::data_raw_SVV_2022",
+    "TaskSVVdcDB::data_raw_SVV_2023",
+    "TaskSVVdcDB::data_raw_SVV_2024"
   )
   id_yr <- grepl(yrs, x = raw_data_names)
   eval(parse(text = raw_data_names[id_yr]))
@@ -90,7 +91,8 @@ download_handler_filename_01 <- function(input) {
     extension <- switch(input$data_format,
       "csv" = ".csv",
       "xls" = ".xlsx",
-      "spss" = ".sav"
+      "spss" = ".sav",
+      "rda" = ".rda",
     )
     if (input[["data_type"]] %in% get_data_names_norsk(num = 1:4)) {
       tmp_year <- substr(input[["data_type"]],
@@ -130,6 +132,9 @@ download_handler_content_01 <- function(file, input, data_set) {
       writexl::write_xlsx(data_set(), file)
     } else if (input$data_format == "spss") {
       haven::write_sav(data_set(), file)
+    } else if (input$data_format == "rda") {
+      data_logistics_all <- data_set()
+      save(data_logistics_all, file = file)
     }
   }
 }
