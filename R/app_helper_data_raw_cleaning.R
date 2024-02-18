@@ -293,3 +293,61 @@ get_lab_progress <- function(raw_var_taken, special_val)  {
   tmp_lvl_names <- setdiff(tmp_lvl_names, "none")
   c("ikke_deltatt", paste0(tmp_lvl_names, "_perc"))
 }
+#' Convert Specified Variables in a Dataset to Factors
+#'
+#' This function iteratively converts specified variables within a dataset to
+#' factors. For each variable specified, it can also designate the factor as
+#' ordered based on a corresponding logical vector. The function operates on a
+#' dataset (data frame or similar structure) and takes a named list where names
+#' correspond to variables in the dataset and values are logical, indicating
+#' whether the factor should be ordered.
+#'
+#' @param data_set A data frame or similar object containing the variables to be
+#'   converted to factors.
+#' @param list_vars A named list where each name corresponds to a variable in
+#'   `data_set` that should be converted to a factor. The value for each name
+#'   should be a logical value (`TRUE` or `FALSE`), indicating whether the
+#'   resulting factor should be ordered (`TRUE` for ordered, `FALSE` for
+#'   unordered).
+#'
+#' @return The modified `data_set` with specified variables converted to factors.
+#'   If a variable is designated to be an ordered factor, it is converted
+#'   accordingly.
+#'
+#' @details The function iterates over the `list_vars` names, checking each
+#'   corresponding variable in `data_set`. If the variable exists, it is
+#'   converted to a factor with the `ordered` parameter set as specified in
+#'   `list_vars`. Variables not found in `data_set` are skipped without error.
+#'   This allows for flexible data cleaning and preprocessing, especially when
+#'   preparing data for statistical analysis or machine learning models where
+#'   factor variables may be required.
+#'
+#' @export
+fix_type_to_factor <- function(data_set, list_vars) {
+  stopifnot(`Arg. 'list_vars' must be a names vector` =
+              !is.null(names(list_vars)))
+  stopifnot("Values in 'list_vars' must be logical" =
+              all(is.logical(unname(list_vars))))
+  stopifnot("Arg. 'data_set' must not be empty" = nrow(data_set) > 0)
+  vars_to_fix <- names(list_vars)
+  ordered_log <- as.logical(unname(list_vars))
+  num_vars_to_fix <- length(vars_to_fix)
+  for (i in seq_len(num_vars_to_fix)) {
+    if (is.null(data_set[[vars_to_fix[i]]])) next
+    data_set[[vars_to_fix[i]]] <- factor(data_set[[vars_to_fix[i]]],
+                                         ordered = ordered_log[i])
+  }
+  return(data_set)
+}
+# update_data_set <- function(data_set,
+#                             data_set_name,
+#                             pth = "./data/data_raw_SVV_XXX.rda") {
+#   assign(data_set_name, data_set)
+#   save(eval(parse(text = data_set_name)), file = pth)
+# }
+# fix_leder_c <- function(data_set, var_name_leder) {
+#   new_leder <- (as.integer(data_set$leder_c) - 2) * (-1) + 1
+#   new_leder <- c("Nei", "Ja")[new_leder]
+#   new_leder <- factor(new_leder, levels = c("Nei", "Ja"))
+#   data_set[, "leder_c"] <- new_leder
+# }
