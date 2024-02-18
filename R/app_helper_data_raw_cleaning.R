@@ -7,6 +7,8 @@
 #' @param path The path to the directory containing the data file.
 #' @param file The filename of the data file to read.
 #' @return A tibble with distinct rows from the read .sav file.
+#'
+#' @export
 read_and_distinct <- function(path, file) {
   haven::read_sav(file.path(path, file)) %>% dplyr::distinct()
 }
