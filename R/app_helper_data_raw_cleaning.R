@@ -230,7 +230,7 @@ add_training_variables <- function(df) {
   # Step 1: Rename the variable
   names(df)[names(df) == "Statusfullførtkurs"] <- "fullfortkurs"
   # Step 2: Replace empty strings with "none" to represent missing values
-  df$fullfortkurs[df$fullfortkurs == ""] <- "none"
+  df$fullfortkurs[df$fullfortkurs == ""] <- "ikke_deltatt"
   df$fullfortkurs[df$fullfortkurs == "Påbegynt"] <- "paebegynt"
   df$fullfortkurs[df$fullfortkurs == "Fullført"] <- "fullfort"
   # Step 3: Convert to an ordered factor with specified levels and labels
