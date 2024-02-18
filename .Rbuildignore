@@ -13,3 +13,4 @@ $run_dev.*
 Dockerfile
 autodeploy.sh
 deploy.R
+^README\.Rmd$
