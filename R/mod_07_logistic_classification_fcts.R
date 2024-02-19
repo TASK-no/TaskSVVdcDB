@@ -8,7 +8,7 @@ get_roc_text <- function() {
   )
 
   msg3 <- paste0(
-    "ROC-kurven som presenteres her, er beregnet ved den 'optimale' terskelverdien. Jo større arealet under kurven (AUC) er, desto bedre er modellen: når det gis én tilfeldig valgt 1-instans (sanne basisferdigheter) og én tilfeldig valgt 0-instans (sanne uerfarne ferdigheter), er AUC sannsynligheten for at klassifisereren vil kunne si hvilken som er hvilken. (<a href='https://en.wikipedia.org/wiki/Receiver_operating_characteristic'>mer informasjon</a>)"
+    "ROC-kurven som presenteres her, er beregnet ved den 'optimale' terskelverdien. Jo større arealet under kurven (AUC) er, desto bedre er modellen: når det gis én tilfeldig valgt 1-instans (sanne basisferdigheter) og én tilfeldig valgt 0-instans (sanne uerfarne ferdigheter), er AUC sannsynligheten for at klassifisereren vil kunne si hvilken som er hvilken. (<a href='https://en.wikipedia.org/wiki/Receiver_operating_characteristic' target='_blank'>mer informasjon</a>)"
   )
 
   paste(msg0, paste(msg1, msg2, msg3, sep = "<br/> <br/>"), sep = "<br/>")
@@ -76,14 +76,31 @@ output_info_text <- function() {
   info_text
 }
 output_cls_info <- function(cls_info) {
+  out_df <- get_df_for_roc_analysis(cls_info)
+  shiny::renderPrint({
+    shiny::validate(
+      shiny::need(
+        !is.null(out_df),
+        get_msg_roc_logistics_data_null()
+      )
+    )
+    out_df
+  })
+}
+get_df_for_roc_analysis <- function(raw_cls_info) {
+  if (is.null(raw_cls_info)) return(NULL)
   cls_info_name <- c("optimal sannsynlighetsgrenseverdi:",
                      "prosentandel samsvarende par:",
                      "feilklassifiseringsfeil:",
                      "sensitivitet:",
                      "én minus spesifisitet:")
-  cls_info_print <- round(unlist(cls_info), digits = 4)[1:5]
   out_df <- data.frame(
-    `verdi` = cls_info_print)
+    `verdi` = round(unlist(raw_cls_info), digits = 4)[1:5])
   rownames(out_df) <- cls_info_name
-  shiny::renderPrint({out_df})
+  out_df
+}
+get_msg_roc_logistics_data_null <- function() {
+  paste0("Kjør en logistisk regresjon først før du bruker denne funksjonen \n",
+         "(se fanen logistisk regresjon): dette er nødvendig for initialisering \n",
+         "og vil ROC-kurveanalyse og relaterte funksjoner for klassifiseringsanalyse.")
 }
