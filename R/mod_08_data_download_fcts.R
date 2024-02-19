@@ -140,6 +140,7 @@ download_handler_content_01 <- function(file, input, data_set) {
   }
 }
 get_data_no_haven_labelled <- function(data_set) {
+  if (is.null(data_set)) return(data_set)
   id_taken <- sapply(data_set, function(x){any("haven_labelled" %in% class(x))})
   data_set[id_taken] <- tibble::as_tibble(
     lapply(
@@ -150,4 +151,10 @@ get_data_no_haven_labelled <- function(data_set) {
     )
   )
   return(data_set)
+}
+get_msg_reactable_logistics_data_null <- function() {
+  paste0("Kjør en logistisk regresjon først før du bruker ",
+         "denne funksjonen (se fanen logistisk regresjon): \n",
+         "dette er nødvendig for initialisering og vil gi et ",
+         "gyldig datasett som kan vises og/eller lastes ned.")
 }
