@@ -96,6 +96,11 @@ mod_08_data_download_server <- function(id, r, data_seg, data_log) {
     output$table_data_preview <- reactable::renderReactable({
       tmp_data <- data_to_download()
       tmp_data <- get_data_no_haven_labelled(tmp_data)
+      shiny::validate(
+        shiny::need(
+          !is.null(tmp_data), get_msg_reactable_logistics_data_null()
+        )
+      )
       reactable::reactable(
         tmp_data,
         defaultPageSize = 10
