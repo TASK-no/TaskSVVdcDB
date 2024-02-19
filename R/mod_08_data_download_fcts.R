@@ -139,3 +139,15 @@ download_handler_content_01 <- function(file, input, data_set) {
     }
   }
 }
+get_data_no_haven_labelled <- function(data_set) {
+  id_taken <- sapply(data_set, function(x){any("haven_labelled" %in% class(x))})
+  data_set[id_taken] <- tibble::as_tibble(
+    lapply(
+      data_set[id_taken],
+      function(x) {
+        haven::as_factor(x)
+      }
+    )
+  )
+  return(data_set)
+}
