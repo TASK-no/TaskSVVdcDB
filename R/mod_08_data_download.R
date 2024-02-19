@@ -19,16 +19,6 @@ mod_08_data_download_ui <- function(id) {
           multiple = FALSE
         )
       ),
-      # shiny::tagList(
-      #   add_header( paste0("\u00c5", "r "), size = 5),
-      #   shiny.semantic::selectInput(ns("year_taken"),
-      #                               label = "",
-      #                               choices = c("2021" = 2021,
-      #                                           "2022" = 2022,
-      #                                           "2023" = 2023),
-      #                               selected = 2021,
-      #                               multiple = TRUE)
-      # ),
       shiny::tagList(
         add_header("Dataformat", size = 5),
         shiny.semantic::selectInput(ns("data_format"),
