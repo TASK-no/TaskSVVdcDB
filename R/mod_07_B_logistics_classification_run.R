@@ -59,15 +59,16 @@ mod_logistics_classification_run_server <- function(id, class_logistics_data){
         list(true_ones = true_ONES,
              predictions = predictions)
       }
-      )
+    )
     shiny::observeEvent(
       {
         input[["run_logistic_classification"]]
       },
       {
-      output$plotROC <- plot_roc(list_rp()$true_ones, list_rp()$predictions)
-      output$rocTEXT <- output_roc_text(list_rp()$true_ones,
-                                        list_rp()$predictions)
+      true_ones   <- list_rp()$true_ones
+      predictions <- list_rp()$predictions
+      output$plotROC <- plot_roc(true_ones, predictions)
+      output$rocTEXT <- output_roc_text(true_ones, predictions)
       output$infoTEXT <- output_info_text()
       }
     )
