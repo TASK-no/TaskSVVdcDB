@@ -14,7 +14,8 @@ app_server <- function(input, output, session) {
   )
   gargoyle::init(
     "seg_inputs", "data_seg", "data_cat", "logistics_run",
-    "compute_data_plot02", "compute_data_plot03"
+    "compute_data_plot02", "compute_data_plot03", "action_data_regenerate",
+    "action_data_download_show"
   )
 
   data_seg_all <- DataSegmentation$new(r)
