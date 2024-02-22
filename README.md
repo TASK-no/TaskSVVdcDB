@@ -6,16 +6,12 @@
 ## To-Do List
 
 - main branch has stashes locally: clarify this
-- fix error in data preview in the last tab due to overcomplicated
-  nesting of functions that retrieve the data set to output (C Memory
-  dump errror is no memory issue but rather R’s failure to deeply nest
-  function calls and/or a wrong self-recursion in the code)
 - docs for data sets
 - fix login layer
 - fix logistic regressions (maybe) and add computations of probabilities
   from odds and this insigight to the app
-- ROC analysis needs a fix whenever data sets are taken from two
-  different years
+- ROC analysis needs a fix whenever data sets are taken from a lot of
+  different years or the regression is badly specified
 - translation between english and norsk; use the google cloud version
   from Appsilon
 - Questions for Vegard:
