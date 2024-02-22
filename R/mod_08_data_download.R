@@ -38,7 +38,7 @@ mod_08_data_download_ui <- function(id) {
         break_vspace(size = "small"),
         shiny::actionButton(
           inputId = ns("action_data_update"),
-          label = "Oppdater datasett!",
+          label = "Oppdater datasett !",
           icon = shiny.semantic::icon("home")
         )
       ),
@@ -46,7 +46,7 @@ mod_08_data_download_ui <- function(id) {
         break_vspace(size = "small"),
         shiny::actionButton(
           inputId = ns("action_data_download"),
-          label = "Nedlasting!",
+          label = "Nedlasting !",
           icon = shiny.semantic::icon("download")
         )
       )
