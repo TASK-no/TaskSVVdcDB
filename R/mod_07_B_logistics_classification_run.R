@@ -34,7 +34,7 @@ modlogistics_classification_run_ui <- function(id){
 #' 07_B_logistics_classification_run Server Functions
 #'
 #' @noRd
-mod_logistics_classification_run_server <- function(id, class_logistics_data){
+mod_logistics_classification_run_server <- function(id, class_logistics_data) {
   shiny::moduleServer(id, function(input, output, session) {
     list_rp <- shiny::eventReactive(
       {
