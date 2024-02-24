@@ -41,7 +41,7 @@ write_renviron_maintenance <- function(VAL, fn_name = ".Renviron") {
   return(invisible(NULL))
 }
 #
-set_golem_maintenance(TRUE)
+set_golem_maintenance(FALSE)
 # Authenticate
 rsconnect::setAccountInfo(
   name = error_on_missing_name("SHINY_ACC_NAME"),
