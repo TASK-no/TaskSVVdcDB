@@ -48,7 +48,7 @@ data_raw_SVV_2022 <- data_raw_SVV_2022 %>%
 
 # Similar recoding steps for 2023 dataset
 data_raw_SVV_2023 <- data_raw_SVV_2023 %>%
-  recode_utdanning(utdanning_name = "Utdanningsnivå", levels_range = 1:5) %>%
+  recode_utdanning(utdanning_name = "Utdanningsniv\u00e5", levels_range = 1:5) %>%
   recode_leder_c(leder_var = "Q32", method = "direct") %>%
   recode_questions(questions_prefix = "Q25r", seq_questions = 1:7) %>%
   recode_Q22()
@@ -96,11 +96,9 @@ data_raw_SVV_2021_to_save <- data_raw_SVV_2021 %>%
     tidyselect::starts_with(get_var_to_use(2))
   ) %>%
   fix_type_to_factor(list_vars = list_vars_factors_info)
-
-
-update_data_set(data_raw_SVV_2021_to_save,
-                "data_raw_SVV_2021",
-                "./data/data_raw_SVV_2021.rda")
+# update_data_set(data_raw_SVV_2021_to_save,
+#                 "data_raw_SVV_2021",
+#                 "./data/data_raw_SVV_2021.rda")
 load("./data/data_raw_SVV_2021.rda")
 stopifnot(identical(data_raw_SVV_2021, data_raw_SVV_2021_to_save))
 
@@ -111,9 +109,9 @@ data_raw_SVV_2022_to_save <- data_raw_SVV_2022 %>%
     tidyselect::starts_with(get_var_to_use(2))
   ) %>%
   fix_type_to_factor(list_vars = list_vars_factors_info)
-update_data_set(data_raw_SVV_2022_to_save,
-                "data_raw_SVV_2022",
-                "./data/data_raw_SVV_2022.rda")
+# update_data_set(data_raw_SVV_2022_to_save,
+#                 "data_raw_SVV_2022",
+#                 "./data/data_raw_SVV_2022.rda")
 load("./data/data_raw_SVV_2022.rda")
 stopifnot(identical(data_raw_SVV_2022, data_raw_SVV_2022_to_save))
 
@@ -124,9 +122,9 @@ data_raw_SVV_2023_to_save <- data_raw_SVV_2023 %>%
     tidyselect::starts_with(get_var_to_use(2))
   ) %>%
   fix_type_to_factor(list_vars = list_vars_factors_info)
-update_data_set(data_raw_SVV_2023_to_save,
-                "data_raw_SVV_2023",
-                "./data/data_raw_SVV_2023.rda")
+# update_data_set(data_raw_SVV_2023_to_save,
+#                 "data_raw_SVV_2023",
+#                 "./data/data_raw_SVV_2023.rda")
 load("./data/data_raw_SVV_2023.rda")
 stopifnot(identical(data_raw_SVV_2023, data_raw_SVV_2023_to_save))
 
@@ -138,9 +136,9 @@ data_raw_SVV_2024_to_save <- data_raw_SVV_2024 %>%
     tidyselect::starts_with(get_var_to_use(6))
   ) %>%
   fix_type_to_factor(list_vars = list_vars_factors_info)
-update_data_set(data_raw_SVV_2024_to_save,
-                "data_raw_SVV_2024",
-                "./data/data_raw_SVV_2024.rda")
+# update_data_set(data_raw_SVV_2024_to_save,
+#                 "data_raw_SVV_2024",
+#                 "./data/data_raw_SVV_2024.rda")
 load("./data/data_raw_SVV_2024.rda")
 stopifnot(identical(data_raw_SVV_2024, data_raw_SVV_2024_to_save))
 
