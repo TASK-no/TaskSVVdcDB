@@ -375,15 +375,12 @@ fix_type_to_factor <- function(data_set, list_vars) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' update_data_set(data_raw_SVV_2023_to_save, "data_raw_SVV_2023",
 #'                 "./data/data_raw_SVV_2023.rda")
-update_data_set <- function(data_set, data_set_name, pth = "./data/data_raw_SVV_XXX.rda") {
+#' }
+update_data_set <- function(data_set, data_set_name,
+                            pth = "./data/data_raw_SVV_XXX.rda") {
   assign(data_set_name, data_set, envir = .GlobalEnv)
   save(list = data_set_name, file = pth)
 }
-# fix_leder_c <- function(data_set, var_name_leder) {
-#   new_leder <- (as.integer(data_set$leder_c) - 2) * (-1) + 1
-#   new_leder <- c("Nei", "Ja")[new_leder]
-#   new_leder <- factor(new_leder, levels = c("Nei", "Ja"))
-#   data_set[, "leder_c"] <- new_leder
-# }

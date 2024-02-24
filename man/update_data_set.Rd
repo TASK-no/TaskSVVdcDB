@@ -34,6 +34,8 @@ The function uses `assign` to update the global environment and
   files without warning.
 }
 \examples{
+\dontrun{
 update_data_set(data_raw_SVV_2023_to_save, "data_raw_SVV_2023",
                 "./data/data_raw_SVV_2023.rda")
+}
 }
