@@ -30,6 +30,8 @@ read_and_distinct <- function(path, file) {
 #'         recoded. This function ensures that the structure and integrity of
 #'         the dataset are maintained while applying the necessary
 #'         transformations.
+#'
+#' @export
 recode_utdanning <- function(data, utdanning_name = NULL, levels_range) {
   if (!is.null(utdanning_name)) {
     data <- data %>% dplyr::rename(utdanning = {{utdanning_name}})
@@ -61,6 +63,8 @@ recode_utdanning <- function(data, utdanning_name = NULL, levels_range) {
 #'         suitable for inclusion in the dataset for subsequent analysis. This
 #'         recoded variable facilitates the comparison and analysis of data
 #'         based on the binary categorization of educational attainment.
+#'
+#' @export
 get_utdanning_c <- function(utd, lvl_range) {
   utd_fac <- as.factor(utd)
   utd_c <- ifelse(utd_fac %in% levels(utd_fac)[lvl_range], 0, 1)
@@ -83,6 +87,8 @@ get_utdanning_c <- function(utd, lvl_range) {
 #'        logic before factor assignment (used for the 2021 dataset).
 #' @return The dataset with the `leder_c` variable recoded according to the
 #'         specified method.
+#'
+#' @export
 recode_leder_c <- function(data, leder_var, method = "direct") {
   leder_var_sym <- rlang::ensym(leder_var)
   if (method == "direct") {
@@ -101,7 +107,6 @@ recode_leder_c <- function(data, leder_var, method = "direct") {
   }
   return(data)
 }
-
 #' Relevel Questions
 #'
 #' Dynamically relevels specified questions within the dataset based on a given
@@ -114,6 +119,8 @@ recode_leder_c <- function(data, leder_var, method = "direct") {
 #'
 #' @return The dataset with questions releveled according to the specified
 #'         logic.
+#'
+#' @export
 recode_questions <- function(data,
                              questions_prefix,
                           seq_questions) {
@@ -122,9 +129,9 @@ recode_questions <- function(data,
     data[[i]] <- factor(data[[i]])
     # Ensure all specified new levels are present
     levels(data[[i]]) <- c(levels(data[[i]]), 1:8)
-    levels(data[[i]])[c(1, 2, 8)] <- "Svært uenig"
+    levels(data[[i]])[c(1, 2, 8)] <- "Sv\u00e6rt uenig"
     levels(data[[i]])[c(2, 3, 4)] <- "enig"
-    levels(data[[i]])[c(3, 4)] <- "Svært enig"
+    levels(data[[i]])[c(3, 4)] <- "Sv\u00e6rt enig"
   }
   return(data)
 }
@@ -136,7 +143,10 @@ recode_questions <- function(data,
 #' different datasets.
 #'
 #' @param data The dataset containing the `Q22` variable.
+#'
 #' @return The dataset with the `Q22` variable recoded.
+#'
+#' @export
 recode_Q22 <- function(data) {
   data$Q22 <- factor(data$Q22,
                      labels = names(attr(data$Q22, "labels"))[1:5])
@@ -159,6 +169,8 @@ recode_Q22 <- function(data) {
 #'   count. If it contains "AverageofProgress", it is replaced with
 #'   "T_[number]_perc_prog", indicating the training type and that it represents
 #'   a percentage progress. Otherwise, the original name is returned.
+#'
+#' @export
 generate_new_names <- function(name_var) {
   if (grepl("SumofCompleted", name_var)) {
     sub("SumofCompletedTrinn(\\d)", "T_\\1_c", name_var)
@@ -181,7 +193,7 @@ generate_new_names <- function(name_var) {
 #' @return A tibble with transformed variables: training variables are recoded
 #'   to ordered factors with levels indicating participation status or progress
 #'   percentage. The `Fjernleder` variable is recoded as an unordered factor
-#'   with levels for remote leadership status, and `Statusfullførtkurs` is
+#'   with levels for remote leadership status, and `Statusfullfoertkurs` is
 #'   renamed and recoded to reflect course completion status with appropriate
 #'   handling of missing values.
 #'
@@ -228,14 +240,14 @@ add_training_variables <- function(df) {
                           levels = c("fjernleder", "ikke_fjernleder"),
                           labels = c("fjernleder", "ikke_fjernleder"))
 
-  # Fix treatment of the variable 'Statusfullførtkurs'
+  # Fix treatment of the variable 'Statusfullfoertkurs'
   # Step 1: Rename the variable
-  names(df)[names(df) == "Statusfullførtkurs"] <- "fullfortkurs"
+  names(df)[names(df) == "Statusfullf\u00f8rtkurs"] <- "fullfortkurs"
   # Step 2: Replace empty strings with "none" to represent missing values
   df$fullfortkurs[df$fullfortkurs == ""] <- "ikke_deltatt"
   # df$fullfortkurs[df$fullfortkurs == ""] <- "paebegynt"
-  df$fullfortkurs[df$fullfortkurs == "Påbegynt"] <- "paebegynt"
-  df$fullfortkurs[df$fullfortkurs == "Fullført"] <- "fullfort"
+  df$fullfortkurs[df$fullfortkurs == "P\u00e5begynt"] <- "paebegynt"
+  df$fullfortkurs[df$fullfortkurs == "Fullf\u00f8rt"] <- "fullfort"
   # Step 3: Convert to an ordered factor with specified levels and labels
   df$fullfortkurs <- factor(df$fullfortkurs,
                             # levels = c("paebegynt", "fullfort"),
@@ -263,6 +275,8 @@ add_training_variables <- function(df) {
 #'   "ikke_deltatt", "paebegynt", "fullfoert". For "progress" type, levels
 #'   include "none" and numeric progress levels, with labels "ikke_deltatt" and
 #'   various "_perc" labels corresponding to the numeric progress levels.
+#'
+#' @export
 recode_variable <- function(name_var, type) {
   if (type == "completed") {
     factor(name_var,
