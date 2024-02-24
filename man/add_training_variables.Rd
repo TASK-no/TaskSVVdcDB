@@ -13,7 +13,7 @@ add_training_variables(df)
 A tibble with transformed variables: training variables are recoded
   to ordered factors with levels indicating participation status or progress
   percentage. The `Fjernleder` variable is recoded as an unordered factor
-  with levels for remote leadership status, and `Statusfullførtkurs` is
+  with levels for remote leadership status, and `Statusfullfoertkurs` is
   renamed and recoded to reflect course completion status with appropriate
   handling of missing values.
 }
