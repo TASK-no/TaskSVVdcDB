@@ -30,7 +30,7 @@ app_ui <- function(request) {
           width = 2
         ),
         main_panel = shiny.semantic::main_panel(
-          add_header("Kjennskap til 'Digitalt på vei'",
+          add_header("Kjennskap til 'Digitalt p\u00e5 vei'",
             size = 3, EMPHASIZE = TRUE, UNDERLINE = TRUE
           ),
           mod_cat_choices_A_ui("cat_inputs"),

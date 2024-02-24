@@ -74,12 +74,12 @@ get_mcfadden_text <- function() {
     "McFadden R2 gjenspeiler graden av forbedring av den",
     " fullstendige modellen med prediktorer i forhold til",
     " nullmodellen (kun med intercept). En modell med en ",
-    "større McFaddens har en bedre tilpasning over en annen",
+    "st\u00f8rre McFaddens har en bedre tilpasning over en annen",
     " modell med en mindre verdi."
   )
 
   msg2 <- paste0(
-    "Tommelfingerregel: Allerede verdier på",
+    "Tommelfingerregel: Allerede verdier p\u00e5",
     " 0.2 < McFadden-R2 < 0.4 representerer en",
     " spesielt god tilpasning av modellen."
   )
@@ -89,7 +89,7 @@ get_mcfadden_text <- function() {
     " for hvor godt en modell passer. For mange prediktorer, ",
     "som ikke bidrar nok til modellen, reduserer effektiviteten ",
     "til en modell og gjenspeiles negativt i den korrigerte ",
-    "McFaddens R2 (slik at verdier mindre enn 0 også er mulig)."
+    "McFaddens R2 (slik at verdier mindre enn 0 ogs\u00e5 er mulig)."
   )
 
   paste(msg1, msg2, msg3, sep = "<br/> <br/>")

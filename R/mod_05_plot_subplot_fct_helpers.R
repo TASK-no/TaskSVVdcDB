@@ -1,10 +1,10 @@
 get_choices_divisions <- function(kind = "into_area") {
   tmp_into_area <- c(
-    `Samlet (ikke inndelt i divisjoner)` = "all",
-    `Uerfaren` = "Uerfaren",
-    `Grunnleggende` = "Grunnleggende",
-    `Videregående` = "Videregående",
-    `Avansert` = "Avansert"
+    "Samlet (ikke inndelt i divisjoner)" = "all",
+    "Uerfaren" = "Uerfaren",
+    "Grunnleggende" = "Grunnleggende",
+    "Videreg\u00e5ende" = "Videreg\u00e5ende",
+    "Avansert" = "Avansert"
   )
 
   tmp_into_competence <- c(
@@ -25,8 +25,8 @@ get_choices_divisions <- function(kind = "into_area") {
 }
 get_choices_plot_types <- function(num = NULL) {
   tmp_names <- c(
-    `Digital kompetanse fordelt på kompetanseområder` = "dig_into_exp",
-    `Kompetanseområder inndelt i digitale kompetanser` = "exp_into_dig"
+    "Digital kompetanse fordelt p\u00e5 kompetanseomr\u00e5der" = "dig_into_exp",
+    "Kompetanseomr\u00e5der inndelt i digitale kompetanser" = "exp_into_dig"
   )
   if (is.null(num)) {
     return(tmp_names)

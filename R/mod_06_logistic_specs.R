@@ -66,7 +66,7 @@ mod_logistic_regression_specs_01_A_ui <- function(id) {
 mod_logistic_regression_specs_01_B_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny.semantic::button(ns("run_logistics"),
-    label = "Kjør logistisk regresjon!",
+    label = "Kj\u00f8r logistisk regresjon!",
     shiny.semantic::icon("horizontally flipped cloud")
   )
 }
@@ -188,8 +188,8 @@ mod_logistic_regression_specs_01_srv <- function(id,
           msg_non_conv <- paste0(
             "Algoritmen konvergerte ikke, noe som ",
             "gj", "\u00f8", "r estimeringsresultatene ",
-            "svært upålitelige! Juster regressorer eller",
-            "andre variabler og kjør estimeringen på nytt."
+            "sv\u00e6rt up\u00e5litelige! Juster regressorer eller",
+            "andre variabler og kj\u00f8r estimeringen p\u00e5 nytt."
           )
           shiny.semantic::create_modal(shiny.semantic::modal(
             id = "simple-modal",
@@ -199,10 +199,10 @@ mod_logistic_regression_specs_01_srv <- function(id,
         }
         if (isTRUE(log_out[["fail_num"]])) {
           msg_non_conv <- paste0(
-            "Algoritmen fikk numeriske problemer som gjør",
-            "estimeringsresultatene svært upålitelige!",
+            "Algoritmen fikk numeriske problemer som gj\u00f8r",
+            "estimeringsresultatene sv\u00e6rt up\u00e5litelige!",
             " Juster regressorer eller andre variabler",
-            "og kjør estimeringen på nytt."
+            "og kj\u00f8r estimeringen p\u00e5 nytt."
           )
           shiny.semantic::create_modal(shiny.semantic::modal(
             id = "simple-modal",

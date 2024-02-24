@@ -11,7 +11,7 @@ modlogistics_classification_run_ui <- function(id){
   ns <- shiny::NS(id)
   shiny::tagList(
     shiny.semantic::button(ns("run_logistic_classification"),
-                           label = "Klassifisering av kjørelogistikk!",
+                           label = "Klassifisering av kj\u00f8relogistikk!",
                            shiny.semantic::icon("horizontally flipped cloud")
     )
     ,

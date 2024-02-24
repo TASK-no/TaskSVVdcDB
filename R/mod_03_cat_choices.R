@@ -11,10 +11,10 @@ mod_cat_choices_A_ui <- function(id) {
   ns <- shiny::NS(id)
   list_QXX <- list("Q36", "Q37", "Q38", "Q40")
   list_headers <- list(
-    Q36 = "Q36 - Kjennskap til 'Digitalt på vei':",
-    Q37 = "Q37 - Forståelse av kompetansekrav:",
-    Q38 = "Q38 - Gjennomføring av programmet:",
-    Q40 = "Q40 - Omfanget av læring:"
+    Q36 = "Q36 - Kjennskap til 'Digitalt p\u00e5 vei':",
+    Q37 = "Q37 - Forst\u00e5else av kompetansekrav:",
+    Q38 = "Q38 - Gjennomf\u00f8ring av programmet:",
+    Q40 = "Q40 - Omfanget av l\u00e6ring:"
   )
   list_sub_ns <- list(
     Q36 = ns("cat_Q36"),
@@ -34,9 +34,9 @@ mod_cat_choices_A_ui <- function(id) {
       "Ja, kjenner godt til"
     ),
     Q38 = c(
-      "Ja, har gjennomført noe, mye og alt",
-      "Ja, har gjennomført mye og alt",
-      "Ja, har gjennomført alt"
+      "Ja, har gjennomf\u00f8rt noe, mye og alt",
+      "Ja, har gjennomf\u00f8rt mye og alt",
+      "Ja, har gjennomf\u00f8rt alt"
     ),
     Q40 = c(
       "I liten, noen, og stor grad",
@@ -121,10 +121,10 @@ get_list_cat_choices <- function(input_q36, input_q37, input_q38, input_q40) {
       `Ja, kjenner godt til` = "Ja"
     ),
     Q38 = list(
-      `Nei, har ikke startet` = "Nei",
-      `Ja, har gjennomført noe` = "Ja",
-      `Ja, har gjennomført mye` = "Ja",
-      `Ja, har gjennomført alt` = "Ja"
+      "Nei, har ikke startet" = "Nei",
+      "Ja, har gjennomf\u00f8rt noe" = "Ja",
+      "Ja, har gjennomf\u00f8rt mye" = "Ja",
+      "Ja, har gjennomf\u00f8rt alt" = "Ja"
     ),
     Q40 = list(
       `Ingen ting` = "Nei",

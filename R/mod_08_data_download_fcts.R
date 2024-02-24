@@ -1,18 +1,18 @@
 get_data_names_norsk <- function(name = NULL, num = NULL) {
   vec_data_names <- c(
-    raw_data_2021 = "Rådata 2021",
-    raw_data_2022 = "Rådata 2022",
-    raw_data_2023 = "Rådata 2023",
-    raw_data_2024 = "Rådata 2024",
+    raw_data_2021 = "R\u00e5data 2021",
+    raw_data_2022 = "R\u00e5data 2022",
+    raw_data_2023 = "R\u00e5data 2023",
+    raw_data_2024 = "R\u00e5data 2024",
     seg_data_2021 = "Segmenteringsdata 2021",
     seg_data_2022 = "Segmenteringsdata 2022",
     seg_data_2023 = "Segmenteringsdata 2023",
     seg_data_2024 = "Segmenteringsdata 2024",
     overall_data = "Overordnede/hovedplottdata",
-    subplot_data_01 = "Delplottdata (første)",
+    subplot_data_01 = "Delplottdata (f\u00f8rste)",
     subplot_data_02 = "Delplottdata (andre)",
     log_data_all = "Logistiske regresjonsdata (alle)",
-    log_data_trn = "Logistiske regresjonsdata (opplæring)",
+    log_data_trn = "Logistiske regresjonsdata (oppl\u00e6ring)",
     log_data_prd = "Logistiske regresjonsdata (prediksjon)"
   )
   if (is.null(name) && !is.null(num)) {
@@ -153,8 +153,8 @@ get_data_no_haven_labelled <- function(data_set) {
   return(data_set)
 }
 get_msg_reactable_logistics_data_null <- function() {
-  paste0("Kjør en logistisk regresjon først før du bruker ",
+  paste0("Kj\u00f8r en logistisk regresjon f\u00f8rst f\u00f8r du bruker ",
          "denne funksjonen (se fanen logistisk regresjon): \n",
-         "dette er nødvendig for initialisering og vil gi et ",
+         "dette er n\u00f8dvendig for initialisering og vil gi et ",
          "gyldig datasett som kan vises og/eller lastes ned.")
 }

@@ -17,7 +17,7 @@ mod_seg_q_ui <- function(id, num_q, title_text, sttgs = NULL) {
   competence_types <- list("grun", "vide", "avan")
   list_titles <- list(
     grun = "Grunnlegende",
-    vide = paste0("Videreg", "\u00e5", "ende:"),
+    vide = "Videreg\u00e5ende:",
     avan = "Avansert:"
   )
   htmltools::tagList(
@@ -47,7 +47,7 @@ generate_q_ui <- function(competence_type, titles, sttgs, sub_ids) {
       shiny.semantic::multiple_radio(sub_id_type,
         "Terskeltype",
         choices = c(
-          "større/lik enn (>=):",
+          "st\u00f8rre/lik enn (>=):",
           "lik (=):"
         ),
         choices_value = c("larger-equal", "equal"),
