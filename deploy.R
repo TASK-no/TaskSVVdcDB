@@ -14,10 +14,34 @@ set_env_deploy <- function() {
   if (branch_name != "main") {
     env_var_name <- "TEST_NAME"
   } else {
-    env_var_name <- "MASTERNAME"
+    env_var_name <- "PRODUCTION_NAME"
   }
   Sys.setenv("APP_NAME" = Sys.getenv(env_var_name))
 }
+#
+set_golem_maintenance <- function(MAINTENANCE = FALSE) {
+  stopifnot(`Value for arg. 'MAINTENANCE' must be logical` =
+              is.logical(MAINTENANCE))
+  write_renviron_maintenance(MAINTENANCE)
+}
+write_renviron_maintenance <- function(VAL, fn_name = ".Renviron") {
+  STATE_TO_WRITE <- paste0("GOLEM_MAINTENANCE_ACTIVE=", VAL)
+  if (file.exists(fn_name)) {
+    tmp_file <- readLines(fn_name)
+    check_SET_GMA <- grepl("GOLEM_MAINTENANCE_ACTIVE", tmp_file)
+    if (any(check_SET_GMA)) {
+      tmp_file[check_SET_GMA] <- STATE_TO_WRITE
+    } else {
+      tmp_file <- c(tmp_file, STATE_TO_WRITE)
+    }
+    writeLines(tmp_file, fn_name)
+  } else {
+    writeLines(STATE_TO_WRITE, fn_name)
+  }
+  return(invisible(NULL))
+}
+#
+set_golem_maintenance(TRUE)
 # Authenticate
 rsconnect::setAccountInfo(
   name = error_on_missing_name("SHINY_ACC_NAME"),
