@@ -13,7 +13,7 @@ pkgload::load_all(export_all = FALSE,
                   attach_testthat = FALSE)
 options("golem.app.prod" = TRUE,
         shiny.port = 8080,
-        auth0_disable = TRUE,
+        auth0_disable = FALSE,
         auth0_config_file = system.file("app/_auth0.yml",
                                         package = "TaskSVVdcDB"))
 TaskSVVdcDB::run_app_auth0()
