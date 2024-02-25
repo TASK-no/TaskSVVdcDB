@@ -1,6 +1,8 @@
 FROM rocker/shiny-verse
 RUN install2.r rsconnect golem htmltools config writexl shiny.semantic gargoyle
-RUN install2.r reactable magrittr plotly auth0 hunspell spelling plotROC
+RUN install2.r reactable magrittr plotly hunspell spelling plotROC
+RUN installGithub.r curso-r/auth0 \
+&& rm -rf /tmp/downloaded_packages/
 RUN installGithub.r selva86/InformationValue \
 && rm -rf /tmp/downloaded_packages/
 RUN installGithub.r TASK-no/TaskAnalyticsTB \
