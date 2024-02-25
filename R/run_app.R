@@ -17,6 +17,7 @@ run_app <- function(
     app = shinyApp(
       ui = app_ui,
       server = app_server,
+      onStart = onStart,
       options = options,
       enableBookmarking = enableBookmarking,
       uiPattern = uiPattern
@@ -46,6 +47,7 @@ run_app_auth0 <- function(
       config_file = system.file("app/_auth0.yml",
         package = "TaskSVVdcDB"
       ),
+      onStart = onStart,
       options = options,
       enableBookmarking = enableBookmarking,
       uiPattern = uiPattern
