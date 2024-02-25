@@ -15,11 +15,16 @@ versions:
 
 ## To-Do List
 
-- fix login layer
-- fix logistic regressions (maybe) and add computations of probabilities
-  from odds and this insigight to the app
-- ROC analysis needs a fix whenever data sets are taken from a lot of
-  different years or the regression is badly specified
+- fix login layer; seems difficult so get help from curso-R or thinkR
+  team
+- fix logistic regressions and roc curve analysis:
+  - (optional) add computations of probabilities from odds to user
+    output for ease of interpretability of results
+  - (mandatory) fix whenever data sets are taken from a bunch of
+    different years or the regressors are badly specified which will
+    make roc curve analysis fail; currently, the app closes but the
+    expected behavior is to show a message to the user that the analysis
+    cannot be performed
 - translation between english and norsk; use the google cloud version
   from Appsilon
 - Questions for Vegard:
