@@ -16,5 +16,5 @@ options("golem.app.prod" = TRUE,
         auth0_disable = TRUE,
         auth0_config_file = system.file("app/_auth0.yml",
                                         package = "TaskSVVdcDB"))
-# TaskSVVdcDB::run_app_auth0()
-TaskSVVdcDB::run_app() # add parameters here (if any)
+TaskSVVdcDB::run_app_auth0()
+# TaskSVVdcDB::run_app() # add parameters here (if any)
